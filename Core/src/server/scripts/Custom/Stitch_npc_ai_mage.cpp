@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_mage',`AIName` = '' WHERE (entry = 15100005);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100005);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_Mage  .npc 15100005
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -61,7 +61,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 			uint32 Buf_branche1 = 0;
 			uint32 Buf_branche1_liste[2] = { 1459, 36749 };								// Illumination des Arcanes 1459, Puissance arcanique 36749 (Puissance des sorts +25/1h)
 			uint32 Buf_branche2 = 0;
-			uint32 Buf_branche2_liste[2] = { 79849, 140468 };							// Armure de la fournaise 79849 (s10/lvl si touché, crotique +5%), Lueur de la flamme 140468 (dmg -20%, cumulable)
+			uint32 Buf_branche2_liste[2] = { 79849, 140468 };							// Armure de la fournaise 79849 (s10/lvl si touch? crotique +5%), Lueur de la flamme 140468 (dmg -20%, cumulable)
 			uint32 Buf_branche3 = 0;
 			uint32 Buf_branche3_liste[2] = { 111264, 1459 };							// Garde glaciale 111264 (3 mélées 30s), Illumination des Arcanes 1459
 			uint32 Spell_Heal_Caster = 12051;											// Evocation 12051
@@ -93,7 +93,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 			uint32 Spell_branche3_1 = 0;
 			uint32 Spell_branche3_2 = 0;
 			uint32 Spell_branche3_3 = 0;
-			uint32 branche3_agro[4] = { 140485, 84714, 2139, 124935 };					// Piège à runes gelé 140485 (gele 20s,20m), Sol gelé 84714, Contresort 2139, Torrent 124935
+			uint32 branche3_agro[4] = { 140485, 84714, 2139, 124935 };					// Piège ?runes gel?140485 (gele 20s,20m), Sol gel?84714, Contresort 2139, Torrent 124935
 			uint32 branche3_1[4] = { 71318, 71318, 71318,34425 };						// Eclair de givre 71318,Trait d'eau 34425	
 			uint32 branche3_2[2] = { 49906, 49906 };									// Javelot de glace 49906
 			uint32 branche3_3[2] = { 120, 122 };										// Cône de froid 120 (Recharge 12s,12m) , Nova de givre 122
@@ -120,9 +120,9 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 				// ################################################################################################################################################
 				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;											// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }															// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }														// branche2 forcé 
-				else if (ForceBranche == 3) { BrancheSpe = 3; }														// branche3 forcé
+				if (ForceBranche == 1) { BrancheSpe = 1; }															// branche1 forc?
+				else if (ForceBranche == 2) { BrancheSpe = 2; }														// branche2 forc?
+				else if (ForceBranche == 3) { BrancheSpe = 3; }														// branche3 forc?
 				else
 				{
 					// Sinon Choix de la Spécialisation Aléatoire
@@ -146,7 +146,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 				// Tirages aléatoires des spells
 				// ################################################################################################################################################
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -231,10 +231,10 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 																					//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -392,7 +392,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 						else Cooldown_RegenMana -= diff;
 
 						// Combat -------------------------------------------------------------------------------------------------------------------------------------
-						// Spell1 sur la cible chaque (Sort Régulié)
+						// Spell1 sur la cible chaque (Sort Réguli?
 						if (Cooldown_Spell1 <= diff && !me->HasUnitState(UNIT_STATE_MOVE))
 						{
 							DoCastVictim(Spell_branche2_1);
@@ -437,7 +437,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 
 						// Combat --------------------------------------------------------------------------------------------------------------------------------------
 
-						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 
 
 						if (Cooldown_Spell3 <= diff && Dist <= 10  )
@@ -458,7 +458,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 						}
 						else Cooldown_Spell2 -= diff;
 
-						// Spell1 sur la cible chaque (Sort Régulié)
+						// Spell1 sur la cible chaque (Sort Réguli?
 						if (Cooldown_Spell1 <= diff && !me->HasUnitState(UNIT_STATE_MOVE) )
 						{
 							DoCastVictim(Spell_branche3_1/*, true*/);
@@ -529,7 +529,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 			}
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé() )
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || Fixedaura())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -682,7 +682,7 @@ public: Stitch_npc_ai_mage() : CreatureScript("Stitch_npc_ai_mage") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

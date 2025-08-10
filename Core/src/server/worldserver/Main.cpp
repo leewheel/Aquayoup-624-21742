@@ -138,7 +138,7 @@ extern int main(int argc, char** argv)
     TC_LOG_INFO("server.worldserver", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     TC_LOG_INFO("server.worldserver", "xx                             Core Aquayoup 2025                                 xx");
 	TC_LOG_INFO("server.worldserver", "xx                                                                                xx");
-	TC_LOG_INFO("server.worldserver", "xx   basé sur le core Trinity 2017-06-16 , Commit ff6aa40                         xx");
+	TC_LOG_INFO("server.worldserver", "xx   bas?sur le core Trinity 2017-06-16 , Commit ff6aa40                         xx");
 	TC_LOG_INFO("server.worldserver", "xx                                                                                xx");
 	TC_LOG_INFO("server.worldserver", "xx * Toutes les Classes pour toutes les Races                                     xx");
 	TC_LOG_INFO("server.worldserver", "xx * Extension de classe Vampire pour le voleur                                   xx");
@@ -232,7 +232,7 @@ extern int main(int argc, char** argv)
     // Launch CliRunnable thread
     std::thread* cliThread = nullptr;
 #ifdef _WIN32
-//Stitch console activé
+//Stitch console activ?
    if (sConfigMgr->GetBoolDefault("Console.Enable", true) && (m_ServiceStatus == -1)/* need disable console in service mode*/)
 
 #else

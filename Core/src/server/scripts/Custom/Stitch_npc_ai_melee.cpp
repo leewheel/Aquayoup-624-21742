@@ -5,8 +5,8 @@
 // ScriptName = Stitch_npc_ai_melee : npc d'exemple : 15100012
 // spell1 : Attaque principale
 // spell2 : Dot
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lanc?a l'agro
+// spell4 : spell lanc?a l'évade ou respawn
 // spell5 : Buf
 //
 // Si spell1 = 0 : tirage aléatoire des spells
@@ -62,7 +62,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			uint32 Spell_agro = 0;
 			uint32 liste_agro[3] = { 100, 355, 145763 };													// Charge 100, Provocation 355, Bondir 8-40m 145763
 			uint32 Spell_1 = 0;
-			uint32 liste_spell_1[8] = { 29426, 126799, 118326, 172851, 38742, 99409, 100431, 115530 };		// Frappe héroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851, Enchaînement gangrené 38742, Enchaînement noir 99409, Enchaînement enflammé 100431, Fendoir spirituel 115530
+			uint32 liste_spell_1[8] = { 29426, 126799, 118326, 172851, 38742, 99409, 100431, 115530 };		// Frappe héroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851, Enchaînement gangren?38742, Enchaînement noir 99409, Enchaînement enflamm?100431, Fendoir spirituel 115530
 			uint32 Spell_2 = 0;
 			uint32 liste_spell_2[9] = { 127171, 131662, 8147, 118532, 125436, 772, 772, 8147, 8147 };		// Fendoir vicieux 15/lvl + 2/lvl/1s cumulable 5 fois 127171, Coups de couteau 131662, Entaille infectée 118532, Découpe d'os 125436, Pourfendre 772, Coup de tonnerre 8147
 			uint32 Spell_evade = 137573;																	// vitesse (+70%/4s) 
@@ -89,13 +89,13 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				Arme_rangé();
+				Weapon_storage();
 				Retire_changeform();
 			}
 
 			void Init_AI()
 			{
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -107,8 +107,8 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				// Si m_spells[0] != 0 alors affectation aléatoire de tous les spells (prédéfinis dans le core) , sinon utilisera les spell défini dans creature_template spells[1 a 5]
 				// m_spells[0] : Attaque principale						- Correspond a spell1 de creature_template
 				// m_spells[1] : Dot									- Correspond a spell2 de creature_template
-				// m_spells[2] : spell lancé a l'agro					- Correspond a spell3 de creature_template
-				// m_spells[3] : spell lancé a l'évade ou respawn		- Correspond a spell4 de creature_template
+				// m_spells[2] : spell lanc?a l'agro					- Correspond a spell3 de creature_template
+				// m_spells[3] : spell lanc?a l'évade ou respawn		- Correspond a spell4 de creature_template
 				// m_spells[4] : Buf									- Correspond a spell5 de creature_template
 
 				if (me->m_spells[0] == 0) 
@@ -171,10 +171,10 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -201,7 +201,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			void JustReachedHome() override
 			{
 				me->SetReactState(REACT_AGGRESSIVE);
-				Arme_rangé();
+				Weapon_storage();
 				//me->SetSpeedRate(MOVE_RUN, 1.01f);								// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
 				Retire_changeform();
 				if (Spell_evade != 0) { me->CastSpell(me, Spell_evade, true); }
@@ -378,7 +378,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -386,7 +386,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 
 				//DoMeleeAttackIfReady();													// Combat en mélée
 
-				// Si la cible >= 6m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
+				// Si la cible >= 6m (pour éviter bug de rester fig? ---------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
 					if (Dist >= 6)
@@ -573,7 +573,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre
@@ -601,7 +601,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				me->RemoveAura(Spell_changeform_arbre_de_vie);
 				me->RemoveAura(Spell_changeform_treant);
 			}
-			void Arme_rangé()
+			void Weapon_storage()
 			{
 				// Certains Modelid posent probleme et seront donc ignorés
 				if (Npc_Model == 6824 || Npc_Model == 6825 || Npc_Model == 6821 || Npc_Model == 5773 || Npc_Model == 937 || Npc_Model == 16861)

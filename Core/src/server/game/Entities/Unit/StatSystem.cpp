@@ -202,7 +202,7 @@ bool Player::UpdateAllStats()
 {
 
 
-    for (int8 i = STAT_STRENGTH; i < MAX_STATS; ++i)	//Stitch : Stats a neutralisé pour classe Custom
+    for (int8 i = STAT_STRENGTH; i < MAX_STATS; ++i)	//Stitch : Stats a neutralis¨¦ pour classe Custom
     {
         float value = GetTotalStatValue(Stats(i));
 
@@ -218,10 +218,10 @@ bool Player::UpdateAllStats()
 
 
 /*
-	if (HasAura(123456789))								//Stitch Stats neutralisé pour classe Custom
+	if (HasAura(123456789))								//Stitch Stats neutralis¨¦ pour classe Custom
 	{
 	SetStat(Stats(0), 50);	// Force
-	SetStat(Stats(1), 10);	// Agilité
+	SetStat(Stats(1), 10);	// Agilit¨¦
 	SetStat(Stats(2), 20);	// Endurance
 	SetStat(Stats(3), 30);	// Intelligence
 	SetStat(Stats(4), 40);	// Esprit
@@ -837,22 +837,22 @@ void Player::UpdateManaRegen()
 
 
 	//Stitch Regen (_INTERRUPTED_FLAT_MODIFIER & _FLAT_MODIFIER) -------------------------------------------------------------------------------------------&
-	//Coefficient suivant la spécialité
+	//Coefficient suivant la sp¨¦cialit¨¦
 	float base_regen_coef_en_combat = 0.125f;
 	float base_regen_coef_hors_combat = 0.01f;
 
 	switch (GetSpecId(GetActiveTalentGroup()))
 	{
-	case TALENT_SPEC_PALADIN_HOLY:			// Sacré 65
+	case TALENT_SPEC_PALADIN_HOLY:			// Sacr¨¦ 65
 	case TALENT_SPEC_PALADIN_PROTECTION:	// Protection 66
 	case TALENT_SPEC_PALADIN_RETRIBUTION:   // Vindicte 70
 		base_regen_coef_en_combat = 0.125f;
 		break;
 
-	case TALENT_SPEC_SHAMAN_ENHANCEMENT:	// Amélioration 263
+	case TALENT_SPEC_SHAMAN_ENHANCEMENT:	// Am¨¦lioration 263
 		base_regen_coef_en_combat = 0.09f;
 		break;
-	case TALENT_SPEC_SHAMAN_ELEMENTAL:      // Élémentaire 262
+	case TALENT_SPEC_SHAMAN_ELEMENTAL:      // ¨¦l¨¦mentaire 262
 		base_regen_coef_en_combat = 0.125f;
 		break;
 	case TALENT_SPEC_SHAMAN_RESTORATION:    // Restauration 264
@@ -868,7 +868,7 @@ void Player::UpdateManaRegen()
 	case TALENT_SPEC_WARLOCK_AFFLICTION:	// Affliction 265
 		base_regen_coef_en_combat = 0.017f;
 		break;
-	case TALENT_SPEC_WARLOCK_DEMONOLOGY:	// Démonologie 266
+	case TALENT_SPEC_WARLOCK_DEMONOLOGY:	// D¨¦monologie 266
 		base_regen_coef_en_combat = 0.035f;
 		break;
 	case TALENT_SPEC_WARLOCK_DESTRUCTION:	// Destruction 267
@@ -876,7 +876,7 @@ void Player::UpdateManaRegen()
 		break;
 
 	case TALENT_SPEC_PRIEST_DISCIPLINE:		// Discipline 256
-	case TALENT_SPEC_PRIEST_HOLY:			// Sacré 257
+	case TALENT_SPEC_PRIEST_HOLY:			// Sacr¨¦ 257
 		base_regen_coef_en_combat = 0.06f;
 		break;
 	case TALENT_SPEC_PRIEST_SHADOW:			// Ombre 258
@@ -897,7 +897,7 @@ void Player::UpdateManaRegen()
 		base_regen_coef_hors_combat = 0.01f;
 		break;
 
-	case TALENT_SPEC_MONK_BREWMASTER:		// Maître brasseur 268
+	case TALENT_SPEC_MONK_BREWMASTER:		// Ma?tre brasseur 268
 	case TALENT_SPEC_MONK_BATTLEDANCER:     // Marche-vent 269
 	case TALENT_SPEC_MONK_MISTWEAVER:		// Tisse-brume 270
 		base_regen_coef_en_combat = 0.01f;	//
@@ -915,8 +915,8 @@ void Player::UpdateManaRegen()
 	case TALENT_SPEC_WARRIOR_PROTECTION:	// Protection 73
 		break;
 
-	case TALENT_SPEC_HUNTER_BEASTMASTER:	// Maîtrise des bêtes 253
-	case TALENT_SPEC_HUNTER_MARKSMAN:		// Précision 254
+	case TALENT_SPEC_HUNTER_BEASTMASTER:	// Ma?trise des b¨ºtes 253
+	case TALENT_SPEC_HUNTER_MARKSMAN:		// Pr¨¦cision 254
 	case TALENT_SPEC_HUNTER_SURVIVAL:		// Survie 255
 		break;
 
@@ -929,7 +929,7 @@ void Player::UpdateManaRegen()
 	case TALENT_SPEC_DEATHKNIGHT_BLOOD:		// Sang 250 
 	case TALENT_SPEC_DEATHKNIGHT_FROST:		// Givre 251
 	case TALENT_SPEC_DEATHKNIGHT_UNHOLY:	// Impie 252
-	case TALENT_SPEC_DEATHKNIGHT_CHAOS:		// Présence du Chaos 539
+	case TALENT_SPEC_DEATHKNIGHT_CHAOS:		// Pr¨¦sence du Chaos 539
 		break;
 
 
