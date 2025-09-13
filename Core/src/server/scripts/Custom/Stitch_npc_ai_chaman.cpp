@@ -170,7 +170,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 					}
 					else
 					{
-						ResteADistance = 10;
+						ResteADistance = 7;
 					}
 
 					break;
@@ -196,7 +196,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 					}
 					else
 					{
-						ResteADistance = 10;
+						ResteADistance = 7;
 					}
 					break;
 
@@ -563,7 +563,8 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 					if ((Dist <6) && (Mana > MaxMana / 20))
 					{
 						me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);						// UNROOT
-						
+						me->SetWalk(false);																// Ne pas marcher
+
 						if (!AuraLenteur() && !Interieur())
 						{
 							me->SetSpeedRate(MOVE_RUN, 1.1f); // Uniquement si non ralenti par un spell 
