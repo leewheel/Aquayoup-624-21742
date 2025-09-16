@@ -5,8 +5,8 @@
 // ScriptName = Stitch_npc_ai_caster : npc d'exemple : 15100013
 // spell1 : Attaque principale
 // spell2 : Dot
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lanc?a l'agro
+// spell4 : spell lanc?a l'évade ou respawn
 // spell5 : Buf
 // spell6 : Heal(lui même uniquement)
 // 
@@ -51,7 +51,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Npc_Model = me->GetDisplayId();
 			uint32 Random;
 			uint32 ForceClasse;
-			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat,Est aussi utilisé pour la distance max de son home (DistanceDeCast+20)
+			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat,Est aussi utilis?pour la distance max de son home (DistanceDeCast+20)
 			uint32 ResteADistance = 15;												// Distance max a laquelle un npc s'approchera
 			uint32 Dist;															// Distance entre le npc et sa cible
 			Unit* victim = me->GetVictim();										 
@@ -62,7 +62,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Spell_ContreAttaque = 0;
 			uint32 Visuel_Teleportation = 87459;
 			uint32 Bond_aleatoire_25m = 300267;
-			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalisé hors combat, doit etre fixe et en home
+			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalis?hors combat, doit etre fixe et en home
 			// Definitions des variables Cooldown et le 1er lancement
 			uint32 Cooldown_Spell1 = 1000;
 			uint32 Cooldown_Spell1_defaut = urand(3000, 3750);
@@ -81,7 +81,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Cooldown_bond_aleatoire_25m = 3000;
 			uint32 Cooldown_bond_aleatoire_25m_Defaut = urand(6000, 8000);
 			uint32 Cooldown_Spell_Canalise_hc = 1000;
-			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisé hors combat
+			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalis?hors combat
 
 			// Spells
 			uint32 Buf_1 = 0;													
@@ -127,8 +127,8 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				Spell_canalisé_hc_home();
-				Arme_rangé();
+				Void_Channeling_Spell_HC();
+				Weapon_storage();
 			}
 
 			void Init_AI()
@@ -140,8 +140,8 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				// Si m_spells[0] != 0 alors affectation aléatoire de tous les spells (prédéfinis dans le core) , sinon utilisera les spell défini dans vreature_template spells[1 a 5]
 				// m_spells[0] : Attaque principale						- Correspond a spell1 de creature_template
 				// m_spells[1] : Dot									- Correspond a spell2 de creature_template
-				// m_spells[2] : spell lancé a l'agro					- Correspond a spell3 de creature_template
-				// m_spells[3] : spell lancé a l'évade ou respawn		- Correspond a spell4 de creature_template
+				// m_spells[2] : spell lanc?a l'agro					- Correspond a spell3 de creature_template
+				// m_spells[3] : spell lanc?a l'évade ou respawn		- Correspond a spell4 de creature_template
 				// m_spells[4] : Buf									- Correspond a spell5 de creature_template
 				// m_spells[5] : Heal(lui meme uniquement)				- Correspond a spell6 de creature_template
 
@@ -149,12 +149,12 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				{ 
 					// Forcer le choix de la classe par creature_template->pickpocketloot
 					ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;
-					if (ForceBranche == 1 || ForceBranche == 12) { ForceClasse = 1; }										// Mage feu forcé
-					else if (ForceBranche == 2 || ForceBranche == 13) { ForceClasse = 2; }									// Mage Givre forcé 
-					else if (ForceBranche == 3 || ForceBranche == 14) { ForceClasse = 3; }									// Demo forcé
-					else if (ForceBranche == 4 || ForceBranche == 15) { ForceClasse = 4; }									// Druide forcé
-					else if (ForceBranche == 5 || ForceBranche == 16) { ForceClasse = 5; }									// Pretre forcé
-					else if (ForceBranche == 6 || ForceBranche == 17) { ForceClasse = 6; }									// DK Chaos forcé
+					if (ForceBranche == 1 || ForceBranche == 12) { ForceClasse = 1; }										// Mage feu forc?
+					else if (ForceBranche == 2 || ForceBranche == 13) { ForceClasse = 2; }									// Mage Givre forc?
+					else if (ForceBranche == 3 || ForceBranche == 14) { ForceClasse = 3; }									// Demo forc?
+					else if (ForceBranche == 4 || ForceBranche == 15) { ForceClasse = 4; }									// Druide forc?
+					else if (ForceBranche == 5 || ForceBranche == 16) { ForceClasse = 5; }									// Pretre forc?
+					else if (ForceBranche == 6 || ForceBranche == 17) { ForceClasse = 6; }									// DK Chaos forc?
 					else { ForceClasse = urand(1, 6); }
 
 					// Tirage aléatoire d'une pseudo classe
@@ -214,10 +214,10 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 						break;
 					case 5: // Pretre
 					case 16:
-						Buf_1 = 21562;													// Mot de pouvoir  : Robustesse 21562
+						Buf_1 = 21562;													// Mot de pouvoir?: Robustesse 21562
 						Spell_agro = 8092;												// Attaque mentale 8092
 						Spell_1 = 585;													// Châtiment 585
-						Spell_2 = 589;													// Mot de l’ombre : Douleur 589
+						Spell_2 = 589;													// Mot de l’ombre? Douleur 589
 						Spell_respawn_evade = 528;										// Dissipation de la magie 528, Suppression de la douleur 33206
 						Spell_Heal = Liste_Spell_Heal_5[urand(0, 1)];
 						Cooldown_Spell2_defaut = 15000;
@@ -256,7 +256,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					Spell_Heal = me->m_spells[5];
 				}
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -283,7 +283,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					ResteADistance = 10;
 				}
 
-				// Reste a distance faible forcé (7m) l'Intérieur
+				// Reste a distance faible forc?(7m) l'Intérieur
 				if (ForceBranche == 8)
 				{
 					ResteADistance = 7;
@@ -302,10 +302,10 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home pour rafraichir client
 				//me->SetSpeedRate(MOVE_RUN, 1.01f);
 				me->SetReactState(REACT_AGGRESSIVE);
-				Spell_canalisé_hc_home();
+				Void_Channeling_Spell_HC();
 
 				Init_AI();
-				Arme_rangé();
+				Weapon_storage();
 				Random = urand(1, 2);
 				if (Random == 1 && Spell_respawn_evade != 0) { me->CastSpell(me, Spell_respawn_evade, true); }		// 1/2 Chance de lancer le sort au respawn ou evade
 			}
@@ -325,10 +325,10 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -355,7 +355,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			{
 				me->SetReactState(REACT_AGGRESSIVE);
 				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
-				Arme_rangé();
+				Weapon_storage();
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -465,7 +465,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				if (Cooldown_Spell_Canalise_hc <= diff)
 				{
 
-					Spell_canalisé_hc_home();
+					Void_Channeling_Spell_HC();
 					Cooldown_Spell_Canalise_hc = Cooldown_Spell_Canalise_hc_defaut;
 				}
 				else Cooldown_Spell_Canalise_hc -= diff;
@@ -528,7 +528,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;
 
 					// Bond aléatoire si cible < 6m & mana > 10%  ---------------------------------------------------------------------------------------------
-					if (Cooldown_bond_aleatoire_25m <= diff && !AuraFigé())
+					if (Cooldown_bond_aleatoire_25m <= diff && !Fixedaura())
 					{
 						if (Dist <6 && (Mana > MaxMana / 10) && (ForceBranche == 10))
 						{
@@ -553,7 +553,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				else Cooldown_ResteADistance_Teleportation -= diff;
 
 				// ------------------------------------------------------------------------------------------------------------------------------------------------
-				if (Cooldown_ResteADistance <= diff && !AuraFigé())
+				if (Cooldown_ResteADistance <= diff && !Fixedaura())
 				{
 					// Mouvement aléatoire si cible < 6m & mana > 10%  
 					if (Dist <=5 && (Mana > MaxMana / 10) && (ForceBranche != 7 && ForceBranche <12 ))
@@ -780,7 +780,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre
@@ -794,15 +794,16 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					return false;
 				else return true;
 			}
-			void Spell_canalisé_hc_home()
+			void Void_Channeling_Spell_HC() //Void_Channeling_Spell_HC (Heroic Mode)
 			{
-				// Sort canalisé hors combat, doit etre fixe et en home 
+				// Sort canalis?hors combat, doit etre fixe et en home 
 				if (Spell_Canalise_hc > 1 && !me->IsInCombat() && !me->HasAura(Spell_Canalise_hc))
 				{
-					me->CastSpell(me, Spell_Canalise_hc, true);
+					//me->CastSpell(me, Spell_Canalise_hc, true);
+					DoCast(me, Spell_Canalise_hc);
 				}
 			}
-			void Arme_rangé()
+			void Weapon_storage() //Weapon_storage
 			{
 				// Certains Modelid posent probleme et seront donc ignorés
 				if (Npc_Model == 6824 || Npc_Model == 6825 || Npc_Model == 6821 || Npc_Model == 5773 || Npc_Model == 937 || Npc_Model == 16861)

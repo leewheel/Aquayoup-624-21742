@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_druide',`AIName` = '' WHERE (entry = 15100001);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100001);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_druide  .npc 15100001
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -102,7 +102,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			uint32 Spell_branche4_2 = 0;
 			uint32 Spell_branche4_3 = 0;
 			uint32 branche4_agro[3] = { 33844, 82742, 82742 };						// Sarments 4s 33844, *Empaler et tirer 82742
-			uint32 branche4_1[3] = { 131193, 119004, 38742 };						// Choc 131193, Violent coup direct 119004, Enchaînement gangrené 38742
+			uint32 branche4_1[3] = { 131193, 119004, 38742 };						// Choc 131193, Violent coup direct 119004, Enchaînement gangren?38742
 			uint32 branche4_2[4] = { 80515, 113967, 113967, 118682 };				// Frénésie immortelle 80515 (Canalisée 5s), Barbelés d'épines 113967, Taper du pied 118682
 			uint32 branche4_3[4] = { 129375, 46155, 152571, 152571 };				// Choc terrestre 129375 (stun 3s), Drain de vie 46155, Encorner 152571 (cone 5m)
 
@@ -141,10 +141,10 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				// ################################################################################################################################################
 				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forcé
-				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forcé
-				else if (ForceBranche == 4) { BrancheSpe = 4; }										// branche4 forcé
+				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
+				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
+				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forc?
+				else if (ForceBranche == 4) { BrancheSpe = 4; }										// branche4 forc?
 				else
 				{
 					// Sinon Choix de la Spécialisation Aléatoire
@@ -160,7 +160,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -287,10 +287,10 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -433,7 +433,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 						else Cooldown_RegenMana -= diff;
 
 						// Combat ---------------------------------------------------------------------------------------------------------------------------------
-						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 						if (Cooldown_Spell3 <= diff && (!victim->HasAura(Spell_branche1_3) && Spell_branche1_3 != Eclat_lunaire && Spell_branche1_3 != Feu_stellaire))
 						{
 							//DoCastVictim(Spell_branche1_3);
@@ -451,7 +451,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 						}
 						else Cooldown_Spell2 -= diff;
 
-						// Spell1 sur la cible chaque (Sort Régulié)
+						// Spell1 sur la cible chaque (Sort Réguli?
 						if (Cooldown_Spell1 <= diff)
 						{
 							if (!me->HasUnitState(UNIT_STATE_MOVE))
@@ -479,7 +479,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 						// Combat ---------------------------------------------------------------------------------------------------------------------------------
 						if (Dist < 6)
 						{
-							// Spell1 sur la cible chaque (Sort Régulié)
+							// Spell1 sur la cible chaque (Sort Réguli?
 							if (Cooldown_Spell1 <= diff)
 							{
 								DoCastVictim(Spell_branche2_1);
@@ -496,7 +496,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 							}
 							else Cooldown_Spell2 -= diff;
 
-							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 							if (Cooldown_Spell3 <= diff)
 							{
 								DoCastVictim(Spell_branche2_3);
@@ -522,7 +522,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 						// Combat ---------------------------------------------------------------------------------------------------------------------------------
 						if (Dist < 6)
 						{
-							// Spell1 sur la cible chaque (Sort Régulié)
+							// Spell1 sur la cible chaque (Sort Réguli?
 							if (Cooldown_Spell1 <= diff)
 							{
 								DoCastVictim(Spell_branche3_1);
@@ -538,7 +538,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 							}
 							else Cooldown_Spell2 -= diff;
 
-							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 							if (Cooldown_Spell3 <= diff)
 							{
 								DoCastVictim(Spell_branche3_3);
@@ -563,7 +563,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 						// Combat -------------------------------------------------------------------------------------------------------------------------------------
 						if ((Dist < 6) && (!me->HasUnitState(UNIT_STATE_CASTING)))
 						{
-							// Spell1 sur la cible chaque (Sort Régulié)
+							// Spell1 sur la cible chaque (Sort Réguli?
 							if (Cooldown_Spell1 <= diff)
 							{
 								DoCastVictim(Spell_branche4_1);
@@ -581,7 +581,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 							}
 							else Cooldown_Spell2 -= diff;
 
-							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 							if (Cooldown_Spell3 <= diff)
 							{
 								DoCastVictim(Spell_branche4_3);
@@ -657,7 +657,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé())
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || Fixedaura())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -668,7 +668,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				{
 					// Mouvement aléatoire si cible < 6m & Mana > 5% --------------------------------------------------------------------------------------------------
 
-					if ((Dist <6) && (Mana > MaxMana / 20) && !AuraFigé())
+					if ((Dist <6) && (Mana > MaxMana / 20) && !Fixedaura())
 					{
 						me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);						// UNROOT
 						
@@ -735,7 +735,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Ours(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -744,8 +744,8 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 
 				DoMeleeAttackIfReady();														// Combat en mélée
 
-				// Si la cible >= 8m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
-				if (Dist >= 8 && Cooldown_Anti_Bug_Figer <= diff && !AuraFigé())
+				// Si la cible >= 8m (pour éviter bug de rester fig? ---------------------------------------------------------------------------------------------
+				if (Dist >= 8 && Cooldown_Anti_Bug_Figer <= diff && !Fixedaura())
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f;
 					uint32 mapid = 0;
@@ -792,11 +792,11 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 
 				DoMeleeAttackIfReady();
 
-				// Si la cible >= 6m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
+				// Si la cible >= 6m (pour éviter bug de rester fig? ---------------------------------------------------------------------------------------------
 
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
-					if (Dist >= 6 && !AuraFigé())
+					if (Dist >= 6 && !Fixedaura())
 					{
 						float x = 0.0f, y = 0.0f, z = 0.0f;
 						uint32 mapid = 0;
@@ -824,7 +824,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				else Cooldown_Anti_Bug_Figer -= diff;
 
 				// Si la cible est entre 8 & 20m : Griffure bondissante --------------------------------------------------------------------------------------------------------
-				if (Cooldown_Charge <= diff && !AuraFigé())
+				if (Cooldown_Charge <= diff && !Fixedaura())
 				{
 					if ((Dist >= 8) && (Dist <= 20))
 					{
@@ -842,7 +842,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				// Si la cible < 6m : BOND Aleatoire ou tourne au tour de sa victime ------------------------------------------------------------------------------------------
 				if (Cooldown_ResteADistance <= diff)
 				{
-					if (Dist < 6 && !AuraFigé())
+					if (Dist < 6 && !Fixedaura())
 					{
 						if (AuraLenteur() == false && !Interieur())
 						{
@@ -867,7 +867,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Treant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -876,7 +876,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 
 				DoMeleeAttackIfReady();															// Combat en mélée
 
-				// Si la cible >= 8m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
+				// Si la cible >= 8m (pour éviter bug de rester fig? ---------------------------------------------------------------------------------------------
 				if (Dist >= 8 && Cooldown_Anti_Bug_Figer <= diff)
 				{
 					float x, y, z;
@@ -977,7 +977,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 					
 					// heal sur Friend 
 					Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 1, DistanceDeCast, true);		// pour heal friend
-					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'allié = 30m
+					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'alli?= 30m
 					{
 						if (me->IsFriendlyTo(target) && (me != target))
 						{
@@ -1079,7 +1079,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

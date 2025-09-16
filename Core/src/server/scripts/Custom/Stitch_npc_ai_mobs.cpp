@@ -8,8 +8,8 @@
 
 // spell1 : Attaque principale
 // spell2 : Dot
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lanc?a l'agro
+// spell4 : spell lanc?a l'évade ou respawn
 // spell5 : Buf
 // spell6 : Heal(lui même uniquement)
 
@@ -98,10 +98,10 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 mapid = 0;
 			uint32 MessageAlagro = 0;
 			uint32 Spell_ContreAttaque = 0;
-			uint8 Spell_B_Non_Cumulable = 0;										// == 1 : Spell_B ne sera pas appliqué s'il est deja actif sur la cible . Par exemple pour Brise-genou
+			uint8 Spell_B_Non_Cumulable = 0;										// == 1 : Spell_B ne sera pas appliqu?s'il est deja actif sur la cible . Par exemple pour Brise-genou
 			uint32 spell_Id = 0;
 			uint32 Spell_agro_Distant = 0;
-			uint32 Spell_Canalise_hc = me->m_spells[7];								// Pour spell canalisé hors combat
+			uint32 Spell_Canalise_hc = me->m_spells[7];								// Pour spell canalis?hors combat
 
 			// Definitions des variables Cooldown et le 1er lancement
 			uint32 Cooldown_SpellA = 1000;											// Sort principal
@@ -121,14 +121,14 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 Cooldown_Principal_C_Defaut = 2000;
 			uint32 Cooldown_Trop_Loin = 4000;
 			uint32 Cooldown_Trop_Loin_Defaut = 10000;
-			uint32 Base_Cooldown_Cast_A = 3500;										// Cooldown de base pour l'attaque principal, il est utilisé avec des valeurs ajouté en +-, sert a definir Cooldown_SpellA_defaut
+			uint32 Base_Cooldown_Cast_A = 3500;										// Cooldown de base pour l'attaque principal, il est utilis?avec des valeurs ajout?en +-, sert a definir Cooldown_SpellA_defaut
 			uint32 Base_Cooldown_Cast_B = 8000;										// Idem pour le sort secondaire, généralement un DOT
 			uint32 AI_Random = 0;
 			uint32 Start_Agro = 0;
 			uint32 Start_Agro2 = 0;
 			uint32 Cooldown_Spell_ContreAttaque = 4000;
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
-			uint32 Cooldown_Spell_Canalise_hc = 5000;								// Pour spell canalisé hors combat
+			uint32 Cooldown_Spell_Canalise_hc = 5000;								// Pour spell canalis?hors combat
 
 			// Spells 
 			uint32 Spell_A = 0;
@@ -196,7 +196,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_2[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_2[4] = { 84867, 300220, 1079, 300220 };		// Balayage fracassant (cum 5 fois) 84867, Griffure 300220, Dechirure 1079 (24s)
 			uint32 liste_agro_2[2] = { 89712, 138766 };							// Griffure bondissante (bond) 89712, Rugissement perçant 138766
-			uint32 liste_Buf_2[3] = { 15971, 15727, 44531  };					// Rugissement démoralisant 15971 (Réduit PA mêlée des ennemis 10m/30s), Rugissement démoralisant 15727, Célérité 44531
+			uint32 liste_Buf_2[3] = { 15971, 15727, 44531  };					// Rugissement démoralisant 15971 (Réduit PA mêlée des ennemis 10m/30s), Rugissement démoralisant 15727, Célérit?44531
 			
 			// 3	Araignee - CREATURE_FAMILY_SPIDER
 			uint32 liste_spell_A_3[2] = { 113687, 300206 };						// Morsure	113687, Mutiler	300206
@@ -226,7 +226,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_7[3] = { 115388, 115132, 115388 };				// Coup de bec 115388, Plongeon 115132
 			uint32 liste_spell_B_7[4] = { 30639, 163716, 124515, 55079 };		// Morsure carnivore 30639, Griffure de serres 163716, Barrage de coups de bec 124515, Rapace 55079
 			uint32 liste_agro_7[2] = { 89712, 18328 };							// Griffure_bondissante 89712, Cri incapacitant 18328 (vit -60%)
-			uint32 liste_Buf_7[5] = { 44531, 44531, 183883, 3149, 70485 };		// Célérité 44531, *Hurlement de rage 183883 (vit, dps +25%/12s), Hurlement furieux 3149, Bond_Aleatoire 70485
+			uint32 liste_Buf_7[5] = { 44531, 44531, 183883, 3149, 70485 };		// Célérit?44531, *Hurlement de rage 183883 (vit, dps +25%/12s), Hurlement furieux 3149, Bond_Aleatoire 70485
 
 			// 8	Crabe - CREATURE_FAMILY_CRAB	
 			uint32 liste_spell_A_8[2] = { 118140, 118140 };						// Pince 118140
@@ -242,7 +242,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 11    Raptor - CREATURE_FAMILY_RAPTOR
 			uint32 liste_spell_A_11[2] = { 113687, 113687 };					// Morsure 113687, 
-			uint32 liste_spell_B_11[4] = { 30639, 136870, 118576, 772 };		// Morsure carnivore 30639, Heurt de queue 136870 (repousse legerement, armure -10%/20s, cumulable 10 fois), Kigrince 118576 (canalisé 3s, cone 10/lvl), Pourfendre 772
+			uint32 liste_spell_B_11[4] = { 30639, 136870, 118576, 772 };		// Morsure carnivore 30639, Heurt de queue 136870 (repousse legerement, armure -10%/20s, cumulable 10 fois), Kigrince 118576 (canalis?3s, cone 10/lvl), Pourfendre 772
 			uint32 liste_agro_11[3] = { 89712, 50231, 18328 };					// Griffure bondissante 89712 (bond), agro 50231, Cri incapacitant 18328 (vit -60%)	
 			uint32 liste_Buf_11[3] = { 22863, 1160, 8599 };						// Vitesse 22863 (10s 30%), Cri démoralisant 1160, Enrager 8599 (+degat physique+vit dattaque,visuel rouge)
 
@@ -298,7 +298,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_25[2] = { 113687, 33745 };						// Morsure 113687, Lacerer 33745
 			uint32 liste_spell_B_25[2] = { 1715, 1715 };						// Brise-genou	1715
 			uint32 liste_agro_25[2] = { 0, 0 };									// 
-			uint32 liste_Buf_25[2] = { 44531, 44531 };							// Célérité 44531
+			uint32 liste_Buf_25[2] = { 44531, 44531 };							// Célérit?44531
 
 			// 26    Oiseau de proie - CREATURE_FAMILY_BIRD_OF_PREY
 			uint32 liste_spell_A_26[2] = { 24187, 24187  };						// griffe 24187
@@ -363,7 +363,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// 40    Goule - CREATURE_FAMILY_GHOUL
 			uint32 liste_spell_A_40[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_40[2] = { 300220, 300220 };					// Griffure	300220
-			uint32 liste_agro_40[2] = { 3436, 3436 };							// peste galopante 3436 (degat +5%,endurance -5% , 10% de contaminer un allier quand touché,30s)
+			uint32 liste_agro_40[2] = { 3436, 3436 };							// peste galopante 3436 (degat +5%,endurance -5% , 10% de contaminer un allier quand touch?30s)
 			uint32 liste_Buf_40[2] = { 50366, 50366 };							// Nuée de peste 50366 (infecte les cibles proches)	
 
 			// 41    case 41:	//	Silithide - CREATURE_FAMILY_SILITHID
@@ -375,14 +375,14 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 42    Ver - CREATURE_FAMILY_WORM
 			uint32 liste_spell_A_42[2] = { 69203, 20667 };						// Morsure vicieuse 69203, jet dacide 20667 (cône  20m,Réduit l'armure,dmg 5s/15s )
-			uint32 liste_spell_B_42[2] = { 26419, 26419 };						// pluie d acide 26419 (degat nature augmenté par le nbr d'application)
+			uint32 liste_spell_B_42[2] = { 26419, 26419 };						// pluie d acide 26419 (degat nature augment?par le nbr d'application)
 			uint32 liste_agro_42[2] = { 0, 0 };									// 
 			uint32 liste_Buf_42[2] = { 0, 0 };									//  
 
 			// 43    Rhinoceros - CREATURE_FAMILY_RHINO
 			uint32 liste_spell_A_43[2] = { 131172, 131172 };					// Coup de tete 131172
 			uint32 liste_spell_B_43[2] = { 125384, 125384 };					// Chute sur le ventre 125384 (dmg, repousse, légèrement)
-			uint32 liste_agro_43[2] = { 19196, 17230 };							// Spell_Charge_Repousse 19196, blessure infecté 17230 (degat physique auglmenté de 2/lvl+10/5mn)
+			uint32 liste_agro_43[2] = { 19196, 17230 };							// Spell_Charge_Repousse 19196, blessure infect?17230 (degat physique auglment?de 2/lvl+10/5mn)
 			uint32 liste_Buf_43[2] = { 118682, 152571 };						// Taper du pied 118682, encorner 152571
 
 			// 44    Guepe - CREATURE_FAMILY_WASP
@@ -395,7 +395,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_45[2] = { 113687, 113687 };					// Morsure 113687
 			uint32 liste_spell_B_45[2] = { 1079, 1715 };						// Dechirure 1079, Brise-genou 1715
 			uint32 liste_agro_45[2] = { 0, 0 };									// 
-			uint32 liste_Buf_45[2] = { 44531, 44531 };							// Célérité 44531
+			uint32 liste_Buf_45[2] = { 44531, 44531 };							// Célérit?44531
 
 			// 49    Elementaire d'eau - CREATURE_FAMILY_WATER_ELEMENTAL
 			uint32 liste_spell_A_49[2] = { 119004, 119004 };					// Violent coup direct 119004
@@ -419,7 +419,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_52[2] = { 113687, 113687 };					// Morsure 113687
 			uint32 liste_spell_B_52[2] = { 1079, 1715 };						// Dechirure 1079, Brise-genou 1715
 			uint32 liste_agro_52[2] = { 0, 0 };									// 
-			uint32 liste_Buf_52[2] = { 44531, 44531 };							// Célérité 44531
+			uint32 liste_Buf_52[2] = { 44531, 44531 };							// Célérit?44531
 
 			// 55    Araignee de schiste - CREATURE_FAMILY_SHALE_SPIDER
 			uint32 liste_spell_A_55[2] = { 118140, 118140 };					// Pince 118140
@@ -442,7 +442,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// 100   Diablotin gangrene - CREATURE_FAMILY_FELIMP
 			uint32 liste_spell_A_100[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_100[2] = { 26419, 26419 };						// pluie d acide 26419
-			uint32 liste_agro_100[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapré 35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_100[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_100[2] = { 79934, 79934 };							// Armure démoniaque 79934
 
 			// 104   Garde-courroux - CREATURE_FAMILY_WRATHGUARD
@@ -490,13 +490,13 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// 155	CUSTOM - CREATURE_FAMILY_SENTERRE
 			uint32 liste_spell_A_155[2] = { 119004, 119004 };					// Violent coup direct 119004
 			uint32 liste_spell_B_155[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
-			uint32 liste_agro_155[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapré 35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_155[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_155[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 
 			// 156	CUSTOM - CREATURE_FAMILY_SE_DETERRE_AU_CONTACT
 			uint32 liste_spell_A_156[2] = { 113687, 113687 };					// Morsure
 			uint32 liste_spell_B_156[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
-			uint32 liste_agro_156[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapré 35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_156[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_156[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 			
 			// 157   Rocher (elementaire de terre si fixe)  -  CREATURE_FAMILY_MORPH_ROCHER 
@@ -538,8 +538,8 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				// Si m_spells[0] != 0 alors affectation aléatoire de tous les spells (prédéfinis dans le core) , sinon utilisera les spell défini dans vreature_template spells[1 a 5]
 				// m_spells[0] : Attaque principale						- Correspond a spell1 de creature_template
 				// m_spells[1] : Dot									- Correspond a spell2 de creature_template
-				// m_spells[2] : spell lancé a l'agro					- Correspond a spell3 de creature_template
-				// m_spells[3] : spell lancé a l'évade ou respawn		- Correspond a spell4 de creature_template
+				// m_spells[2] : spell lanc?a l'agro					- Correspond a spell3 de creature_template
+				// m_spells[3] : spell lanc?a l'évade ou respawn		- Correspond a spell4 de creature_template
 				// m_spells[4] : Buf									- Correspond a spell5 de creature_template
 				// m_spells[5] : Heal(lui meme uniquement)				- Correspond a spell6 de creature_template
 
@@ -942,7 +942,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					case 38:
 					case 42:
 					case 100:
-						me->SetMeleeDamageSchool(SpellSchools(0));									// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+						me->SetMeleeDamageSchool(SpellSchools(0));									// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 						//Spell_B_Non_Cumulable = 1;
 						Spell_respawn_evade = 0;
 						//Buf_A = 0;
@@ -979,7 +979,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					}
 
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -1018,10 +1018,10 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -1148,7 +1148,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						{
 						case 1:		// Loup  -  CREATURE_FAMILY_WOLF - AI : 1/3_Mouvement_Contact_Basique , 2/3_Mouvement_Contact_Prudent
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1170,7 +1170,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 2:		// Felin  -  CREATURE_FAMILY_CAT - AI : Mouvement_Contact_Tournant_Aleatoire (%invisible)
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }	// spells[3] 
 							if (Spell_Heal == 0) { Spell_Heal = Spell_Instincts_de_survie; }			// spells[5]
@@ -1199,7 +1199,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 3:		// Araignee  -  CREATURE_FAMILY_SPIDER - AI : Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Cumulable, Doit avoir du mana , % Toile_Araignee)
-							me->SetMeleeDamageSchool(SpellSchools(3));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							Buf_A = 0;
@@ -1230,7 +1230,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(8000, 10000);
 							break;
 						case 4:		// Ours  -  CREATURE_FAMILY_BEAR - AI : Mouvement_Contact_Basique, % Instincts_de_survie
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							if (Spell_Heal == 0) { Spell_Heal = Spell_Instincts_de_survie; }			// spells[5]
@@ -1251,7 +1251,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(6000, 8000);
 							break;
 						case 5:		// Sanglier  -  CREATURE_FAMILY_BOAR - AI : Mouvement_Contact_Charges_Multiples
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1273,7 +1273,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 6:		// Crocodile  -  CREATURE_FAMILY_CROCOLISK - AI : 1/3_Mouvement_Contact_Avance_Recule , 2/3_Mouvement_Contact_Basique, %Ecorce
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Ecorce; }	// spells[3]
 							//Spell_Heal = 0;
@@ -1295,7 +1295,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(7000, 9000);
 							break;
 						case 7:		// Oiseau charogniar  -  CREATURE_FAMILY_CARRION_BIRD - AI : Mouvement_Contact_Prudent_Volant
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -1317,7 +1317,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 8:		// Crabe  -  CREATURE_FAMILY_CRAB - AI : Mouvement_Contact_Avance_Recule - 1/2 Mouvement_Contact_Basique
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1338,7 +1338,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(5000, 7000);
 							break;
 						case 9:		// Gorille  -  CREATURE_FAMILY_GORILLA - AI : Mouvement_Contact_Bondissant, %Bondir_Guerrier
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1360,7 +1360,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 11:	// Raptor  -  CREATURE_FAMILY_RAPTOR - AI : 1/4_Mouvement_Contact_Avance_Recule  , 1/4_Mouvement_Contact_Tournant_Aleatoire, 2/4_Mouvement_Contact_Basique, %Cri_Incapacitant";
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -1396,7 +1396,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 12:	//Grand trotteur - CREATURE_FAMILY_TALLSTRIDER - AI : 1/2 Mouvement_Contact_Avance_Recule, 1/2 Mouvement_Contact_Basique
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1425,7 +1425,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 15:	//Chasseur corrompu (Felhunter)  -  CREATURE_FAMILY_FELHUNTER - AI : 1/2 Mouvement_Contact_Basique , 1/2 Mouvement_Contact_Tournant_Aleatoire
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1444,7 +1444,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 
 						case 16:	//Marcheur du vide (Voidwalker)  -  CREATURE_FAMILY_VOIDWALKER - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							if (Spell_Heal == 0) { Spell_Heal = 17767; }			// spells[5]							// Rempart de l’ombre 17767 (PV +65%/20s), Bouclier de l’ombre 115232 (dmg -60%/30s)
@@ -1466,7 +1466,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 17:	//Succube  -  CREATURE_FAMILY_SUCCUBUS - AI : 1/2_Mouvement_Contact_Tournant_Aleatoire.... 1/2_Mouvement_Contact_Basique
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1493,7 +1493,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 19:	//Garde funeste (Doomguard)  -  CREATURE_FAMILY_DOOMGUARD - AI : Mouvement_Contact_Charges_Multiples, %Bondir_Guerrier
-							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1514,7 +1514,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 5000;
 							break;
 						case 20:	//Scorpion  -  CREATURE_FAMILY_SCORPID - AI : Mouvement_Contact_Avance_Recule
-							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1535,7 +1535,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 5000;
 							break;
 						case 21:	//Tortue  -  CREATURE_FAMILY_TURTLE - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1556,7 +1556,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 5000;
 							break;
 						case 23:	//Imp  -  CREATURE_FAMILY_IMP - AI : Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance )
-							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																// 
@@ -1579,7 +1579,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 24:	//Chauve souris  -  CREATURE_FAMILY_BAT - AI : Mouvement_Contact_Prudent_Volant
 							AI_Random = urand(1, 2); 
-							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1605,7 +1605,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 25:	//Hyene  -  CREATURE_FAMILY_HYENA - AI : Mouvement_Contact_Prudent
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1626,7 +1626,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(5000, 8000);
 							break;
 						case 26:	//Oiseau de proie  -  CREATURE_FAMILY_BIRD_OF_PREY - AI : Mouvement_Contact_Basique, %Griffure_bondissante
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }	// spells[3] 
 							//Spell_Heal = 0;																					// 
@@ -1647,7 +1647,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(5000, 7000);
 							break;
 						case 27:	//Serpent des vents  -  CREATURE_FAMILY_WIND_SERPENT - AI : Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance  Non cumulable, %Bouclier_De_Foudre )
-							me->SetMeleeDamageSchool(SpellSchools(6));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(6));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							Spell_respawn_evade = 0;
 							if (Spell_Heal == 0) { Spell_Heal = 974; }			                                // spells[5]	// bouclier de terre 974
@@ -1677,7 +1677,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(8000, 10000);
 							break;
 						case 29:	//Felguard  -  CREATURE_FAMILY_FELGUARD - AI : Mouvement_Contact_Basique, %Poursuite
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -1697,11 +1697,11 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin = urand(5000, 7000);
 							Cooldown_Trop_Loin_Defaut = urand(5000, 8000);
 
-							//me->SetVirtualItem(0, 12784);																	// Equipé d'une hache
+							//me->SetVirtualItem(0, 12784);																	// Equip?d'une hache
 							me->LoadEquipment(1, true);																		// creature_equip_template 1
 							break;
 						case 30:	//Faucon dragon  -  CREATURE_FAMILY_DRAGONHAWK - AI : Mouvement_Caster
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1732,7 +1732,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Spell_B_Non_Cumulable = 1;
 							break;
 						case 31:	//Ravageur  -  CREATURE_FAMILY_RAVAGER - AI : 1/4_Mouvement_Contact_Prudent , 1/4_Mouvement_Contact_Avance_Recule , 1/4_Mouvement_Contact_Tournant_Aleatoire , 1/4_Mouvement_Contact_Charges_Multiples, %Poursuite %Griffure_bondissante
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1759,7 +1759,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 34:	//Raie du Neant  -  CREATURE_FAMILY_NETHER_RAY - AI : 1/2_Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Non cumulable) , 1/2_Mouvement_Caster
 							AI_Random = urand(1,2);
-							me->SetMeleeDamageSchool(SpellSchools(6));													// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(6));													// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }					// spells[3] 
 							//Spell_Heal = 0;
@@ -1802,7 +1802,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							me->SetSheath(SHEATH_STATE_RANGED); 											// S'équipe d'arc ou fusil
 							break;
 						case 35:	//Serpent  -  CREATURE_FAMILY_SERPENT - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(3));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1823,7 +1823,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(4000, 7000);
 							break;
 						case 37:	//Papillon de nuit  -  CREATURE_FAMILY_MOTH - AI :  Mouvement_Caster, Bouclier_De_Terre
-							me->SetMeleeDamageSchool(SpellSchools(3));											// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));											// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Bouclier_De_Terre; }	// spells[3]
 							//Spell_Heal = 0;
@@ -1852,7 +1852,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(8000, 15000);
 							break;
 						case 38:	//Chimere  -  CREATURE_FAMILY_CHIMAERA - AI : Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Non cumulable, %Epines )
-							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Epines; }			// spells[3] 
 							//Spell_Heal = 0;
@@ -1881,7 +1881,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(6000, 12000);
 							break;
 						case 39:	//Diablosaure  -  CREATURE_FAMILY_DEVILSAUR - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1902,7 +1902,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 5000;
 							break;
 						case 40:	//Goule  -  CREATURE_FAMILY_GHOUL - AI : Mouvement_Contact_Basique, %Bouclier_Dos
-							me->SetMeleeDamageSchool(SpellSchools(5));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1923,7 +1923,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 7000;
 							break;
 						case 41:	//	Silithide - CREATURE_FAMILY_SILITHID - AI : 1/3_Mouvement_Contact_Basique , 1/3_Mouvement_Contact_Tournant_Aleatoire , 1/3_Mouvement_Contact_Charges_Multiples
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1949,7 +1949,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							AI_Random = urand(1, 4);
 							break;
 						case 42:	//Ver  -  CREATURE_FAMILY_WORM - AI : Mouvement_Caster_Puis_Contact ( spell [2]=spell a distance Cumulable 
-							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -1980,7 +1980,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 43:	//Rhinoceros  -  CREATURE_FAMILY_RHINO - AI : 1/3_Mouvement_Contact_Basique , 2/3_Mouvement_Contact_Charges_Multiples, %Charge_Repousse
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2001,7 +2001,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(5000, 7000);
 							break;
 						case 44:	//Guepe  -  CREATURE_FAMILY_WASP - AI : Mouvement_Contact_Prudent_Volant
-							me->SetMeleeDamageSchool(SpellSchools(3));									// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));									// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Vitesse_4s; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -2031,7 +2031,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 45:	//Chien de base  -  CREATURE_FAMILY_CORE_HOUND - AI : 1/3_Mouvement_Contact_Prudent , 2/3_Mouvement_Contact_Charges_Multiples
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));									// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));									// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																// 
@@ -2053,7 +2053,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 49:	//Elementaire d'eau  -  CREATURE_FAMILY_WATER_ELEMENTAL - AI : 1/3_Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Cumulable ) , 1/3_Mouvement_Caster , 1/3_Mouvement_Contact_Basique
 							AI_Random = urand(1,3);
-							me->SetMeleeDamageSchool(SpellSchools(4));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(4));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2119,7 +2119,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 50:	//Renard  -  CREATURE_FAMILY_FOX - AI : 1/3_Mouvement_Contact_Basique , 2/3_Mouvement_Contact_Prudent
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2142,7 +2142,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							if (AI_Random != 1) { Cooldown_Principal_B_Defaut = urand(4000, 6000); }						//
 							break;
 						case 51:	//Singe  -  CREATURE_FAMILY_MONKEY - AI : Mouvement_Caster
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2172,7 +2172,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 52:	//Chien  -  CREATURE_FAMILY_DOG - AI : 4/5_Mouvement_Contact_Prudent , 1/5_Mouvement_Contact_Basique
 							AI_Random = urand(1, 5);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2194,7 +2194,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 55:	//Araignee de schiste  -  CREATURE_FAMILY_SHALE_SPIDER - AI : 1/2_Mouvement_Contact_Avance_Recule , 1/2_Mouvement_Contact_Tournant_Aleatoire, %Armure_De_La_Fournaise %Bondir_Guerrier
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(6));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(6));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Armure_De_La_Fournaise; }			// spells[3] 
 							Buf_A = 0;
@@ -2222,7 +2222,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 56:	//Zombie  -  CREATURE_FAMILY_ZOMBIE - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2244,7 +2244,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 68:	//Hydre  -  CREATURE_FAMILY_HYDRA - AI :  1/2_Mouvement_Contact_Basique , 1/2_Mouvement_Contact_Avance_Recule, %Poison_Tir_Catapulte
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2271,7 +2271,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 100:	//Diablotin gangrene  -  CREATURE_FAMILY_FELIMP - AI : 1/2_Mouvement_Contact_Avance_Recule , 1/2_Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Ccumulable)
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2307,7 +2307,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 102:	//Shivarra  -  CREATURE_FAMILY_SHIVARA - AI : 1/2 Mouvement_Contact_Basique , 1/2 Mouvement_Contact_Tournant_Aleatoire
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2335,7 +2335,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 104:	//Garde-courroux  -  CREATURE_FAMILY_WRATHGUARD - AI : 1/2_Mouvement_Contact_Basique , 1/2_Mouvement_Contact_Charges_Multiples, %Poursuite
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2360,11 +2360,11 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 								Cooldown_Principal_B_Defaut = urand(5000, 6000);
 							}
 
-							//me->SetVirtualItem(0, 12784);																	// Equipé d'une hache
+							//me->SetVirtualItem(0, 12784);																	// Equip?d'une hache
 							me->LoadEquipment(1, true);																		// creature_equip_template 1
 							break;
 						case 108:	//Infernal  -  CREATURE_FAMILY_INFERNAL - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;																					// 
@@ -2386,7 +2386,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 116:	//elementaire de feu  -  CREATURE_FAMILY_FIREELEMENTAL - AI : 1/4_Mouvement_Caster_Puis_Contact ( spell [2] = spell a distance Cumulable) , 1/4_Mouvement_Caster , 2/4_Mouvement_Contact_Basique, %Armure_De_La_Fournaise
 							AI_Random = urand(1, 4);
-							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(2));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Armure_De_La_Fournaise; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -2434,7 +2434,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 117:	//elementaire de terre  -  CREATURE_FAMILY_EARTHELEMENTAL - AI : Mouvement_Contact_Basique, %Ecorce %Lancer_Une_Pierre
-							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Ecorce; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -2456,7 +2456,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 130:	//Basilic  -  CREATURE_FAMILY_BASILISK - AI : 1/2 Mouvement_Contact_Avance_Recule , Mouvement_Contact_Basique , %Ecorce"
 							AI_Random = urand(1, 2);
-							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(3));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Ecorce; }	// spells[3] 
 							//Spell_Heal = 0;
@@ -2478,7 +2478,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 152:	//Murloc 1.2 - CREATURE_FAMILY_MURLOC - AI : 1/4_Mouvement_Contact_Prudent, 1/4_Mouvement_Contact_Avance_Recule, 2/4_Mouvement_Contact_Basique
 							AI_Random = urand(1, 4);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2500,7 +2500,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 153:		//Naga 2.0 - CREATURE_FAMILY_NAGA - AI : 1/3_Mouvement_Contact_Basique, 1/3_Mouvement_Contact_Tournant_Aleatoire, 1/3_Mouvement_Contact_Prudent_Volant
 							AI_Random = urand(1, 5);
-							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));															// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2521,7 +2521,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 6000;
 							break;
 						case 155:	//CREATURE_FAMILY_SENTERRE uniquement si fixe - AI : Mouvement_Contact_Basique 
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2543,7 +2543,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 156:	//CREATURE_FAMILY_SE_DETERRE_AU_CONTACT - AI : 1/3_Mouvement_Contact_Basique, 1/3_Mouvement_Contact_Tournant_Aleatoire, 1/3_Mouvement_Contact_Avance_Recule
 							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2578,7 +2578,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							break;
 						case 157:	//Rocher (elementaire de terre si fixe)  -  CREATURE_FAMILY_MORPH_ROCHER - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							if (Spell_respawn_evade == 0) { Spell_respawn_evade = Spell_Ecorce; }							// spells[3] 
 							//Spell_Heal = 0;
@@ -2600,7 +2600,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 158:	//CREATURE_FAMILY_CREATURE_AQUATIQUE - AI : 1/4 Mouvement_Contact_Prudent, 1/4_Mouvement_Contact_Prudent_Volant, 2/4 Mouvement_Contact_Basique
 							AI_Random = urand(1,4); 
-							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 1;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2649,7 +2649,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 
 						case 159:	//CREATURE_FAMILY_SENTERRE_FIXE
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacré=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -3148,7 +3148,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 				if (Cooldown_Spell_Canalise_hc <= diff)
 				{
-					Spell_canalisé_hc_home();
+					Void_Channeling_Spell_HC();
 					Cooldown_Spell_Canalise_hc = urand(10000, 15000);
 				}
 				else Cooldown_Spell_Canalise_hc -= diff;
@@ -3162,7 +3162,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Caster , reste a distance ####################################################################################################################
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé() == true)
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || Fixedaura() == true)
 					return;
 
 
@@ -3255,7 +3255,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Reste a distance mais va au contact si la cible ce raproche , spellB plus rapide de loin #####################################################
 			void Mouvement_Caster_Puis_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() == true/*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || Fixedaura() == true/*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3309,7 +3309,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , tourne au tour de la cible tres rarement ###############################################################
 			void Mouvement_Contact_Basique(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3366,7 +3366,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , tourne au tour de la cible ou passe dans son dos (exemple : felin) #####################################
 			void Mouvement_Contact_Tournant_Aleatoire(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3428,7 +3428,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais recule puis avance périodiquement sur cible en mélée, passe dans le dos pour les cibles caster ######
 			void Mouvement_Contact_Prudent(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3480,7 +3480,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais s'envole puis revient en mélée sur la cible périodiquement  #########################################
 			void Mouvement_Contact_Prudent_Volant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3521,7 +3521,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais s'eloigne et "Charge périodiquement  ################################################################
 			void Mouvement_Contact_Charges_Multiples(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3598,7 +3598,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , recule et revient périodiquement #######################################################################
 			void Mouvement_Contact_Avance_Recule(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3670,7 +3670,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , effectue un bond aléatoire régulierement ###############################################################
 			void Mouvement_Contact_Bondissant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3747,7 +3747,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Tourne_Au_Tour_Aleatoire(uint32 Distance)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED) )
@@ -3772,7 +3772,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Tourne_Au_Tour_Aleatoire_Volant(uint32 Distance)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED))
@@ -3798,7 +3798,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Recule_ou_Avance(int32 val)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED))
@@ -4048,7 +4048,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre
@@ -4068,13 +4068,14 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					else return false;
 			}
 
-			void Spell_canalisé_hc_home()
+			void Void_Channeling_Spell_HC()
 			{
-				// Sort canalisé hors combat, doit etre fixe et en home 
+				// Sort canalis?hors combat, doit etre fixe et en home 
 				if (Spell_Canalise_hc > 1 && !me->IsInCombat() && !me->HasAura(Spell_Canalise_hc))
 				{
 					if (urand(1,2) == 1)
-						me->CastSpell(me, Spell_Canalise_hc, true);
+						//me->CastSpell(me, Spell_Canalise_hc, true);
+						DoCast(me, Spell_Canalise_hc);
 				}
 			}
 

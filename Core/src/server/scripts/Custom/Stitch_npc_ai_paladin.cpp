@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_paladin',`AIName` = '' WHERE (entry = 15100006);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100006);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_paladin  .npc 15100006
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -30,7 +30,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 		{
 			Stitch_npc_ai_paladinAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Vindice=1, Sacré=2, Protection=3
+			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Vindice=1, Sacr?2, Protection=3
 			uint32 NbrDeSpe = 3;													// Nombre de Spécialisations
 			uint32 ForceBranche;
 			uint32 Random;
@@ -57,11 +57,11 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers
-			uint32 Buf_branche1 = 20164;											// Sceau de justice 20164, Sceau de clairvoyance 20165, Sceau de vérité 30801, Sceau de méditation 105361
+			uint32 Buf_branche1 = 20164;											// Sceau de justice 20164, Sceau de clairvoyance 20165, Sceau de vérit?30801, Sceau de méditation 105361
 			uint32 Buf_branche1a = 79977;											// Bénédiction de puissance 79977
 			uint32 Buf_branche2 = 20165;											// Sceau de clairvoyance 20165, Sceau de protection de mana 20154,
 			uint32 Buf_branche2a = 31821;											// Aura de dévotion 31821, Aura de dévotion 52442 (armure+25%)
-			uint32 Buf_branche3 = 31801;											// Sceau de clairvoyance 20165, Sceau de vérité 31801
+			uint32 Buf_branche3 = 31801;											// Sceau de clairvoyance 20165, Sceau de vérit?31801
 			uint32 Buf_branche3a = 31850;											// Ardent défenseur 31850 (dmg -20% 10s), Bénédiction des rois 72043, Protection divine 498, Aura de dévotion 52442 (armure+25%) 
 			uint32 Spell_Heal_Caster = 300262;  									// Eclair lumineux 300262
 			uint32 Spell_Heal_Heal = 177551;  										// Lumière sacrée 177551
@@ -73,18 +73,18 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 			uint32 Spell_branche1_3 = 0;
 			uint32 branche1_agro[4] = { 853, 853, 853, 62124 };						// Marteau de la justice 853 (stun 6s), Réprimandes 96231 (interrompt 4s), Rétribution(agro) 62124
 			uint32 branche1_1[2] = { 57774, 57774 };								// Jugement 57774
-			uint32 branche1_2[2] = { 66003, 66003 };								// Frappe du croisé 66003
+			uint32 branche1_2[2] = { 66003, 66003 };								// Frappe du crois?66003
 			uint32 branche1_3[3] = { 79964, 150628, 79970 };						// Exorcisme 79964, Marteau du vertueux 150628 6s, Tempête divine 79970
 			
-			// Spells Sacré
+			// Spells Sacr?
 			uint32 Spell_branche2_agro = 0;
 			uint32 Spell_branche2_1 = 0;
 			uint32 Spell_branche2_2 = 0;
 			uint32 Spell_branche2_3 = 0;
 			uint32 branche2_agro[4] = { 853, 96231, 96231, 96231 };					// Dénoncer 2812 , Marteau de la justice 853 (stun 6s), Réprimandes 96231 (interrompt 4s)
 			uint32 branche2_1[2] = { 57774, 57774 };								// Jugement 57774
-			uint32 branche2_2[2] = { 66003, 66003 };								// Frappe du croisé 66003
-			uint32 branche2_3[2] = { 32771, 32771 };								// Horion sacré 32771
+			uint32 branche2_2[2] = { 66003, 66003 };								// Frappe du crois?66003
+			uint32 branche2_3[2] = { 32771, 32771 };								// Horion sacr?32771
 
 			// Spells Protection
 			uint32 Spell_branche3_agro = 0;
@@ -93,7 +93,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 			uint32 Spell_branche3_3 = 0;
 			uint32 branche3_agro[3] = { 853, 96231, 62124 };						// Marteau de la justice 853 (stun 6s), Réprimandes 96231 (interrompt 4s), Rétribution 62124
 			uint32 branche3_1[2] = { 57774, 57774 };								// Jugement 57774
-			uint32 branche3_2[2] = { 53600, 53600 };								// Frappe du croisé 66003, Bouclier du vertueux 53600
+			uint32 branche3_2[2] = { 53600, 53600 };								// Frappe du crois?66003, Bouclier du vertueux 53600
 			uint32 branche3_3[2] = { 162638, 26573 };								// Bouclier du vengeur 162638 (interrompt 3s), Consécration 26573, 
 
 			// Emotes
@@ -115,7 +115,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 			void Init_AI()
 			{
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -126,9 +126,9 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 				// ################################################################################################################################################
 				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forcé 
-				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forcé
+				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
+				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
+				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forc?
 				else
 				{
 					// Sinon Choix de la Spécialisation Aléatoire
@@ -157,7 +157,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 
 					break;
 
-				case 2: // Si Sacré ------------------------------------------------------------------------------------------------------------------------------
+				case 2: // Si Sacr?------------------------------------------------------------------------------------------------------------------------------
 					me->CastSpell(me, Buf_branche2, true);										// Buf2 sur lui meme
 					me->CastSpell(me, Buf_branche2a, true);
 					me->LoadEquipment(2, true);													// creature_equip_template 2
@@ -216,10 +216,10 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -314,7 +314,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 
 							break;
 
-						case 2: // Si Sacré -----------------------------------------------------------------------------------------------------------------------
+						case 2: // Si Sacr?-----------------------------------------------------------------------------------------------------------------------
 							me->CastSpell(me, Buf_branche2, true);										// Buf3 sur lui meme
 							me->CastSpell(me, Buf_branche2a, true); 
 							
@@ -445,7 +445,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 							//Bonus_Degat_Arme_Done(-20);
 
 							// Combat ---------------------------------------------------------------------------------------------------------------------------------
-							// Spell1 sur la cible chaque (Sort Régulié)
+							// Spell1 sur la cible chaque (Sort Réguli?
 							if (Cooldown_Spell1 <= diff)
 							{
 								me->CastSpell(victim, Spell_branche3_1, true);
@@ -461,7 +461,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 							}
 							else Cooldown_Spell2 -= diff;
 
-							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 							if (Cooldown_Spell3 <= diff)
 							{
 								me->CastSpell(victim, Spell_branche3_3, true);
@@ -535,7 +535,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || Fixedaura() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -544,7 +544,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 
 				DoMeleeAttackIfReady();													// Combat en mélée
 
-				// Si la cible >= 6m (pour éviter bug de rester figé) --------------------------------------------------------------------------------------------
+				// Si la cible >= 6m (pour éviter bug de rester fig? --------------------------------------------------------------------------------------------
 				if ((Dist >= 6) && (Cooldown_Anti_Bug_Figer <= diff))
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f;
@@ -649,7 +649,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 					}
 
 					// heal sur Friend 
-					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'allié = 30m
+					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'alli?= 30m
 					{
 						if (me->IsFriendlyTo(target) && (me != target))
 						{
@@ -677,7 +677,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 					}
 
 					// heal sur Friend 
-					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'allié = 30m
+					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'alli?= 30m
 					{
 						if (me->IsFriendlyTo(target) && (me != target))
 						{
@@ -759,7 +759,7 @@ public: Stitch_npc_ai_paladin() : CreatureScript("Stitch_npc_ai_paladin") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

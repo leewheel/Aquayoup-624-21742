@@ -7,8 +7,8 @@
 // Si pickpocketloot = 0 : Lancier , si pickpocketloot = 1 : Archer , si pickpocketloot = 2 : Fusilier
 // spell1 : Attaque principale au corp a corp
 // spell2 : Attaque Dot au corp a corp
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lanc?a l'agro
+// spell4 : spell lanc?a l'évade ou respawn
 // spell5 : Buf
 // spell6 : Heal(tir sur cible)
 //
@@ -46,7 +46,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			uint32 ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;
 			uint32 MessageAlagro = 0;
 			uint32 Spell_ContreAttaque = 0;
-			uint32 Spell_Canalise_hc = me->m_spells[7];								// Pour spell canalisé hors combat
+			uint32 Spell_Canalise_hc = me->m_spells[7];								// Pour spell canalis?hors combat
 			float x = 0.0f, y = 0.0f, z = 0.0f;
 			uint32 mapid = 0;
 
@@ -68,8 +68,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			uint32 Cooldown_Principal_C = 250;										// Tempo pour arreter le mouvement
 			uint32 Cooldown_Principal_C_Defaut = 1500;
 			uint32 Cooldown_Spell_Canalise_hc = 3000;
-			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisé hors combat
-
+			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalis?hors combat
 
 			// Spells
 			uint32 Buf_1 = 0;
@@ -121,7 +120,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			void Init_AI()
 			{
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -132,8 +131,8 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				// ################################################################################################################################################
 				// spell1 : Attaque principale
 				// spell2 : Dot
-				// spell3 : spell lancé a l'agro
-				// spell4 : spell lancé a l'évade ou respawn
+				// spell3 : spell lanc?a l'agro
+				// spell4 : spell lanc?a l'évade ou respawn
 				// spell5 : Buf
 				// spell6 : Heal(tir sur cible)
 
@@ -172,7 +171,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				}
 
 				Cooldown_Spell_Canalise_hc_defaut = me->GetCurrentSpellCastTime(Spell_Canalise_hc);
-				if (Cooldown_Spell_Canalise_hc_defaut < 2000)
+				if (Cooldown_Spell_Canalise_hc_defaut < 3000)
 					Cooldown_Spell_Canalise_hc_defaut = urand(5000,15000);
 
 				Cooldown_Spell_Canalise_hc_defaut = Cooldown_Spell_Canalise_hc_defaut + urand(1000, 2000);
@@ -215,10 +214,10 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -392,7 +391,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 				if (Cooldown_Spell_Canalise_hc <= diff)
 				{
-					Spell_canalisé_hc_home();
+					Void_Channeling_Spell_HC();
 					Cooldown_Spell_Canalise_hc = Cooldown_Spell_Canalise_hc_defaut;
 				}
 				else Cooldown_Spell_Canalise_hc -= diff;
@@ -452,7 +451,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			// ###### Reste a distance mais va au contact si la cible ce raproche ##################################################################################
 			void Mouvement_Caster_Puis_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || Fixedaura() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -494,7 +493,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			// ###### Caster , reste a distance ####################################################################################################################
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || AuraFigé() )
+				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -636,7 +635,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre
@@ -644,12 +643,13 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 					) return true;
 				else return false;
 			}
-			void Spell_canalisé_hc_home()
+			void Void_Channeling_Spell_HC()
 			{
-				// Sort canalisé hors combat, doit etre fixe et en home 
+				// Sort canalis?hors combat, doit etre fixe et en home 
 				if (Spell_Canalise_hc > 1 && !me->IsInCombat() && !me->HasAura(Spell_Canalise_hc))
 				{
-					me->CastSpell(me, Spell_Canalise_hc, true);
+					//me->CastSpell(me, Spell_Canalise_hc, true);
+					DoCast(me, Spell_Canalise_hc);
 				}
 			}
 

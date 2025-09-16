@@ -29,7 +29,7 @@
 #include "SpellScript.h"
 
 uint32 SPELL_POUR_VISUEL = 14867;
-uint32 PERTE_DE_DURABILITE = 45317;         //  Perte de 10 % de la durabilité
+uint32 PERTE_DE_DURABILITE = 45317;         //  Perte de 10 % de la durabilit?
 uint32 DISPARITIONS = 35205;
 
 
@@ -114,7 +114,7 @@ public:
 		}
 
 
-		player->LearnSpell(300048, true);      // Reparation de 10% de la durabilité
+		player->LearnSpell(300048, true);      // Reparation de 10% de la durabilit?
 
 		player->UpdateAllStats();
 
@@ -137,7 +137,7 @@ public:
     // Sans action pour le moment
     void OnPlayerEnterZone(Player* player, uint32 newZone, uint32 newArea)
     {
-		//VOIR Stitch fatigue forcé pour interdire une zone - Vashj'ir
+		//VOIR Stitch fatigue forc?pour interdire une zone - Vashj'ir
     }
     void OnPlayerUpdate(Player* player, uint32 p_time)
     {
@@ -393,7 +393,7 @@ case RACE_WORGEN:
 
 	if (_level >= 20)
 	{
-		player->LearnSpell(87840, true); // Ventre à terre	
+		player->LearnSpell(87840, true); // Ventre ?terre	
 	}
 	else player->RemoveSpell(87840, false);
 

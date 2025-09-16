@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_guerrier',`AIName` = '' WHERE (entry = 15100007);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100007);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_guerrier  .npc 15100007
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -91,7 +91,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			uint32 Spell_branche2_3 = 0;
 			uint32 branche2_agro[2] = { 6544, 355 };								// Bond héroïque 6544, Provocation 355
 			uint32 branche2_1[2] = { 126799, 126799 };								// Frappe héroïque 29426 , Frappe tranchante 126799
-			uint32 branche2_2[2] = { 1680, 85288 };									// tourbillon unique 1680, Coup déchainé 85288
+			uint32 branche2_2[2] = { 1680, 85288 };									// tourbillon unique 1680, Coup déchain?85288
 			uint32 branche2_3[2] = { 8147, 125436 };								// Coup de tonnerre 8147, Découpe d'os 125436
 
 			// Spells Protection
@@ -128,9 +128,9 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				// ################################################################################################################################################
 				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forcé 
-				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forcé
+				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
+				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
+				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forc?
 				else
 				{
 					// Sinon Choix de la Spécialisation Aléatoire
@@ -144,7 +144,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -226,10 +226,10 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 																					//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaiss?/ Stun
+				me->RemoveAura(153964);	// Retire agenouill? avec evade
+				me->RemoveAura(42648);	// Retire Dort allong?+ zzz
+				me->RemoveAura(18795);	// Retire Dort allong?+ zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
@@ -457,7 +457,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						// Combat ---------------------------------------------------------------------------------------------------------------------------------
 						Bonus_Degat_Arme_Done(-50);
 
-						// Spell1 sur la cible chaque (Sort Régulié)
+						// Spell1 sur la cible chaque (Sort Réguli?
 						if (Cooldown_Spell1 <= diff)
 						{
 							me->CastSpell(victim, Spell_branche3_1, true);
@@ -474,7 +474,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						}
 						else Cooldown_Spell2 -= diff;
 
-						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
 						if (Cooldown_Spell3 <= diff)
 						{
 							me->CastSpell(victim, Spell_branche3_3, true);
@@ -549,7 +549,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Rage = me->GetPower(POWER_RAGE);
@@ -604,7 +604,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				if ((Dist < 8) && (Cooldown_ResteADistance <= diff) && (BrancheSpe != 3))
 				{
 					Random = urand(1, 5);
-					if ((Random == 1 || Random == 2) && !AuraFigé())
+					if ((Random == 1 || Random == 2) && !Fixedaura())
 					{
 						Tourne_Au_Tour_En_Combat();											// 2 chances sur 5 tourne au tour de sa victime
 					}
@@ -745,7 +745,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool Fixedaura()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

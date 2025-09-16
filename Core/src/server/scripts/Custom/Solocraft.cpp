@@ -27,7 +27,7 @@ public:
 	}
 
 	void OnLogin(Player *player, bool firstLogin) override {
-		ChatHandler(player->GetSession()).SendSysMessage(">>> Mode solocraft activé <<<");
+		ChatHandler(player->GetSession()).SendSysMessage(">>> Mode solocraft activ?<<<");
 	}
 
 	void OnMapChanged(Player *player) override {

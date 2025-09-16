@@ -2221,7 +2221,7 @@ enum HiddenCultist
 
 const char* GOSSIP_ITEM_TOM_HEGGER = "Que savez-vous du Culte des damnés ?";
 const char* GOSSIP_ITEM_GUARD_MITCHELLS = "Depuis combien de temps travaillez-vous pour le Culte des damnés ?";
-const char* GOSSIP_ITEM_SALTY_JOHN_THORPE = "J'ai une raison de croire que vous etes impliqué dans l'activité du Culte des damnés";
+const char* GOSSIP_ITEM_SALTY_JOHN_THORPE = "J'ai une raison de croire que vous etes impliqu?dans l'activit?du Culte des damnés";
 
 class npc_hidden_cultist : public CreatureScript
 {
