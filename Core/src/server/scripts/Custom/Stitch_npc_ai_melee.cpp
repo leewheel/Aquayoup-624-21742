@@ -41,7 +41,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			Unit* victim = me->GetVictim();										 
 			uint32 MessageAlagro = 0;
 			uint32 Spell_ContreAttaque = 0;
-			uint32 Demande_Assistance_effectué = 0;
+			uint32 Demande_Assistance_effect = 0;
 			uint32 auto_peur5s = 8225;
 			uint8 me_rank = me->GetCreatureTemplate()->rank;
 
@@ -190,7 +190,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			void EnterEvadeMode(EvadeReason /*why*/) override
 			{
 				Start_Agro = 0;
-				Demande_Assistance_effectué = 0;
+				Demande_Assistance_effect = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
 				//me->SetSpeedRate(MOVE_RUN, 1.5f);													// Vitesse de déplacement
@@ -621,7 +621,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 
 			void Demande_Assistance(uint32 diff)
 			{
-				if (Demande_Assistance_effectué == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank != 0)
+				if (Demande_Assistance_effect == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank != 0)
 					return;
 
 				if (Cooldown_Demande_Assistance <= diff)
@@ -631,7 +631,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 						if (urand(1, 4) == 1)
 						{
 							me->CastSpell(me, auto_peur5s, true);
-							Demande_Assistance_effectué = 1;
+							Demande_Assistance_effect = 1;
 							Cooldown_ResteADistance = Cooldown_ResteADistance_defaut;
 							Cooldown_Spell1 = 3000;
 							Cooldown_Spell2 = 6000;
