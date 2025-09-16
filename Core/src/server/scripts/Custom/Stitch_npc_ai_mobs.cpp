@@ -2,21 +2,21 @@
 // Copyright (C) Juillet 2020 Stitch pour https:\\Aquayoup.123.fr
 // AI generique npc par famille : Mobs Ver 2024-07-30 (family)
 //
-// Si spell[1] = 0 : alors affectation aléatoire de tous les spells(prédéfini dans le core), sinon utilisera les spells définis dans creature_template spell[1 a 5]
+// Si spell[1] = 0 : alors affectation alï¿½atoire de tous les spells(prï¿½dï¿½fini dans le core), sinon utilisera les spells dï¿½finis dans creature_template spell[1 a 5]
 // BETE
 // UPDATE `creature_template` SET `spell1` = ATTAQUE, `spell2` = DOT, `spell3` = AGRO, `spell4` = EVADE, `spell5` = BUF, `ScriptName` = 'Stitch_npc_ai_mobs', `AIName` = '' WHERE(entry = 15100015);
 
 // spell1 : Attaque principale
 // spell2 : Dot
 // spell3 : spell lanc?a l'agro
-// spell4 : spell lanc?a l'évade ou respawn
+// spell4 : spell lanc?a l'ï¿½vade ou respawn
 // spell5 : Buf
-// spell6 : Heal(lui même uniquement)
+// spell6 : Heal(lui mï¿½me uniquement)
 
 /*
 1     Loup - CREATURE_FAMILY_WOLF								UPDATE `creature_template` SET `modelid1` = 903, `family` = 1,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Loup', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
 2     Felin - CREATURE_FAMILY_CAT								UPDATE `creature_template` SET `modelid1` = 320, `family` = 2,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Felin', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
-3 	  Araignee - CREATURE_FAMILY_SPIDER							UPDATE `creature_template` SET `modelid1` = 513, `family` = 3,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Araignée', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
+3 	  Araignee - CREATURE_FAMILY_SPIDER							UPDATE `creature_template` SET `modelid1` = 513, `family` = 3,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Araignï¿½e', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
 4 	  Ours - CREATURE_FAMILY_BEAR								UPDATE `creature_template` SET `modelid1` = 820, `family` = 4,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Ours', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
 5 	  Sanglier - CREATURE_FAMILY_BOAR							UPDATE `creature_template` SET `modelid1` = 503, `family` = 5,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Sanglier', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
 6	  Crocodile - CREATURE_FAMILY_CROCOLISK						UPDATE `creature_template` SET `modelid1` = 1039, `family` = 6,`InhabitType` = 3, `unit_class` = 1,`name` = 'npc_ai_Crocodile', `ScriptName` = 'Stitch_npc_ai_mobs' WHERE (entry = 15100015);
@@ -106,7 +106,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// Definitions des variables Cooldown et le 1er lancement
 			uint32 Cooldown_SpellA = 1000;											// Sort principal
 			uint32 Cooldown_SpellA_defaut = 3000;
-			uint32 Cooldown_SpellB = 3000;											// Sort secondaire moins rapide (généralement un DOT)
+			uint32 Cooldown_SpellB = 3000;											// Sort secondaire moins rapide (gï¿½nï¿½ralement un DOT)
 			uint32 Cooldown_SpellB_defaut = 5000;
 			uint32 Cooldown_SpellB_rapide = 3000;									// Cadence de tir SpellB rapide pour Mouvement_Cast_Puis_Contact
 			uint32 Cooldown_SpellB_rapide_defaut = Cooldown_SpellB_defaut;			// Cadence de tir SpellB normale pour Mouvement_Cast_Puis_Contact
@@ -122,7 +122,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 Cooldown_Trop_Loin = 4000;
 			uint32 Cooldown_Trop_Loin_Defaut = 10000;
 			uint32 Base_Cooldown_Cast_A = 3500;										// Cooldown de base pour l'attaque principal, il est utilis?avec des valeurs ajout?en +-, sert a definir Cooldown_SpellA_defaut
-			uint32 Base_Cooldown_Cast_B = 8000;										// Idem pour le sort secondaire, généralement un DOT
+			uint32 Base_Cooldown_Cast_B = 8000;										// Idem pour le sort secondaire, gï¿½nï¿½ralement un DOT
 			uint32 AI_Random = 0;
 			uint32 Start_Agro = 0;
 			uint32 Start_Agro2 = 0;
@@ -144,7 +144,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 Spell_Toile_Araignee = 15471;								// Linceul de toiles 20m 4s
 			uint32 Spell_Charge_Stun = 87187;									// Charge farouche 87187 (8-25 m ours, stun 4s)
 			uint32 Spell_Charge_Repousse = 19196;								// charge afflux,
-			uint32 Spell_Charge = 20508;										// Charge (dmg et sans effet) 93515, charge avec trainée 20508, charge 32323 (sonne 2s,8-25m ) 
+			uint32 Spell_Charge = 20508;										// Charge (dmg et sans effet) 93515, charge avec trainï¿½e 20508, charge 32323 (sonne 2s,8-25m ) 
 			uint32 Spell_Charge_Stun2s = 32323;									// Charge 32323 (sonne 2s,8-25m ) 
 			uint32 Spell_Poursuite = 30151;										// Poursuite 30151 (Gangregarde : charge, vit + 30 %/6s, >8m, recharge 15s)
 			uint32 Spell_Vitesse_Flamboyante = 108843;							// 6s 150 %
@@ -152,11 +152,12 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 Spell_Vitesse_vol_4s = 300273;									// 300273/137573 vitesse + 70 % / 4
 			uint32 Spell_stun_1s = 149902;										// stun 1s 10m
 			uint32 Spell_Bondir_Guerrier = 145763;								// Bondir 8-40m
-			uint32 Spell_Invisible = 1784;										// Invisibilitée fufu
+			uint32 Spell_Invisible = 1784;										// Invisibilitï¿½e fufu
 			uint32 Spell_No_ModelID = 137358;									// ModelID non visible , arme && aura visible 
-			uint32 Spell_Senterre = 79690;										// visuel terre Forage de tunnel Passif gris percistant
-			uint32 Spell_Senterre_sans_fumee = 84863;							// visuel terre Forage de tunnel Passif gris  
-			uint32 Spell_Sedeterre_sans_fumee = 164339;							// visuel explosion de fumée   
+			uint32 Spell_Senterre = 79690;										// fumï¿½e persistante - visuel terre Forage de tunnel Passif gris percistant
+			uint32 Spell_Senterre_sans_fumee = 84863;							// fumï¿½e temporaire - visuel terre Forage de tunnel Passif gris  
+			uint32 Spell_Sedeterre_sans_fumee = 164339;							// visuel explosion de fumï¿½e au retrait 
+			uint32 Spell_Senterre_remou_clair = 29147;							// visuel terre remuï¿½ claire pour Ver
 			uint32 Spell_Gaz_Corrosif = 126437;
 			uint32 Spell_Armure_De_Givre = 165743;
 			uint32 Spell_Armure_De_La_Fournaise = 79849;
@@ -185,40 +186,40 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 
 
-			//--- family : tirage aléatoire des spells
+			//--- family : tirage alï¿½atoire des spells
 			// 1	Loup - CREATURE_FAMILY_WOLF 
 			uint32 liste_spell_A_1[3] = { 300206, 113687, 113687 };				// Mutiler 300206, morsure 113687
-			uint32 liste_spell_B_1[4] = { 3427, 9080, 9080, 50075 };			// Blessure infectée 3427, Brise-genou 9080, Chair mutilée 50075 (dégâts +25x5)
+			uint32 liste_spell_B_1[4] = { 3427, 9080, 9080, 50075 };			// Blessure infectï¿½e 3427, Brise-genou 9080, Chair mutilï¿½e 50075 (dï¿½gï¿½ts +25x5)
 			uint32 liste_agro_1[2] = { 75355,75355 };							// Hurlement horrible 75355 (vit. d'attaque -10%/15s) 
-			uint32 liste_Buf_1[6] = { 59737, 3149, 3149, 15727, 15727, 8599 };	// vitesse 59737, Hurlement furieux	3149 (force +15), Rugissement démoralisant 15727, Enrager 8599 (+DPS,+Vit dattaque)
+			uint32 liste_Buf_1[6] = { 59737, 3149, 3149, 15727, 15727, 8599 };	// vitesse 59737, Hurlement furieux	3149 (force +15), Rugissement dï¿½moralisant 15727, Enrager 8599 (+DPS,+Vit dattaque)
 
 			// 2	Felin - CREATURE_FAMILY_CAT
 			uint32 liste_spell_A_2[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_2[4] = { 84867, 300220, 1079, 300220 };		// Balayage fracassant (cum 5 fois) 84867, Griffure 300220, Dechirure 1079 (24s)
-			uint32 liste_agro_2[2] = { 89712, 138766 };							// Griffure bondissante (bond) 89712, Rugissement perçant 138766
-			uint32 liste_Buf_2[3] = { 15971, 15727, 44531  };					// Rugissement démoralisant 15971 (Réduit PA mêlée des ennemis 10m/30s), Rugissement démoralisant 15727, Célérit?44531
+			uint32 liste_agro_2[2] = { 89712, 138766 };							// Griffure bondissante (bond) 89712, Rugissement perï¿½ant 138766
+			uint32 liste_Buf_2[3] = { 15971, 15727, 44531  };					// Rugissement dï¿½moralisant 15971 (Rï¿½duit PA mï¿½lï¿½e des ennemis 10m/30s), Rugissement dï¿½moralisant 15727, Cï¿½lï¿½rit?44531
 			
 			// 3	Araignee - CREATURE_FAMILY_SPIDER
 			uint32 liste_spell_A_3[2] = { 113687, 300206 };						// Morsure	113687, Mutiler	300206
 			uint32 liste_spell_B_3[2] = { 21067, 88876 };						// Eclair de poison 21067, Venin paralysant 88876
-			uint32 liste_agro_3[4] = { 15471, 15471, 15471, 28434 };			// Toile d'ataignée (Linceul de toiles) 15471,Toile d'araignée (attire la cible + cocoon) 28434
+			uint32 liste_agro_3[4] = { 15471, 15471, 15471, 28434 };			// Toile d'ataignï¿½e (Linceul de toiles) 15471,Toile d'araignï¿½e (attire la cible + cocoon) 28434
 			uint32 liste_Buf_3[2] = { 0,0 };						
 			
 			//4		Ours - CREATURE_FAMILY_BEAR
 			uint32 liste_spell_A_4[3] = { 300206, 300206, 300207 };				// Mutiler 300206, Mutilation 300207
 			uint32 liste_spell_B_4[3] = { 300208, 33745, 84867 };				// Rosser 300208, Lacerer 33745, Balayage fracassant 84867 (DPS, armure -5% + 2/lvl/20s cumulable 5 fois)
-			uint32 liste_agro_4[2] = { 87187, 300209 };							// Charge farouche 87187 8 - 25 m ours, Coup de crâne 300209 (interrompt  4s)
-			uint32 liste_Buf_4[2] = { 106898, 22812  };							// Ruée rugissante 106898 (vit +60%), Ecorce (degats -20% /12s) 22812
+			uint32 liste_agro_4[2] = { 87187, 300209 };							// Charge farouche 87187 8 - 25 m ours, Coup de crï¿½ne 300209 (interrompt  4s)
+			uint32 liste_Buf_4[2] = { 106898, 22812  };							// Ruï¿½e rugissante 106898 (vit +60%), Ecorce (degats -20% /12s) 22812
 
 			//5		Sanglier - CREATURE_FAMILY_BOAR
-			uint32 liste_spell_A_5[3] = { 300206, 152571, 300208 };				// Mutiler 300206, Rosser 300208 (Ours) , encorner 152571 (cone 5m ; Soi-même)
-			uint32 liste_spell_B_5[5] = { 81691, 50303, 50303, 50303, 131172 };	// Cornépine 5m (repousse) 81691, Grippe porcine 50303, Coup de tete 131172
+			uint32 liste_spell_A_5[3] = { 300206, 152571, 300208 };				// Mutiler 300206, Rosser 300208 (Ours) , encorner 152571 (cone 5m ; Soi-mï¿½me)
+			uint32 liste_spell_B_5[5] = { 81691, 50303, 50303, 50303, 131172 };	// Cornï¿½pine 5m (repousse) 81691, Grippe porcine 50303, Coup de tete 131172
 			uint32 liste_agro_5[2] = { 32323,32323 };							// charge (sonne 2s,8-25m ) 32323
-			uint32 liste_Buf_5[3] = { 183883, 1160, 8599 };						// Hurlement de rage vitesse 183883 (dps +25%/12s), Cri démoralisant 1160, Enrager	(+degat physique+vit dattaque, 2mn, visuel rouge) 8599
+			uint32 liste_Buf_5[3] = { 183883, 1160, 8599 };						// Hurlement de rage vitesse 183883 (dps +25%/12s), Cri dï¿½moralisant 1160, Enrager	(+degat physique+vit dattaque, 2mn, visuel rouge) 8599
 
 			//6 	Crocodile - CREATURE_FAMILY_CROCOLISK
 			uint32 liste_spell_A_6[2] = { 113687, 113687 };						// Morsure 113687
-			uint32 liste_spell_B_6[4] = { 138765, 136870, 127987, 131626 };		// Écraser 138765 armure -10%/30s, Heurt de queue 136870 (repousse legement, armure -10%/20s ,cumulable 10 fois), Morsure hémorragique 127987, Gifle de la queue 131626
+			uint32 liste_spell_B_6[4] = { 138765, 136870, 127987, 131626 };		// ï¿½craser 138765 armure -10%/30s, Heurt de queue 136870 (repousse legement, armure -10%/20s ,cumulable 10 fois), Morsure hï¿½morragique 127987, Gifle de la queue 131626
 			uint32 liste_agro_6[2] = { 12097, 12097 };							// Perce-armure 12097 (armure -75%/15s 5m)
 			uint32 liste_Buf_6[2] = { 0, 0 };									// 
 
@@ -226,47 +227,47 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_7[3] = { 115388, 115132, 115388 };				// Coup de bec 115388, Plongeon 115132
 			uint32 liste_spell_B_7[4] = { 30639, 163716, 124515, 55079 };		// Morsure carnivore 30639, Griffure de serres 163716, Barrage de coups de bec 124515, Rapace 55079
 			uint32 liste_agro_7[2] = { 89712, 18328 };							// Griffure_bondissante 89712, Cri incapacitant 18328 (vit -60%)
-			uint32 liste_Buf_7[5] = { 44531, 44531, 183883, 3149, 70485 };		// Célérit?44531, *Hurlement de rage 183883 (vit, dps +25%/12s), Hurlement furieux 3149, Bond_Aleatoire 70485
+			uint32 liste_Buf_7[5] = { 44531, 44531, 183883, 3149, 70485 };		// Cï¿½lï¿½rit?44531, *Hurlement de rage 183883 (vit, dps +25%/12s), Hurlement furieux 3149, Bond_Aleatoire 70485
 
 			// 8	Crabe - CREATURE_FAMILY_CRAB	
 			uint32 liste_spell_A_8[2] = { 118140, 118140 };						// Pince 118140
-			uint32 liste_spell_B_8[3] = { 84867, 84867, 79175 };				// Balayage fracassant 84867 (griffe, armure -5%, cumulable 5 fois), Coup frénétique 79175
+			uint32 liste_spell_B_8[3] = { 84867, 84867, 79175 };				// Balayage fracassant 84867 (griffe, armure -5%, cumulable 5 fois), Coup frï¿½nï¿½tique 79175
 			uint32 liste_agro_8[2] = { 89712, 80807 };							// Griffure bondissante (bond) 89712, Splendeur 80807 (cone nuage terre)
-			uint32 liste_Buf_8[2] = { 22863, 5171 };							// Vitesse 22863 (10s 30%), Débiter 5171 (vitesse d'attaque)
+			uint32 liste_Buf_8[2] = { 22863, 5171 };							// Vitesse 22863 (10s 30%), Dï¿½biter 5171 (vitesse d'attaque)
 
 			// 9	Gorille - CREATURE_FAMILY_GORILLA	
-			uint32 liste_spell_A_9[4] = { 51944, 119004, 119004, 131193 };			// Piétiner 51944, Violent coup direct 119004, Choc 131193 (coup de poing 30/lvl)
-			uint32 liste_spell_B_9[5] = { 138765, 138765, 118682, 118682, 6253 };	// Écraser 138765 (armure -10%/30s), Taper du pied 118682, revers 6253 (sonne 2s)
+			uint32 liste_spell_A_9[4] = { 51944, 119004, 119004, 131193 };			// Piï¿½tiner 51944, Violent coup direct 119004, Choc 131193 (coup de poing 30/lvl)
+			uint32 liste_spell_B_9[5] = { 138765, 138765, 118682, 118682, 6253 };	// ï¿½craser 138765 (armure -10%/30s), Taper du pied 118682, revers 6253 (sonne 2s)
 			uint32 liste_agro_9[3] = { 18328, 50231, 145763 };						// Cri incapacitant 18328 (vit -60%), agro 50231, Bondir 145763 (guerrier)
-			uint32 liste_Buf_9[3] = { 183883, 15727, 18499 };						// Hurlement de rage 183883 (vit,dps +25%/12s), Rugissement démoralisant 15727 (Réduit PA mêlée 10m/20s), Rage de berserker	18499
+			uint32 liste_Buf_9[3] = { 183883, 15727, 18499 };						// Hurlement de rage 183883 (vit,dps +25%/12s), Rugissement dï¿½moralisant 15727 (Rï¿½duit PA mï¿½lï¿½e 10m/20s), Rage de berserker	18499
 
 			// 11    Raptor - CREATURE_FAMILY_RAPTOR
 			uint32 liste_spell_A_11[2] = { 113687, 113687 };					// Morsure 113687, 
 			uint32 liste_spell_B_11[4] = { 30639, 136870, 118576, 772 };		// Morsure carnivore 30639, Heurt de queue 136870 (repousse legerement, armure -10%/20s, cumulable 10 fois), Kigrince 118576 (canalis?3s, cone 10/lvl), Pourfendre 772
 			uint32 liste_agro_11[3] = { 89712, 50231, 18328 };					// Griffure bondissante 89712 (bond), agro 50231, Cri incapacitant 18328 (vit -60%)	
-			uint32 liste_Buf_11[3] = { 22863, 1160, 8599 };						// Vitesse 22863 (10s 30%), Cri démoralisant 1160, Enrager 8599 (+degat physique+vit dattaque,visuel rouge)
+			uint32 liste_Buf_11[3] = { 22863, 1160, 8599 };						// Vitesse 22863 (10s 30%), Cri dï¿½moralisant 1160, Enrager 8599 (+degat physique+vit dattaque,visuel rouge)
 
 			// 12	Grand trotteur - CREATURE_FAMILY_TALLSTRIDER 
 			uint32 liste_spell_A_12[2] = { 115388, 115388 };					// Coup de bec 115388
 			uint32 liste_spell_B_12[3] = { 118682, 131172, 131172 };			// Taper du pied 118682, Coup de tete 131172
 			uint32 liste_agro_12[2] = { 42320, 42320 };							// Coup de tete avec confusion 42320
-			uint32 liste_Buf_12[3] = { 22863, 1160, 137573 };					// Vitesse 22863 (10s 30%), Cri démoralisant 1160, vitesse 4s 137573)
+			uint32 liste_Buf_12[3] = { 22863, 1160, 137573 };					// Vitesse 22863 (10s 30%), Cri dï¿½moralisant 1160, vitesse 4s 137573)
 
 			// 16    Marcheur du Vide - CREATURE_FAMILY_VOIDWALKER
 			uint32 liste_spell_A_16[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_16[2] = { 3716, 3716 };						// Tourment 3716
 			uint32 liste_agro_16[2] = { 17735, 17735 };							// Souffrance 17735
-			uint32 liste_Buf_16[2] = { 115232, 115232 };						// Bouclier de l’ombre 115232 (dmg -60%/30s)
+			uint32 liste_Buf_16[2] = { 115232, 115232 };						// Bouclier de lï¿½ombre 115232 (dmg -60%/30s)
 
 			// 17    Succube - CREATURE_FAMILY_SUCCUBUS
 			uint32 liste_spell_A_17[2] = { 7814, 7814 };						// Fouet de la douleur 7814
 			uint32 liste_spell_B_17[2] = { 6360, 6360 };						// Coup de fouet 6360 (dmg,repousse)
-			uint32 liste_agro_17[2] = { 86377, 86377 };							// Séduction 86377 (stun 6s) /6358 (stun 30s)
+			uint32 liste_agro_17[2] = { 86377, 86377 };							// Sï¿½duction 86377 (stun 6s) /6358 (stun 30s)
 			uint32 liste_Buf_17[2] = { 0, 0 };									//  
 
 			// 19    Garde funeste (Doomguard) - CREATURE_FAMILY_DOOMGUARD
 			uint32 liste_spell_A_19[2] = { 77558, 77558 };						// Frappe sanglante 77558
-			uint32 liste_spell_B_19[2] = { 127171, 118532 };					// Fendoir vicieux 127171, Entaille infectée 118532
+			uint32 liste_spell_B_19[2] = { 127171, 118532 };					// Fendoir vicieux 127171, Entaille infectï¿½e 118532
 			uint32 liste_agro_19[3] = { 85692, 145763, 70485 };					// Trait funeste 85692, Spell_Bondir_Guerrier 145763, BOND Aleatoire 70485
 			uint32 liste_Buf_19[2] = { 0, 0 };									//  
 
@@ -285,7 +286,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// 23    Diablotin (Imp) - CREATURE_FAMILY_IMP	
 			uint32 liste_spell_A_23[2] = { 24187, 24187 };							// griffe 24187
 			uint32 liste_spell_B_23[2] = { 3110, 3110 };							// Eclair de feu 3110
-			uint32 liste_agro_23[2] = { 89808, 89808 };								// Brûle-magie 89808
+			uint32 liste_agro_23[2] = { 89808, 89808 };								// Brï¿½le-magie 89808
 			uint32 liste_Buf_23[2] = { 0, 0 };										//  
 
 			// 24    Chauve-Souris - CREATURE_FAMILY_BAT
@@ -298,7 +299,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_25[2] = { 113687, 33745 };						// Morsure 113687, Lacerer 33745
 			uint32 liste_spell_B_25[2] = { 1715, 1715 };						// Brise-genou	1715
 			uint32 liste_agro_25[2] = { 0, 0 };									// 
-			uint32 liste_Buf_25[2] = { 44531, 44531 };							// Célérit?44531
+			uint32 liste_Buf_25[2] = { 44531, 44531 };							// Cï¿½lï¿½rit?44531
 
 			// 26    Oiseau de proie - CREATURE_FAMILY_BIRD_OF_PREY
 			uint32 liste_spell_A_26[2] = { 24187, 24187  };						// griffe 24187
@@ -310,25 +311,25 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_27[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_27[3] = { 9532, 9532, 28167 };					// eclair 9532, chaine d'eclair	28167
 			uint32 liste_agro_27[2] = { 12548, 57994 };							// Horion de givre 12548, Cisaille de vent 57994
-			uint32 liste_Buf_27[3] = { 324, 324, 32182 };						// Bouclier de foudre 324, Héroïsme 32182
+			uint32 liste_Buf_27[3] = { 324, 324, 32182 };						// Bouclier de foudre 324, Hï¿½roï¿½sme 32182
 
 			// 29 Gangregarde (Felguard) - CREATURE_FAMILY_FELGUARD
-			uint32 liste_spell_A_29[2] = { 127171, 127171  };					// Frappe de la Légion 30213, , Fendoir vicieux 127171
+			uint32 liste_spell_A_29[2] = { 127171, 127171  };					// Frappe de la Lï¿½gion 30213, , Fendoir vicieux 127171
 			uint32 liste_spell_B_29[2] = { 89751, 89751 };						// Gangrorage 89751
 			uint32 liste_agro_29[2] = { 89766, 30151 };							// Lancer de hache 89766,  Poursuite 30151 (charge, vit +30%/6s)
 			uint32 liste_Buf_29[2] = { 0, 0 };									//
 
 			// 30    Faucon dragon - CREATURE_FAMILY_DRAGONHAWK
-			uint32 liste_spell_A_30[2] = { 44519, 44519 };						// Incinérer 44519, Brulure 38391, Bouffée d’air 128134
+			uint32 liste_spell_A_30[2] = { 44519, 44519 };						// Incinï¿½rer 44519, Brulure 38391, Bouffï¿½e dï¿½air 128134
 			uint32 liste_spell_B_30[2] = { 51219, 51219 };						// Souffle de flammes 51219
 			uint32 liste_agro_30[2] = { 0, 0 };									// 
-			uint32 liste_Buf_30[2] = { 79849, 29718 };							// Armure de la fournaise 79849, Armure des éléments 29718 (resistance magie 200)
+			uint32 liste_Buf_30[2] = { 79849, 29718 };							// Armure de la fournaise 79849, Armure des ï¿½lï¿½ments 29718 (resistance magie 200)
 
 			// 31    Ravageur - CREATURE_FAMILY_RAVAGER
 			uint32 liste_spell_A_31[2] = { 113687, 113687 };					// Morsure 113687 
 			uint32 liste_spell_B_31[4] = { 772, 33745, 83639, 33745 };			// Pourfendre 772, Lacerer 33745, Bain de sang 83639 (6 attaque rapide 7/lvl 3s)
 			uint32 liste_agro_31[2] = { 89712, 50231 };							// Griffure bondissante 89712 (bond), agro 50231
-			uint32 liste_Buf_31[4] = { 33907, 33907, 106898, 15727 };			// Epines 33907, Ruée rugissante 106898 (vit +60%), Rugissement démoralisant 15727 (Réduit PA mêlée des ennemis 10m/20s)
+			uint32 liste_Buf_31[4] = { 33907, 33907, 106898, 15727 };			// Epines 33907, Ruï¿½e rugissante 106898 (vit +60%), Rugissement dï¿½moralisant 15727 (Rï¿½duit PA mï¿½lï¿½e des ennemis 10m/20s)
 
 			// 34    Raie du Neant - CREATURE_FAMILY_NETHER_RAY
 			uint32 liste_spell_A_34[2] = { 113687, 113687 };					// Morsure 113687 
@@ -344,7 +345,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 37    Papillon de nuit - CREATURE_FAMILY_MOTH
 			uint32 liste_spell_A_37[2] = { 24187, 24187 };						// griffe 24187
-			uint32 liste_spell_B_37[2] = { 128134, 128134 };					// Bouffée d’air 128134
+			uint32 liste_spell_B_37[2] = { 128134, 128134 };					// Bouffï¿½e dï¿½air 128134
 			uint32 liste_agro_37[2] = { 57994, 57994 };							// Cisaille de vent 57994
 			uint32 liste_Buf_37[2] = { 0, 0 };									//  
 
@@ -355,39 +356,39 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_Buf_38[2] = { 324, 324 };								// Bouclier de foudre 324
 
 			// 39    Diablosaure - CREATURE_FAMILY_DEVILSAUR
-			uint32 liste_spell_A_39[2] = { 137504, 137504 };							// Écraser 137504 (armure -25%/1mn)
-			uint32 liste_spell_B_39[5] = { 118682, 118682, 136870, 136870, 140409 };	// Taper du pied 118682, Piétinement de diablosaure 140409 (stun), Heurt de queue 136870 (repousse legement armure -10%/20s cumulable 10 fois) 
+			uint32 liste_spell_A_39[2] = { 137504, 137504 };							// ï¿½craser 137504 (armure -25%/1mn)
+			uint32 liste_spell_B_39[5] = { 118682, 118682, 136870, 136870, 140409 };	// Taper du pied 118682, Piï¿½tinement de diablosaure 140409 (stun), Heurt de queue 136870 (repousse legement armure -10%/20s cumulable 10 fois) 
 			uint32 liste_agro_39[2] = { 0, 0 };											// 
-			uint32 liste_Buf_39[2] = { 138766, 15727 };									// Rugissement perçant 138766, Rugissement démoralisant 15727 (Réduit PA mêlée 10m/20s)
+			uint32 liste_Buf_39[2] = { 138766, 15727 };									// Rugissement perï¿½ant 138766, Rugissement dï¿½moralisant 15727 (Rï¿½duit PA mï¿½lï¿½e 10m/20s)
 
 			// 40    Goule - CREATURE_FAMILY_GHOUL
 			uint32 liste_spell_A_40[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_40[2] = { 300220, 300220 };					// Griffure	300220
 			uint32 liste_agro_40[2] = { 3436, 3436 };							// peste galopante 3436 (degat +5%,endurance -5% , 10% de contaminer un allier quand touch?30s)
-			uint32 liste_Buf_40[2] = { 50366, 50366 };							// Nuée de peste 50366 (infecte les cibles proches)	
+			uint32 liste_Buf_40[2] = { 50366, 50366 };							// Nuï¿½e de peste 50366 (infecte les cibles proches)	
 
 			// 41    case 41:	//	Silithide - CREATURE_FAMILY_SILITHID
-			uint32 liste_spell_A_41[2] = { 113687, 3393 };						// Morsure 113687, Dévoreur de chair 3393
+			uint32 liste_spell_A_41[2] = { 113687, 3393 };						// Morsure 113687, Dï¿½voreur de chair 3393
 			uint32 liste_spell_B_41[4] = { 772, 33745, 84867, 33745 };			// Pourfendre 772, Lacerer 33745, Balayage fracassant 84867
 			uint32 liste_agro_41[2] = { 89712, 50231 };							// Griffure bondissante 89712 (bond), agro 50231
-			uint32 liste_Buf_41[4] = { 33907, 33907, 106898, 66060 };			// Epines 33907, Ruée rugissante 106898 (vit +60%), Sprint 66060 
+			uint32 liste_Buf_41[4] = { 33907, 33907, 106898, 66060 };			// Epines 33907, Ruï¿½e rugissante 106898 (vit +60%), Sprint 66060 
 
 
 			// 42    Ver - CREATURE_FAMILY_WORM
-			uint32 liste_spell_A_42[2] = { 69203, 20667 };						// Morsure vicieuse 69203, jet dacide 20667 (cône  20m,Réduit l'armure,dmg 5s/15s )
+			uint32 liste_spell_A_42[2] = { 69203, 20667 };						// Morsure vicieuse 69203, jet dacide 20667 (cï¿½ne  20m,Rï¿½duit l'armure,dmg 5s/15s )
 			uint32 liste_spell_B_42[2] = { 26419, 26419 };						// pluie d acide 26419 (degat nature augment?par le nbr d'application)
 			uint32 liste_agro_42[2] = { 0, 0 };									// 
 			uint32 liste_Buf_42[2] = { 0, 0 };									//  
 
 			// 43    Rhinoceros - CREATURE_FAMILY_RHINO
 			uint32 liste_spell_A_43[2] = { 131172, 131172 };					// Coup de tete 131172
-			uint32 liste_spell_B_43[2] = { 125384, 125384 };					// Chute sur le ventre 125384 (dmg, repousse, légèrement)
+			uint32 liste_spell_B_43[2] = { 125384, 125384 };					// Chute sur le ventre 125384 (dmg, repousse, lï¿½gï¿½rement)
 			uint32 liste_agro_43[2] = { 19196, 17230 };							// Spell_Charge_Repousse 19196, blessure infect?17230 (degat physique auglment?de 2/lvl+10/5mn)
 			uint32 liste_Buf_43[2] = { 118682, 152571 };						// Taper du pied 118682, encorner 152571
 
 			// 44    Guepe - CREATURE_FAMILY_WASP
 			uint32 liste_spell_A_44[2] = { 37838, 37838 };						// Mutiler 300206, Sangsue 37838 (drain pv)
-			uint32 liste_spell_B_44[2] = { 128425, 128425 };					// Résine corrosive 128425
+			uint32 liste_spell_B_44[2] = { 128425, 128425 };					// Rï¿½sine corrosive 128425
 			uint32 liste_agro_44[2] = { 0, 0 };									// 
 			uint32 liste_Buf_44[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 
@@ -395,18 +396,18 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_45[2] = { 113687, 113687 };					// Morsure 113687
 			uint32 liste_spell_B_45[2] = { 1079, 1715 };						// Dechirure 1079, Brise-genou 1715
 			uint32 liste_agro_45[2] = { 0, 0 };									// 
-			uint32 liste_Buf_45[2] = { 44531, 44531 };							// Célérit?44531
+			uint32 liste_Buf_45[2] = { 44531, 44531 };							// Cï¿½lï¿½rit?44531
 
 			// 49    Elementaire d'eau - CREATURE_FAMILY_WATER_ELEMENTAL
 			uint32 liste_spell_A_49[2] = { 119004, 119004 };					// Violent coup direct 119004
 			uint32 liste_spell_B_49[2] = { 34425, 34425 };						// Trait d'eau 34425
 			uint32 liste_agro_49[3] = { 127463, 116, 116 };						// Destruction glaciale 127463, Eclair de givre	116
-			uint32 liste_Buf_49[2] = { 165743, 29718 };							// Armure de givre 165743, Armure des éléments 29718
+			uint32 liste_Buf_49[2] = { 165743, 29718 };							// Armure de givre 165743, Armure des ï¿½lï¿½ments 29718
 
 			// 50    Renard - CREATURE_FAMILY_FOX
 			uint32 liste_spell_A_50[2] = { 113687, 113687 };					// Morsure 113687
 			uint32 liste_spell_B_50[2] = { 1715, 1715 };						// Brise-genou 1715
-			uint32 liste_agro_50[2] = { 85691, 85691 };							// Hurlement perçant 85691 (stun 4s)
+			uint32 liste_agro_50[2] = { 85691, 85691 };							// Hurlement perï¿½ant 85691 (stun 4s)
 			uint32 liste_Buf_50[3] = { 85690, 22863, 1784 };					// Ruse du renard 85690 (esquive +25%/5s), Vitesse 22863 (10s/30%), Camouflage 1784
 
 			// 51    Singe - CREATURE_FAMILY_MONKEY
@@ -419,13 +420,13 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_52[2] = { 113687, 113687 };					// Morsure 113687
 			uint32 liste_spell_B_52[2] = { 1079, 1715 };						// Dechirure 1079, Brise-genou 1715
 			uint32 liste_agro_52[2] = { 0, 0 };									// 
-			uint32 liste_Buf_52[2] = { 44531, 44531 };							// Célérit?44531
+			uint32 liste_Buf_52[2] = { 44531, 44531 };							// Cï¿½lï¿½rit?44531
 
 			// 55    Araignee de schiste - CREATURE_FAMILY_SHALE_SPIDER
 			uint32 liste_spell_A_55[2] = { 118140, 118140 };					// Pince 118140
-			uint32 liste_spell_B_55[2] = { 12097, 3604 };						// Perce-armure 12097 (armure -75%/15s 5m), Déchirure du tendon 3604 (5s)
-			uint32 liste_agro_55[2] = { 20667, 89712  };						// jet dacide 20667 (cône  20m,Réduit l'armure,dmg 5s/15s ), Griffure bondissante 89712
-			uint32 liste_Buf_55[2] = { 22812, 43547 };							// Ecorce 22812, Débiter (Vit d’attaque +50%/40s) 43547
+			uint32 liste_spell_B_55[2] = { 12097, 3604 };						// Perce-armure 12097 (armure -75%/15s 5m), Dï¿½chirure du tendon 3604 (5s)
+			uint32 liste_agro_55[2] = { 20667, 89712  };						// jet dacide 20667 (cï¿½ne  20m,Rï¿½duit l'armure,dmg 5s/15s ), Griffure bondissante 89712
+			uint32 liste_Buf_55[2] = { 22812, 43547 };							// Ecorce 22812, Dï¿½biter (Vit dï¿½attaque +50%/40s) 43547
 
 			// 56    Zombie - CREATURE_FAMILY_ZOMBIE	
 			uint32 liste_spell_A_56[2] = { 24187, 113687 };						// griffe 24187, Morsure 113687
@@ -435,27 +436,27 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 68    Hydre - CREATURE_FAMILY_HYDRA
 			uint32 liste_spell_A_68[2] = { 113687, 113687 };					// Morsure 113687
-			uint32 liste_spell_B_68[3] = { 131626, 127987, 50169 };				// Gifle de la queue 131626, Morsure hémorragique 127987, Grand coup de nageoire 50169
+			uint32 liste_spell_B_68[3] = { 131626, 127987, 50169 };				// Gifle de la queue 131626, Morsure hï¿½morragique 127987, Grand coup de nageoire 50169
 			uint32 liste_agro_68[2] = { 79607, 140476 };						// poison 79607 (Tir catapulte), Vil crachat 140476
 			uint32 liste_Buf_68[2] = { 33907, 33907 };							// Spell_Epines 33907
 
 			// 100   Diablotin gangrene - CREATURE_FAMILY_FELIMP
 			uint32 liste_spell_A_100[2] = { 24187, 24187 };						// griffe 24187
 			uint32 liste_spell_B_100[2] = { 26419, 26419 };						// pluie d acide 26419
-			uint32 liste_agro_100[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
-			uint32 liste_Buf_100[2] = { 79934, 79934 };							// Armure démoniaque 79934
+			uint32 liste_agro_100[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_Buf_100[2] = { 79934, 79934 };							// Armure dï¿½moniaque 79934
 
 			// 104   Garde-courroux - CREATURE_FAMILY_WRATHGUARD
 			uint32 liste_spell_A_104[2] = { 77558, 77558 };						// Frappe sanglante 77558
-			uint32 liste_spell_B_104[2] = { 127171, 118532  };					// Fendoir vicieux 127171, Entaille infectée 118532
+			uint32 liste_spell_B_104[2] = { 127171, 118532  };					// Fendoir vicieux 127171, Entaille infectï¿½e 118532
 			uint32 liste_agro_104[2] = { 32323, 145763 };						// charge 32323 (sonne 2s,8-25m ), Spell_Bondir_Guerrier 145763
 			uint32 liste_Buf_104[2] = { 0, 0 };									//  
 
 			// 108   Infernal - CREATURE_FAMILY_INFERNAL
-			uint32 liste_spell_A_108[2] = { 82616, 82616 };						// Frappe focalisée 82616, Violent coup direct 119004
+			uint32 liste_spell_A_108[2] = { 82616, 82616 };						// Frappe focalisï¿½e 82616, Violent coup direct 119004
 			uint32 liste_spell_B_108[2] = { 44267, 6253 };						// Immolation 44267, revers 6253 (stun 2s)	
-			uint32 liste_agro_108[3] = { 131381, 176725, 177288 };				// Feu de l'âme 131381 , Main de Gul’dan 176725, Onde de chaos 177288
-			uint32 liste_Buf_108[4] = { 104773, 109773, 79849, 79849 };			// Résolution interminable 104773, Sombre intention 109773, Armure De La Fournaise 79849
+			uint32 liste_agro_108[3] = { 131381, 176725, 177288 };				// Feu de l'ï¿½me 131381 , Main de Gulï¿½dan 176725, Onde de chaos 177288
+			uint32 liste_Buf_108[4] = { 104773, 109773, 79849, 79849 };			// Rï¿½solution interminable 104773, Sombre intention 109773, Armure De La Fournaise 79849
 
 			// 116   elementaire de feu - CREATURE_FAMILY_FIREELEMENTAL
 			uint32 liste_spell_A_116[2] = { 119004, 119004 };					// Violent coup direct 119004
@@ -471,7 +472,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 130   Basilic - CREATURE_FAMILY_BASILISK
 			uint32 liste_spell_A_130[2] = { 113687, 113687 };					// Morsure 113687
-			uint32 liste_spell_B_130[4] = { 138765, 136870, 127987, 131626 };	// Écraser 138765 armure -10%/30s, Heurt de queue 136870 (repousse legement, armure -10%/20s ,cumulable 10 fois), Morsure hémorragique 127987, Gifle de la queue 131626
+			uint32 liste_spell_B_130[4] = { 138765, 136870, 127987, 131626 };	// ï¿½craser 138765 armure -10%/30s, Heurt de queue 136870 (repousse legement, armure -10%/20s ,cumulable 10 fois), Morsure hï¿½morragique 127987, Gifle de la queue 131626
 			uint32 liste_agro_130[2] = { 35313, 12097 };						// Regard hypnotique 35313 (stun 6s, 5-30m), Perce-armure 12097 (armure -75%/15s 5m)
 			uint32 liste_Buf_130[2] = { 0, 0 };									// 
 
@@ -485,18 +486,18 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 liste_spell_A_153[2] = { 29426, 126799 };					// Frappe heroique 29426, Frappe tranchante 126799
 			uint32 liste_spell_B_153[3] = { 772, 772, 127171 };					// Pourfendre 772, Fendoir vicieux 127171
 			uint32 liste_agro_153[2] = { 6533, 0 };								// Filet
-			uint32 liste_Buf_153[2] = { 6673, 1160 };							// Cri de guerre 6673,Cri démoralisant 1160
+			uint32 liste_Buf_153[2] = { 6673, 1160 };							// Cri de guerre 6673,Cri dï¿½moralisant 1160
 
 			// 155	CUSTOM - CREATURE_FAMILY_SENTERRE
 			uint32 liste_spell_A_155[2] = { 119004, 119004 };					// Violent coup direct 119004
 			uint32 liste_spell_B_155[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
-			uint32 liste_agro_155[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_155[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_155[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 
 			// 156	CUSTOM - CREATURE_FAMILY_SE_DETERRE_AU_CONTACT
 			uint32 liste_spell_A_156[2] = { 113687, 113687 };					// Morsure
 			uint32 liste_spell_B_156[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
-			uint32 liste_agro_156[2] = { 113967, 35328 };						// Barbelés d'épines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_156[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diapr?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_156[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 			
 			// 157   Rocher (elementaire de terre si fixe)  -  CREATURE_FAMILY_MORPH_ROCHER 
@@ -507,20 +508,33 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			// 158   CREATURE_FAMILY_CREATURE_AQUATIQUE
 			uint32 liste_spell_A_158[2] = { 113687, 300206 };					// Morsure 113687, Mutiler 300206
-			uint32 liste_spell_B_158[2] = { 69203, 3393 };						// Morsure vicieuse (requin) 69203, Dévoreur de chair 3393, 
+			uint32 liste_spell_B_158[2] = { 69203, 3393 };						// Morsure vicieuse (requin) 69203, Dï¿½voreur de chair 3393, 
 			uint32 liste_agro_158[3] = { 12097, 100, 0 };							// Perce-armure 12097 (armure -75%/15s 5m), charge 100
-			uint32 liste_Buf_158[3] = { 87228, 0, 0 };							// Peau épaisse 87228
+			uint32 liste_Buf_158[3] = { 87228, 0, 0 };							// Peau ï¿½paisse 87228
 
 			// 159	CUSTOM - CREATURE_FAMILY_SENTERRE_FIXE
-			uint32 liste_spell_A_159[3] = { 9591, 21067,78129 };				// Crachat acide 9591,Eclair de poison (+cumulable) 21067, Éclair crépusculaire 78129
+			uint32 liste_spell_A_159[3] = { 9591, 21067,78129 };				// Crachat acide 9591,Eclair de poison (+cumulable) 21067, ï¿½clair crï¿½pusculaire 78129
 			uint32 liste_spell_B_159[4] = { 119004, 3358, 26419, 79607 };		// Violent coup direct 119004, Poison de sangsue (5m,Draine) 3358, pluie d acide 26419,poison (catapulte,zone) 79607
-			uint32 liste_agro_159[2] = { 49576, 128425 };						// Poigne de la mort 49576, Résine corrosive 128425 
-			uint32 liste_Buf_159[2] = { 126336, 87228 };						// Poix caustique 126336, Peau épaisse 87228
+			uint32 liste_agro_159[2] = { 49576, 128425 };						// Poigne de la mort 49576, Rï¿½sine corrosive 128425 
+			uint32 liste_Buf_159[2] = { 126336, 87228 };						// Poix caustique 126336, Peau ï¿½paisse 87228
+
+			// 160	CUSTOM - CREATURE_FAMILY_TOURELLE_FIXE
+			uint32 liste_spell_A_160[3] = { 36238, 9053,43799 };				// Tir de gangrecanon 36238, Boule de feu 9053, Mitrailleuse 43799
+			uint32 liste_spell_B_160[2] = { 300241, 1543 };						// Tir explosif 300241, Fusï¿½e ï¿½clairante 1543
+			uint32 liste_agro_160[2] = { 49576, 18396 };						// Rï¿½sine corrosive 128425, Explosion dï¿½sarï¿½onnante 18396
+			uint32 liste_Buf_160[2] = { 5915, 18148 };							// Hystï¿½rique 5915, Champ statique (DMG proche) 18148
+
+			// 161	CUSTOM - CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT
+			uint32 liste_spell_A_161[2] = { 113687, 113687 };					// Morsure
+			uint32 liste_spell_B_161[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
+			uint32 liste_agro_161[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diaprï¿½ 35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_Buf_161[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
+
 
 			void InitializeAI()
 			{
 				if (ForceFamily > 0 && ForceFamily < 301) { Crfamily = ForceFamily; }
-				Family_Special_Init();			// Spécificitée par family
+				Family_Special_Init();			// Spï¿½cificitï¿½e par family
 				
 				uint32 Tmp = me->m_spells[3];	// Buf au lancement du serveur (Pet, armure de givre, etc)
 					if (Tmp != 0)
@@ -533,13 +547,13 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells & cooldown
+				// Tirages alï¿½atoires des spells & cooldown
 				// ################################################################################################################################################
-				// Si m_spells[0] != 0 alors affectation aléatoire de tous les spells (prédéfinis dans le core) , sinon utilisera les spell défini dans vreature_template spells[1 a 5]
+				// Si m_spells[0] != 0 alors affectation alï¿½atoire de tous les spells (prï¿½dï¿½finis dans le core) , sinon utilisera les spell dï¿½fini dans vreature_template spells[1 a 5]
 				// m_spells[0] : Attaque principale						- Correspond a spell1 de creature_template
 				// m_spells[1] : Dot									- Correspond a spell2 de creature_template
 				// m_spells[2] : spell lanc?a l'agro					- Correspond a spell3 de creature_template
-				// m_spells[3] : spell lanc?a l'évade ou respawn		- Correspond a spell4 de creature_template
+				// m_spells[3] : spell lanc?a l'ï¿½vade ou respawn		- Correspond a spell4 de creature_template
 				// m_spells[4] : Buf									- Correspond a spell5 de creature_template
 				// m_spells[5] : Heal(lui meme uniquement)				- Correspond a spell6 de creature_template
 
@@ -581,7 +595,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						}
 						else  Spell_Heal = 0;
 					}
-					else   // Sinon tirage aléatoire
+					else   // Sinon tirage alï¿½atoire
 					{
 						switch (Crfamily)
 						{
@@ -910,11 +924,24 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 159:	// CUSTOM - CREATURE_FAMILY_SENTERRE_FIXE
 							Spell_A = liste_spell_A_159[urand(0, 2)];
-							Spell_B = liste_spell_B_159[urand(0, 3)];
+							Spell_B = liste_spell_B_159[urand(0, 1)];
 							Spell_agro = liste_agro_159[urand(0, 1)];
 							Buf_A = liste_Buf_159[urand(0, 1)];
 							break;
 
+						case 160:	// CREATURE_FAMILY_TOURELLE_FIXE
+							Spell_A = liste_spell_A_160[urand(0, 2)];
+							Spell_B = liste_spell_B_160[urand(0, 1)];
+							Spell_agro = liste_agro_160[urand(0, 1)];
+							Buf_A = liste_Buf_160[urand(0, 1)];
+							break;
+
+						case 161:		// CREATURE_FAMILY_SE_DETERRE_AU_CONTACT
+							Spell_A = liste_spell_A_161[urand(0, 1)];
+							Spell_B = liste_spell_B_161[urand(0, 3)];
+							Spell_agro = liste_agro_161[urand(0, 1)];
+							Buf_A = liste_Buf_161[urand(0, 1)];
+							break;
 
 						default:
 							Spell_A = liste_spell_A_0[urand(0, 1)];
@@ -962,7 +989,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						Cooldown_Trop_Loin = 8000;
 						Cooldown_Trop_Loin_Defaut = urand(8000, 10000);
 
-						// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+						// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 						if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 						{
 							ResteADistance = urand(12,16);
@@ -989,7 +1016,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				// Divers  ----------------------------------------------------------------------------------------------------------------------------------------
 				me->SetReactState(REACT_AGGRESSIVE);
 
-				Family_Special_Init();		// Spécificitée par family
+				Family_Special_Init();		// Spï¿½cificitï¿½e par family
 
 				// ################################################################################################################################################
 			}
@@ -1001,7 +1028,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				Random = urand(1, 3);
 				if (Random == 1 && Spell_respawn_evade != 0) { me->CastSpell(me, Spell_respawn_evade, true); }		// 1/3 Chance de lancer le sort sur lui au respawn ou evade
 
-				Family_Special_Init();		// Spécificitée par family
+				Family_Special_Init();		// Spï¿½cificitï¿½e par family
 				// -------------------------------
 			}
 			void EnterCombat(Unit* /*who*/) override
@@ -1025,7 +1052,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre faï¿½on de retirer des ï¿½motes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -1057,7 +1084,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				//me->UpdateSpeed(MOVE_SWIM);
 				//me->UpdateSpeed(MOVE_FLIGHT);
 
-				Family_Special_Init();		// Spécificitée par family
+				Family_Special_Init();		// Spï¿½cificitï¿½e par family
 				// -------------------------------
 				me->SetSpeedRate(MOVE_SWIM, 0.8f);
 				me->SetSpeedRate(MOVE_FLIGHT, 1.5f);
@@ -1109,7 +1136,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mï¿½lï¿½e) ou > 40m de home
 				}
 			}
 
@@ -1136,13 +1163,13 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						Start_Agro = 1;
 
 						// ################################################################################################################################################
-						// Tirage aléatoire de l'AI pour le mouvement en combat : ne marchait pas dans void Init_AI() 
+						// Tirage alï¿½atoire de l'AI pour le mouvement en combat : ne marchait pas dans void Init_AI() 
 						// ################################################################################################################################################
 
 						if (ForceFamily > 300) { ForceFamily = 0; }
 						if (ForceFamily > 0 && ForceFamily < 301) { Crfamily = ForceFamily; }
 
-						// Tirage aléatoire des spells ----------------------------------------------------------------------------------------------------------------
+						// Tirage alï¿½atoire des spells ----------------------------------------------------------------------------------------------------------------
 
 							switch (Crfamily)
 						{
@@ -1216,7 +1243,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 2000;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = 1000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(12, 16);
@@ -1447,7 +1474,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							me->SetMeleeDamageSchool(SpellSchools(5));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
-							if (Spell_Heal == 0) { Spell_Heal = 17767; }			// spells[5]							// Rempart de l’ombre 17767 (PV +65%/20s), Bouclier de l’ombre 115232 (dmg -60%/30s)
+							if (Spell_Heal == 0) { Spell_Heal = 17767; }			// spells[5]							// Rempart de lï¿½ombre 17767 (PV +65%/20s), Bouclier de lï¿½ombre 115232 (dmg -60%/30s)
 							Cooldown_SpellA = 1000;
 							Cooldown_SpellA_defaut = Base_Cooldown_Cast_A + 250;
 							Cooldown_SpellB = 2500;
@@ -1663,7 +1690,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = 2000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(15, 20);
@@ -1717,7 +1744,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 2000;
 							Cooldown_Principal_B_Defaut = 3000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(14, 16);
@@ -1775,7 +1802,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1500;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = 2000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(12, 16);
@@ -1799,7 +1826,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 								Cooldown_SpellB_rapide = Base_Cooldown_Cast_B - 4000;												// Cadence de tir SpellB rapide pour Mouvement_Cast_Puis_Contact
 								Cooldown_SpellB_rapide_defaut = Cooldown_SpellB_defaut;
 							}
-							me->SetSheath(SHEATH_STATE_RANGED); 											// S'équipe d'arc ou fusil
+							me->SetSheath(SHEATH_STATE_RANGED); 											// S'ï¿½quipe d'arc ou fusil
 							break;
 						case 35:	//Serpent  -  CREATURE_FAMILY_SERPENT - AI : Mouvement_Contact_Basique
 							me->SetMeleeDamageSchool(SpellSchools(3));										// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
@@ -1838,7 +1865,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 2000;
 							Cooldown_Principal_B_Defaut = 6000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(12, 15);
@@ -1867,7 +1894,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = 3000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(15, 20);
@@ -1965,7 +1992,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = 4000;
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(15, 20);
@@ -2016,7 +2043,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 5000;
 							Cooldown_Principal_B_Defaut = urand(4000, 6000);
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(12, 16);
@@ -2075,7 +2102,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = 15000;
 							if (AI_Random == 1)				//Mouvement_Caster_Puis_Contact(diff)
 							{
-								// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+								// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 								if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 								{
 									ResteADistance = urand(12, 14);
@@ -2093,7 +2120,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							else if (AI_Random == 2)		//Mouvement_Caster(diff)
 							{
-								// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+								// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 								if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 								{
 									ResteADistance = urand(14, 17);
@@ -2157,7 +2184,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 1500;
 							Cooldown_Principal_B_Defaut = urand(3500, 4500);
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(12, 14);
@@ -2287,7 +2314,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Principal_A_Defaut = 1000;
 							Cooldown_Principal_B = 1000;
 							Cooldown_Principal_B_Defaut = urand(5000, 6000);
-							// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
 								ResteADistance = urand(11, 14);
@@ -2408,7 +2435,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 							if (AI_Random == 1)
 							{
-								// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+								// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 								if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 								{
 									ResteADistance = urand(10, 14);
@@ -2421,7 +2448,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							}
 							else if (AI_Random == 2)
 							{
-								// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+								// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 								if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 								{
 									ResteADistance = urand(10, 14);
@@ -2542,8 +2569,8 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Cooldown_Trop_Loin_Defaut = urand(8000, 10000);
 							break;
 						case 156:	//CREATURE_FAMILY_SE_DETERRE_AU_CONTACT - AI : 1/3_Mouvement_Contact_Basique, 1/3_Mouvement_Contact_Tournant_Aleatoire, 1/3_Mouvement_Contact_Avance_Recule
-							AI_Random = urand(1, 3);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacr?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							AI_Random = urand(1, 5);
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2671,6 +2698,51 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Spell_B_Non_Cumulable = 0;
 							break;
 
+						case 160:	//CREATURE_FAMILY_TOURELLE_FIXE
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							Spell_B_Non_Cumulable = 0;
+							Spell_respawn_evade = 0;
+							Spell_Heal = 0;
+							Cooldown_SpellA = 1000;
+							Cooldown_SpellA_defaut = urand(3000, 4000);
+							Cooldown_SpellB = 2000;
+							Cooldown_SpellB_defaut = urand(5000, 6000);
+							Cooldown_SpellB_rapide = 4000;
+							Cooldown_SpellB_rapide_defaut = Cooldown_SpellB_defaut;
+							Cooldown_Spell_Heal_defaut = 15000;
+							Cooldown_Principal_A = 1000;
+							Cooldown_Principal_A_Defaut = 1000;
+							Cooldown_Principal_B = 100;
+							Cooldown_Principal_B_Defaut = 2000;
+							ResteADistance = 40;
+							Spell_Trop_Loin = 0;
+							Cooldown_Trop_Loin = urand(6000, 8000);
+							Cooldown_Trop_Loin_Defaut = urand(6000, 8000);
+							Spell_B_Non_Cumulable = 0;
+							break;
+
+						case 161:	//CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT - AI : Mouvement_Contact_Basique
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							Spell_B_Non_Cumulable = 0;
+							//Spell_respawn_evade = 0;
+							//Spell_Heal = 0;
+							Cooldown_SpellA = 1000;
+							Cooldown_SpellA_defaut = Base_Cooldown_Cast_A;
+							Cooldown_SpellB = 2500;
+							Cooldown_SpellB_defaut = Base_Cooldown_Cast_B + 2000;
+							Cooldown_SpellB_rapide = Base_Cooldown_Cast_B - 2000;
+							Cooldown_SpellB_rapide_defaut = Base_Cooldown_Cast_B;
+							Cooldown_Spell_Heal_defaut = 0;
+							Cooldown_Principal_A = 1000;
+							Cooldown_Principal_A_Defaut = 1000;
+							Cooldown_Principal_B = urand(3000, 5000);
+							Cooldown_Principal_B_Defaut = urand(4000, 6000);
+							ResteADistance = 5;
+							Spell_Trop_Loin = 0;																			// 	
+							Cooldown_Trop_Loin = 1000;
+							Cooldown_Trop_Loin_Defaut = urand(5000, 7000);
+							break;
+
 						default:
 							//Spell_agro = 0;
 							//Spell_respawn_evade = 0;
@@ -2736,7 +2808,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						// ########################################################################################################################################
 					if (Start_Agro2 == 0)
 					{
-						if (Dist < 3 || Spell_agro_isdistant(Spell_agro) == true)
+						if (Dist < 3 || Spell_agro_isdistant(Spell_agro) == true )
 						{
 							Random = urand(1, 5);								// 3 Chance sur 5 de lancer le sort sur la cible a d'agro
 							if (Random < 4 && Spell_agro != 0)
@@ -2749,7 +2821,8 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						}
 
 						if (Crfamily == CREATURE_FAMILY_SE_DETERRE_AU_CONTACT && Dist > 3 && me->HasAura(Spell_No_ModelID))
-							me->CastSpell(me, 300285, true);
+							me->CastSpell(me, 300285, true); //Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
+
 
 
 					}
@@ -2765,7 +2838,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						{
 							if (Dist <= 6 || ResteADistance >5 )
 							{
-								DoMeleeAttackIfReady();																	// Combat en mélée
+								DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 								me->CastSpell(victim, Spell_A, true);
 
 								Cooldown_SpellA = Cooldown_SpellA_defaut + urand(0,1000) -500;
@@ -3130,8 +3203,12 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						case 159:	//CREATURE_FAMILY_SENTERRE_FIXE
 							Mouvement_Fixe(diff);
 							break;
-
-
+						case 160:	//CREATURE_FAMILY_TOURELLE_FIXE
+							Mouvement_Fixe(diff);
+							break;
+						case 161:	// CUSTOM - CREATURE_FAMILY_SE_DETERRE_AU_CONTACT
+								Mouvement_Contact_Basique(diff);
+							break;
 
 						default:
 							Mouvement_Contact_Basique(diff);
@@ -3166,7 +3243,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					return;
 
 
-				// Reste a une distance moins importante ci le mob est a l'Intérieur
+				// Reste a une distance moins importante ci le mob est a l'Intï¿½rieur
 				if (!me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 				{
 					ResteADistance = 10;
@@ -3178,11 +3255,12 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 				if (Cooldown_Principal_B <= diff)
 				{
-					// Mouvement aléatoire si cible <= 5m  ---------------------------------------------------------------------------------------------------------
+					// Mouvement alï¿½atoire si cible <= 5m  ---------------------------------------------------------------------------------------------------------
 
 					if (Dist <= 5)
 					{
 						me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);						// UNROOT
+						me->SetWalk(false);																// Ne pas marcher
 
 						x = (victim->GetPositionX() + irand(0, ResteADistance * 2) - ResteADistance);
 						y = (victim->GetPositionY() + irand(0, ResteADistance * 2) - ResteADistance);
@@ -3271,7 +3349,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						//Cooldown_SpellB_defaut = Cooldown_SpellB_rapide_defaut;								// Cadence de tir SpellB normale
 						me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);							// UNROOT
 						me->GetMotionMaster()->MoveChase(victim, 1, frand(0, 6.2836f));
-						DoMeleeAttackIfReady();																// Combat en mélée
+						DoMeleeAttackIfReady();																// Combat en mï¿½lï¿½e
 					}
 
 					// Mouvement ON si distance > 20m -----------------------------------------------------------------------------------------------------------------
@@ -3315,7 +3393,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				DoMeleeAttackIfReady();																		// Combat en mélée
+				DoMeleeAttackIfReady();																		// Combat en mï¿½lï¿½e
 
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Principal_A <= diff)
@@ -3372,7 +3450,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-					DoMeleeAttackIfReady();																	// Combat en mélée
+					DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_Principal_A <= diff)
@@ -3401,7 +3479,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					}
 					else if (Random == 5)
 					{
-						BOND_Aleatoire();																	// 1 chances sur 5 : Bond aléatoire
+						BOND_Aleatoire();																	// 1 chances sur 5 : Bond alï¿½atoire
 					}
 					Cooldown_Principal_B = Cooldown_Principal_B_Defaut + ((urand(0, 2) * 1000));
 					Cooldown_Principal_A = 3000;
@@ -3425,7 +3503,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				else Cooldown_Trop_Loin -= diff;
 			}
 
-			// ###### Va sur la cible et reste au contact mais recule puis avance périodiquement sur cible en mélée, passe dans le dos pour les cibles caster ######
+			// ###### Va sur la cible et reste au contact mais recule puis avance pï¿½riodiquement sur cible en mï¿½lï¿½e, passe dans le dos pour les cibles caster ######
 			void Mouvement_Contact_Prudent(uint32 diff)
 			{
 				if (!UpdateVictim() || Fixedaura())
@@ -3440,9 +3518,9 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				{
 					if (Dist > 3)
 					{
-						//me->SetSpeedRate(MOVE_RUN, 1.01f);													// Vitesse de déplacement
+						//me->SetSpeedRate(MOVE_RUN, 1.01f);													// Vitesse de dï¿½placement
 						Tourne_Au_Tour_Aleatoire(2);
-						DoMeleeAttackIfReady();																	// Combat en mélée
+						DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 						Cooldown_Principal_B = Cooldown_Principal_B_Defaut;
 						Cooldown_Principal_A = Cooldown_Principal_A_Defaut /*+ ((urand(0, 2) * 1000))*/;
 					}
@@ -3460,7 +3538,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							Tourne_Au_Tour_Aleatoire(urand(10, 12));											// 2 chances sur 3 pour s'eloigner si le joueur n'est pas un caster
 							Cooldown_Principal_A = 3000;
 
-							//me->SetSpeedRate(MOVE_RUN, 1.02f);												// Vitesse de déplacement
+							//me->SetSpeedRate(MOVE_RUN, 1.02f);												// Vitesse de dï¿½placement
 						}
 						else
 						{
@@ -3477,7 +3555,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			}
 
-			// ###### Va sur la cible et reste au contact mais s'envole puis revient en mélée sur la cible périodiquement  #########################################
+			// ###### Va sur la cible et reste au contact mais s'envole puis revient en mï¿½lï¿½e sur la cible pï¿½riodiquement  #########################################
 			void Mouvement_Contact_Prudent_Volant(uint32 diff)
 			{
 				if (!UpdateVictim() || Fixedaura())
@@ -3493,7 +3571,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					if (Dist > 3)
 					{
 						Tourne_Au_Tour_Aleatoire(3);
-						DoMeleeAttackIfReady();																		// Combat en mélée
+						DoMeleeAttackIfReady();																		// Combat en mï¿½lï¿½e
 						Cooldown_Principal_B = Cooldown_Principal_B_Defaut;
 						Cooldown_Principal_A = Cooldown_Principal_A_Defaut /*+ ((urand(0, 2) * 1000))*/;
 					}
@@ -3518,7 +3596,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			}
 
-			// ###### Va sur la cible et reste au contact mais s'eloigne et "Charge périodiquement  ################################################################
+			// ###### Va sur la cible et reste au contact mais s'eloigne et "Charge pï¿½riodiquement  ################################################################
 			void Mouvement_Contact_Charges_Multiples(uint32 diff)
 			{
 				if (!UpdateVictim() || Fixedaura())
@@ -3528,7 +3606,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				uint32 Distance_Charges_Multiples;
 				Dist = me->GetDistance(victim);
 
-				// Distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+				// Distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 				if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 				{
 					Distance_Charges_Multiples = urand(20,30);
@@ -3567,7 +3645,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					if (Dist > 3)
 					{
 					Tourne_Au_Tour_Aleatoire(1);
-					DoMeleeAttackIfReady();																	// Combat en mélée
+					DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 					Cooldown_Principal_B = Cooldown_Principal_B_Defaut;
 					Cooldown_Principal_A = Cooldown_Principal_A_Defaut;
 					}
@@ -3595,7 +3673,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			}
 
-			// ###### Va sur la cible et reste au contact , recule et revient périodiquement #######################################################################
+			// ###### Va sur la cible et reste au contact , recule et revient pï¿½riodiquement #######################################################################
 			void Mouvement_Contact_Avance_Recule(uint32 diff)
 			{
 				if (!UpdateVictim() || Fixedaura())
@@ -3604,7 +3682,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				DoMeleeAttackIfReady();																			// Combat en mélée
+				DoMeleeAttackIfReady();																			// Combat en mï¿½lï¿½e
 
 				// ------ ALLER A LA CIBLE ------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Principal_A <= diff)
@@ -3629,7 +3707,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						}
 						else
 						{
-							// Distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+							// Distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 							uint32 Distance_Avance_Recule;
 							if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 							{
@@ -3667,7 +3745,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				else Cooldown_Trop_Loin -= diff;
 			}
 
-			// ###### Va sur la cible et reste au contact , effectue un bond aléatoire régulierement ###############################################################
+			// ###### Va sur la cible et reste au contact , effectue un bond alï¿½atoire rï¿½gulierement ###############################################################
 			void Mouvement_Contact_Bondissant(uint32 diff)
 			{
 				if (!UpdateVictim() || Fixedaura())
@@ -3676,7 +3754,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				DoMeleeAttackIfReady();																		// Combat en mélée
+				DoMeleeAttackIfReady();																		// Combat en mï¿½lï¿½e
 
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Principal_A <= diff)
@@ -3701,7 +3779,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						}
 						else
 						{
-							BOND_Aleatoire();																	// 2 chances sur 3 : Bond aléatoire
+							BOND_Aleatoire();																	// 2 chances sur 3 : Bond alï¿½atoire
 						}
 						Cooldown_Principal_B = Cooldown_Principal_B_Defaut;
 					}
@@ -3768,7 +3846,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				}
 				mapid = victim->GetMapId();
 				me->GetMotionMaster()->MovePoint(mapid, x, y, z);
-				DoMeleeAttackIfReady();																	// Combat en mélée
+				DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 			}
 			void Tourne_Au_Tour_Aleatoire_Volant(uint32 Distance)
 			{
@@ -3786,7 +3864,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				z = victim->GetPositionZ() + urand(3,6);
 				mapid = victim->GetMapId();
 				me->GetMotionMaster()->MovePoint(mapid, x, y, z);
-				DoMeleeAttackIfReady();																	// Combat en mélée
+				DoMeleeAttackIfReady();																	// Combat en mï¿½lï¿½e
 			}
 			void BOND_Aleatoire() 
 			{
@@ -3828,7 +3906,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				//if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() != IDLE_MOTION_TYPE)
 				//	return;
 				me->CastSpell(me, Spell_No_ModelID, true);										// Masque le ModelID
-				me->CastSpell(me, Spell_Senterre, true);										// Fumée et terre remuée Persistant
+				me->CastSpell(me, Spell_Senterre, true);										// Fumï¿½e et terre remuï¿½e Persistant
 				me->CastSpell(me, Spell_Sedeterre_sans_fumee, true);							// Pour visuel sedeterrer
 				me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Non selectionnable
 			}
@@ -3837,25 +3915,41 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				//if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() != IDLE_MOTION_TYPE)
 				//	return;
 
-				me->CastSpell(me, Spell_Senterre_sans_fumee, true);								// Fumée et terre remuée Temporaire
+				me->CastSpell(me, Spell_Senterre_sans_fumee, true);								// Fumï¿½e et terre remuï¿½e Temporaire
 				me->CastSpell(me, Spell_Sedeterre_sans_fumee, true);							// Pour visuel sedeterrer
 				me->CastSpell(me, Spell_No_ModelID, true);										// Masque le ModelID
 				me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Non selectionnable
-				me->RemoveAura(79690);
+				me->RemoveAura(Spell_Senterre);															// fumï¿½e
 			}
 			void Se_Deterre()
 			{
 				me->CastSpell(me, Spell_Sedeterre_sans_fumee, true);
-				me->RemoveAurasDueToSpell(Spell_Senterre);										// Retire fumée et terre remuée Persistant
-				me->RemoveAurasDueToSpell(Spell_Senterre_sans_fumee);							// Retire fumée et terre remuée Temporaire
-				me->RemoveAurasDueToSpell(Spell_Sedeterre_sans_fumee);							// Visuel explosion de fumée
+				me->RemoveAurasDueToSpell(Spell_Senterre);										// Retire fumï¿½e et terre remuï¿½e Persistant
+				me->RemoveAurasDueToSpell(Spell_Senterre_sans_fumee);							// Retire fumï¿½e et terre remuï¿½e Temporaire
+				me->RemoveAurasDueToSpell(Spell_Sedeterre_sans_fumee);							// Visuel explosion de fumï¿½e
 				me->RemoveAurasDueToSpell(Spell_No_ModelID);									// Retire invisible
 				me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Selectionnable
 			}
+			void Senterre_remou_clair()
+			{
+				me->CastSpell(me, Spell_Senterre_remou_clair, true);							// Fumï¿½e et terre remuï¿½e Temporaire
+				me->CastSpell(me, Spell_Sedeterre_sans_fumee, true);							// Pour visuel sedeterrer
+				me->CastSpell(me, Spell_No_ModelID, true);										// Masque le ModelID
+				me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Non selectionnable
+			}
 			void Se_DeterreSansFumee()
 			{
-				me->RemoveAurasDueToSpell(Spell_Senterre_sans_fumee);							// Retire fumée et terre remuée Temporaire
-				me->RemoveAurasDueToSpell(Spell_Sedeterre_sans_fumee);							// Visuel explosion de fumée
+				me->RemoveAurasDueToSpell(Spell_Senterre);
+				me->RemoveAurasDueToSpell(Spell_Senterre_sans_fumee);							// Retire fumï¿½e et terre remuï¿½e Temporaire
+				me->RemoveAurasDueToSpell(Spell_Sedeterre_sans_fumee);							// Visuel explosion de fumï¿½e
+				me->RemoveAurasDueToSpell(Spell_No_ModelID);									// Retire invisible
+				me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Selectionnable
+			}
+			void Se_Deterre_remou_clair()
+			{
+				me->RemoveAurasDueToSpell(Spell_Senterre);
+				me->RemoveAurasDueToSpell(Spell_Senterre_remou_clair);							// Retire fumï¿½e et terre remuï¿½e Temporaire
+				me->RemoveAurasDueToSpell(Spell_Sedeterre_sans_fumee);							// Visuel explosion de fumï¿½e
 				me->RemoveAurasDueToSpell(Spell_No_ModelID);									// Retire invisible
 				me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Selectionnable
 			}
@@ -3878,14 +3972,14 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() != IDLE_MOTION_TYPE)
 					return;
 				
-				me->CastSpell(me, Spell_Senterre_sans_fumee, true); 							// Visuel explosion de fumée
+				me->CastSpell(me, Spell_Senterre_sans_fumee, true); 							// Visuel explosion de fumï¿½e
 				me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);						// Selectionnable
 				me->DeMorph();																	// Retire Morph
 			}
 
 			void Family_Special_Init()
 			{
-				// --- Spécificitée par family ---
+				// --- Spï¿½cificitï¿½e par family ---
 				//Scorpion, ver
 				if (Crfamily == CREATURE_FAMILY_SCORPID  /*20*/ || Crfamily == CREATURE_FAMILY_WORM /*42*/)
 				{
@@ -3900,7 +3994,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				if (Crfamily == CREATURE_FAMILY_SENTERRE /*155*/ && !me->HasUnitState(UNIT_STATE_MOVE))
 				{
 					Random = urand(1, 3);
-					if (Random == 1)
+					if (Random > 1)
 					{
 						Senterre();
 					}
@@ -3916,7 +4010,6 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					{
 						Senterre_sans_fumee();
 					}
-
 				}
 
 				if (Crfamily == CREATURE_FAMILY_MORPH_ROCHER  /*157*/ && !me->HasUnitState(UNIT_STATE_MOVE))
@@ -3927,6 +4020,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				//Custom 159
 				if (Crfamily == CREATURE_FAMILY_SENTERRE_FIXE /*159*/)
 				{
+					me->GetMotionMaster()->MoveTargetedHome();										// Retour home
 					me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);							// ROOT
 					Random = urand(1, 3);
 					if (Random != 1)
@@ -3935,6 +4029,18 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					}
 				}
 
+				//Custom 160
+				if (Crfamily == CREATURE_FAMILY_TOURELLE_FIXE /*160*/)
+				{
+					me->GetMotionMaster()->MoveTargetedHome();										// Retour home
+					me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);							// ROOT
+				}
+
+				// Custom 161
+				if (Crfamily == CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT )
+				{
+					Senterre_remou_clair();
+				}
 			}
 			void Family_Special_Retire_a_l_Agro()
 			{
@@ -3953,20 +4059,34 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					Se_DeterreSansFumee();
 						//Se_Deterre();
 				}
+
+
+
+				if (me->HasAura(34038))
+				{
+					me->RemoveAurasDueToSpell(34038); // remou de terre sombre
+				}
+				
 			}
 			void Family_Special_Retire_au_contact()
 			{
+
+
 				if (Crfamily == CREATURE_FAMILY_SE_DETERRE_AU_CONTACT /*156 && me->GetMotionMaster()->GetCurrentMovementGeneratorType() != IDLE_MOTION_TYPE*/)
 				{
 					Se_Deterre();
-					me->RemoveAurasDueToSpell(300285);									//
-
+					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
+				}
+				if (Crfamily == CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT /*161*/)
+				{
+					Se_Deterre_remou_clair();
+					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
 				}
 			}
 
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligï¿½es a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -4021,7 +4141,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			bool AuraLenteur()
 			{
-				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le déplacement
+				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le dï¿½placement
 					|| me->HasAura(31224)	// Cape d'ombre    
 					|| me->HasAura(1856)	// Disparition
 					) return false;
@@ -4059,7 +4179,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 
 			bool Spell_agro_isdistant(uint32 spell_Id)
 			{
-				if (spell_Id == 0 || !UpdateVictim())
+				if (spell_Id == 0 || !UpdateVictim() || Crfamily == CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT || Crfamily == CREATURE_FAMILY_SE_DETERRE_AU_CONTACT)
 				return false;
 				
 				SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spell_Id);

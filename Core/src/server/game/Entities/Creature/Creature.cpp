@@ -801,7 +801,7 @@ void Creature::Update(uint32 diff)
 		case CREATURE_FAMILY_NAGA:
 			SetSpeedRate(MOVE_WALK, 0.5f);							// hors combat
 			SetSpeedRate(MOVE_RUN, 1.0f);							// en combat
-			SetSpeedRate(MOVE_SWIM, 0.8f);							// en nageant
+			SetSpeedRate(MOVE_SWIM, 2.0f);							// en nageant
 			break;
 
 		case CREATURE_FAMILY_RIVERBEAST:
@@ -840,12 +840,24 @@ void Creature::Update(uint32 diff)
 			SetSpeedRate(MOVE_SWIM, 0.5f);							// en nageant
 			break;
 
-		case CREATURE_FAMILY_SENTERRE_FIXE:				//Custom 159
+		case CREATURE_FAMILY_SENTERRE_FIXE:			//Custom 159
 			SetSpeedRate(MOVE_WALK, 0.1f);							// hors combat
 			SetSpeedRate(MOVE_RUN, 0.1f);							// en combat
 			SetSpeedRate(MOVE_SWIM, 0.1f);							// en nageant
 			break;
 
+		case CREATURE_FAMILY_TOURELLE_FIXE:			//Custom 160
+			SetSpeedRate(MOVE_WALK, 0.1f);							// hors combat
+			SetSpeedRate(MOVE_RUN, 0.1f);							// en combat
+			SetSpeedRate(MOVE_SWIM, 0.1f);							// en nageant
+			SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);		// ROOT
+			break;
+
+		case CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT: //CUSTOM 161
+			SetSpeedRate(MOVE_WALK, 0.5f);							// hors combat
+			SetSpeedRate(MOVE_RUN, 0.9f);							// en combat
+			SetSpeedRate(MOVE_SWIM, 0.5f);							// en nageant
+			break;
 
 		default:
 			//SetSpeedRate(MOVE_WALK, 0.5f);						// hors combat
@@ -856,7 +868,7 @@ void Creature::Update(uint32 diff)
 		}
 	}
 
-	if (this->HasAura(137358))									//Stitchvitese reduite si No_model , par exemple pour d�placement sous terre
+	if (this->HasAura(137358))									//Stitch vitese reduite si No_model , par exemple pour d�placement sous terre
 	{
 		SetSpeedRate(MOVE_WALK, 0.5f);							// hors combat
 		SetSpeedRate(MOVE_RUN, 0.5f);							// en combat
@@ -912,11 +924,11 @@ void Creature::Update(uint32 diff)
 				SetSpeedRate(MOVE_SWIM, 0.5f);							// en nageant
 				break;
 
-		case CREATURE_TYPE_HUMANOID:		// Humanoide
-		case CREATURE_TYPE_HUMANOID_AUTRE:
-		case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifi?
-			SetSpeedRate(MOVE_SWIM, 0.6f);							// en nageant
-			break;
+			case CREATURE_TYPE_HUMANOID:		// Humanoide
+			case CREATURE_TYPE_HUMANOID_AUTRE:
+			case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifi�
+				SetSpeedRate(MOVE_SWIM, 0.6f);							// en nageant
+				break;
 
 			default:
 				break;
@@ -991,6 +1003,12 @@ void Creature::Update(uint32 diff)
 			case CREATURE_FAMILY_SENTERRE_FIXE:			// CUSTOM 159
 				SetSpeedRate(MOVE_SWIM, 0.1f);			// en nageant
 				break;
+
+			case CREATURE_FAMILY_TOURELLE_FIXE:			//Custom 160
+				SetSpeedRate(MOVE_SWIM, 0.1f);							// en nageant
+				SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);		// ROOT
+				break;
+
 
 			case CREATURE_FAMILY_CRAB:					// Crabe
 			case CREATURE_FAMILY_TURTLE:				// Tortue
