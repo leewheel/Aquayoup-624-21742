@@ -49,7 +49,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			uint32 Spell_Canalise_hc = me->m_spells[7];								// Pour spell canalis?hors combat
 			float x = 0.0f, y = 0.0f, z = 0.0f;
 			uint32 mapid = 0;
-			uint32 Demande_Assistance_effectuï¿½ = 0;
+			uint32 Demande_Assistance_effectuee= 0; //Demande_Assistance_effectuï¿?
 			uint32 auto_peur5s = 8225;
 			uint8 me_rank = me->GetCreatureTemplate()->rank;
 
@@ -71,7 +71,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			uint32 Cooldown_Principal_C = 250;										// Tempo pour arreter le mouvement
 			uint32 Cooldown_Principal_C_Defaut = 1500;
 			uint32 Cooldown_Spell_Canalise_hc = 3000;
-			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿½ hors combat
+			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿?hors combat
 			uint32 Cooldown_Demande_Assistance = 3000;
 
 			// Spells
@@ -234,7 +234,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			void EnterEvadeMode(EvadeReason /*why*/) override
 			{
 				Start_Agro = 0;
-				Demande_Assistance_effectuï¿½ = 0;
+				Demande_Assistance_effectuee = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
 				me->GetMotionMaster()->MoveTargetedHome();											// Retour home
@@ -671,7 +671,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 			void Demande_Assistance(uint32 diff)
 			{
-				if (Demande_Assistance_effectuï¿½ == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank != 0)
+				if (Demande_Assistance_effectuee == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank != 0)
 					return;
 
 				if (Cooldown_Demande_Assistance <= diff)
@@ -681,7 +681,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 						if (urand(1, 3) == 1)
 						{
 							me->CastSpell(me, auto_peur5s, true);
-							Demande_Assistance_effectuï¿½ = 1;
+							Demande_Assistance_effectuee = 1;
 							Cooldown_ResteADistance = Cooldown_ResteADistance_Defaut;
 							Cooldown_Spell1 = 3000;
 							Cooldown_Spell2 = 5000;

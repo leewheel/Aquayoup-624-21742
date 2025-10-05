@@ -18,23 +18,23 @@ public:
 
 		if (_level == 1 && _race != RACE_PANDAREN_NEUTRAL)
 		{
-			player->ADD_GOSSIP_ITEM(3, "Commencer level 30 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 1);
-			player->ADD_GOSSIP_ITEM(3, "Commencer level 58 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 2);
+			player->ADD_GOSSIP_ITEM(3, "´Ó30¼¶¿ªÊ¼(Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 1);
+			player->ADD_GOSSIP_ITEM(3, "´Ó58¼¶¿ªÊ¼(Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 2);
 		}
 
 		if (_level == 1 || (_class == CLASS_DEATH_KNIGHT && _race != RACE_PANDAREN_NEUTRAL))
 		{
 			if (_level < 68)
-				player->ADD_GOSSIP_ITEM(3, "Commencer level 68 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 3);
+				player->ADD_GOSSIP_ITEM(3, "´Ó68¼¶¿ªÊ¼ (Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 3);
 
 			if (_level < 80)
-				player->ADD_GOSSIP_ITEM(3, "Commencer level 80 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 4);
+				player->ADD_GOSSIP_ITEM(3, "´Ó80¼¶¿ªÊ¼ (Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 4);
 
 			if (_level < 85)
-				player->ADD_GOSSIP_ITEM(3, "Commencer level 85 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 5);
+				player->ADD_GOSSIP_ITEM(3, "´Ó85¼¶¿ªÊ¼ (Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 5);
 
 			if (_level < 90)
-				player->ADD_GOSSIP_ITEM(3, "Commencer level 90 (Avec TP Capitale)", GOSSIP_SENDER_MAIN, 6);
+				player->ADD_GOSSIP_ITEM(3, "´Ó90¼¶¿ªÊ¼ (Ê¹ÓÃÖ÷³Ç´«ËÍµã)", GOSSIP_SENDER_MAIN, 6);
 			// a voir
 			player->ADD_GOSSIP_ITEM(9, " ", GOSSIP_SENDER_MAIN, -1);
 		}
@@ -44,15 +44,15 @@ public:
 			if (team == TEAM_ALLIANCE)
 			{
 				if (_race != RACE_HUMAN)
-					player->ADD_GOSSIP_ITEM(2, "Commencer chez les Humains", GOSSIP_SENDER_MAIN, 7);			// Humain
+					player->ADD_GOSSIP_ITEM(2, "´ÓÈËÀàÕóÓª¿ªÊ¼ ", GOSSIP_SENDER_MAIN, 7);			// Humain
 				if (_race != RACE_DWARF)
-					player->ADD_GOSSIP_ITEM(2, "Commencer chez les Nains", GOSSIP_SENDER_MAIN, 8);				// Nain
+					player->ADD_GOSSIP_ITEM(2, "´Ó°«ÈËÕóÓª¿ªÊ¼ ", GOSSIP_SENDER_MAIN, 8);				// Nain
 				if (_race != RACE_NIGHTELF)
-					player->ADD_GOSSIP_ITEM(2, "Commencer chez les Elfes de la nuit", GOSSIP_SENDER_MAIN, 9);	// Elfe de la nuit
+					player->ADD_GOSSIP_ITEM(2, "´Ó°µÒ¹¾«ÁéÕóÓª¿ªÊ¼ ", GOSSIP_SENDER_MAIN, 9);	// Elfe de la nuit
 				if (_race != RACE_GNOME)
-					player->ADD_GOSSIP_ITEM(2, "Commencer chez les Gnomes", GOSSIP_SENDER_MAIN, 10);			// Gnome
+					player->ADD_GOSSIP_ITEM(2, "´ÓÙªÈåÕóÓª¿ªÊ¼", GOSSIP_SENDER_MAIN, 10);			// Gnome
 				if (_race != RACE_DRAENEI)
-					player->ADD_GOSSIP_ITEM(2, "Commencer chez les Draeneis", GOSSIP_SENDER_MAIN, 11);			// Draenei
+					player->ADD_GOSSIP_ITEM(2, "´ÓµÂÀ³ÄáÕóÓª¿ªÊ¼", GOSSIP_SENDER_MAIN, 11);			// Draenei
 			}
 
 			if (team == TEAM_HORDE)
@@ -521,8 +521,8 @@ public:
 		case 13:
 			uint8 reputworgendesneiges = 0;
 
-			if (player->GetReputation(942) != reputworgendesneiges) { player->SetReputation(942, reputworgendesneiges); }	// Expédition cénarienne
-			if (player->GetReputation(935) != reputworgendesneiges) { player->SetReputation(935, reputworgendesneiges); }	// Les Sha'tar
+			if (player->GetReputation(942) != reputworgendesneiges) { player->SetReputation(942, reputworgendesneiges); }	// ÈûÄÉÀï°ÂÌ½ÏÕ¶Ó
+			if (player->GetReputation(935) != reputworgendesneiges) { player->SetReputation(935, reputworgendesneiges); }	// É³Ëþ¶û
 			if (player->GetReputation(936) != reputworgendesneiges) { player->SetReputation(936, reputworgendesneiges); }	// Shattrath
 			if (player->GetReputation(1011) != reputworgendesneiges) { player->SetReputation(1011, reputworgendesneiges); } // Ville basse
 			if (player->GetReputation(970) != reputworgendesneiges) { player->SetReputation(970, reputworgendesneiges); }	// Sporeggar
@@ -531,7 +531,7 @@ public:
 			if (player->GetReputation(932) != reputworgendesneiges) { player->SetReputation(932, reputworgendesneiges); }	// L'Aldor
 			if (player->GetReputation(934) != reputworgendesneiges) { player->SetReputation(934, reputworgendesneiges); }	// Les Clairvoyants
 			if (player->GetReputation(1038) != reputworgendesneiges) { player->SetReputation(1038, reputworgendesneiges); } // Ogri'la
-			if (player->GetReputation(1077) != reputworgendesneiges) { player->SetReputation(1077, reputworgendesneiges); } // Opération Soleil brisé
+			if (player->GetReputation(1077) != reputworgendesneiges) { player->SetReputation(1077, reputworgendesneiges); } // Opération Soleil bris?
 
 																															// ALLIANCE 
 			if (player->GetReputation(72) != reputworgendesneiges) { player->SetReputation(72, reputworgendesneiges); }		// Hurlevent
@@ -539,7 +539,7 @@ public:
 			if (player->GetReputation(69) != reputworgendesneiges) { player->SetReputation(69, reputworgendesneiges); }		// Darnassus
 			if (player->GetReputation(930) != reputworgendesneiges) { player->SetReputation(930, reputworgendesneiges); }	// Exodar
 			if (player->GetReputation(730) != reputworgendesneiges) { player->SetReputation(730, reputworgendesneiges); }	// Garde Foudrepique
-			if (player->GetReputation(978) != reputworgendesneiges) { player->SetReputation(978, reputworgendesneiges); }	// Kurenaï
+			if (player->GetReputation(978) != reputworgendesneiges) { player->SetReputation(978, reputworgendesneiges); }	// Kurena?
 			if (player->GetReputation(54) != reputworgendesneiges) { player->SetReputation(54, reputworgendesneiges); }		// Gnomeregan
 			if (player->GetReputation(946) != reputworgendesneiges) { player->SetReputation(946, reputworgendesneiges); }	// Bastion de l'Honneur
 

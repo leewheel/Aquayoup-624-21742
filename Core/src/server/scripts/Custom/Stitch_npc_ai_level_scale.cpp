@@ -11,7 +11,7 @@
 // Spell2   : Sort sur la cible a l'agro
 // Spell3   : Sort sur la cible pendant le combat
 // Spell4   : Sort Dot sur la cible pendant le combat
-// Spell5   : Heal sur caster et Allié
+// Spell5   : Heal sur caster et Alli?
 // Caster :
 // Druide   : UPDATE `creature_template` SET `spell1` = 1126,`spell2` = 2912,`spell3` = 119577, `spell4` = 15798,`HealthModifier` = 2, `ManaModifier` = 2, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2500, `RangeAttackTime` = 3000,`lootid` = 0,`ScriptName` = 'Stitch_npc_ai_level_scale_caster' WHERE (entry = 15000319);
 // Mélee :
@@ -79,7 +79,7 @@ public: Stitch_npc_ai_level_scale_caster() : CreatureScript("Stitch_npc_ai_level
 
 				// Message a l'agro , ci le mob a plusieurs lignes (creature_text groupid>0) il y a de forte chance que ce soit pour un dialogue
 				// et non un simple message a l'agro. Donc on l'ignore.
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro forc?par spell(8)
 				Random = urand(1, 5);
 				if ((sCreatureTextMgr->TextExist(me->GetEntry(), 0)) && (!sCreatureTextMgr->TextExist(me->GetEntry(), 1) && Random == 1) || me->m_spells[7] == 1)
 				{
@@ -517,7 +517,7 @@ public: Stitch_npc_ai_level_scale_heal() : CreatureScript("Stitch_npc_ai_level_s
 						spelltimerheal = 2000;
 					}
 					// Creature_Template->Spell5 : heal sur Friend --------------------------------------------------------------------------------------------------
-					else if (Unit* target = DoSelectLowestHpFriendly(distancedecast)) // Distance de l'allié = 30m
+					else if (Unit* target = DoSelectLowestHpFriendly(distancedecast)) // Distance de l'alli?= 30m
 					{
 						if (me->IsFriendlyTo(target))
 						{

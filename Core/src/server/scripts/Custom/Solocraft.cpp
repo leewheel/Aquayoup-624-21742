@@ -71,7 +71,7 @@ private:
 			//InstanceMap *instanceMap = map->ToInstanceMap();
 			//InstanceScript *instanceScript = instanceMap->GetInstanceScript();
 
-			ChatHandler(player->GetSession()).PSendSysMessage("Entr閑 vers %s (difficulty = %d, numInGroup = %d)",
+			ChatHandler(player->GetSession()).PSendSysMessage("进入 %s (难度 = %d, 小组成员 = %d)",
 					map->GetMapName(), difficulty, numInGroup);
 
 			_unitDifficulty[player->GetGUID()] = difficulty;

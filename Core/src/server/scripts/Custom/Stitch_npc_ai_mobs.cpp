@@ -157,7 +157,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			uint32 Spell_Senterre = 79690;										// fumï¿½e persistante - visuel terre Forage de tunnel Passif gris percistant
 			uint32 Spell_Senterre_sans_fumee = 84863;							// fumï¿½e temporaire - visuel terre Forage de tunnel Passif gris  
 			uint32 Spell_Sedeterre_sans_fumee = 164339;							// visuel explosion de fumï¿½e au retrait 
-			uint32 Spell_Senterre_remou_clair = 29147;							// visuel terre remuï¿½ claire pour Ver
+			uint32 Spell_Senterre_remou_clair = 29147;							// visuel terre remuï¿?claire pour Ver
 			uint32 Spell_Gaz_Corrosif = 126437;
 			uint32 Spell_Armure_De_Givre = 165743;
 			uint32 Spell_Armure_De_La_Fournaise = 79849;
@@ -527,7 +527,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// 161	CUSTOM - CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT
 			uint32 liste_spell_A_161[2] = { 113687, 113687 };					// Morsure
 			uint32 liste_spell_B_161[4] = { 84867, 79872, 84867, 79872 };		// Balayage fracassant (cum 5 fois) 84867, Onde de choc 79872
-			uint32 liste_agro_161[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diaprï¿½ 35328 (Impossible d'utiliser Camouflage)
+			uint32 liste_agro_161[2] = { 113967, 35328 };						// Barbelï¿½s d'ï¿½pines 113967, Sang diaprï¿?35328 (Impossible d'utiliser Camouflage)
 			uint32 liste_Buf_161[2] = { 22863, 22863 };							// Vitesse 22863 (10s/30%)
 
 
@@ -2570,7 +2570,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 						case 156:	//CREATURE_FAMILY_SE_DETERRE_AU_CONTACT - AI : 1/3_Mouvement_Contact_Basique, 1/3_Mouvement_Contact_Tournant_Aleatoire, 1/3_Mouvement_Contact_Avance_Recule
 							AI_Random = urand(1, 5);
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2699,7 +2699,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 
 						case 160:	//CREATURE_FAMILY_TOURELLE_FIXE
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							Spell_respawn_evade = 0;
 							Spell_Heal = 0;
@@ -2722,7 +2722,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 							break;
 
 						case 161:	//CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT - AI : Mouvement_Contact_Basique
-							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿½=1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
+							me->SetMeleeDamageSchool(SpellSchools(0));														// Physique=0, Sacrï¿?1, Feu=2, Nature=3, Givre=4, Ombre=5, Arcane=6
 							Spell_B_Non_Cumulable = 0;
 							//Spell_respawn_evade = 0;
 							//Spell_Heal = 0;
@@ -2821,7 +2821,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 						}
 
 						if (Crfamily == CREATURE_FAMILY_SE_DETERRE_AU_CONTACT && Dist > 3 && me->HasAura(Spell_No_ModelID))
-							me->CastSpell(me, 300285, true); //Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
+							me->CastSpell(me, 300285, true); //Sous terre (inspirï¿?de 164339, no_model , fumï¿?
 
 
 
@@ -4075,12 +4075,12 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 				if (Crfamily == CREATURE_FAMILY_SE_DETERRE_AU_CONTACT /*156 && me->GetMotionMaster()->GetCurrentMovementGeneratorType() != IDLE_MOTION_TYPE*/)
 				{
 					Se_Deterre();
-					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
+					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿?de 164339, no_model , fumï¿?
 				}
 				if (Crfamily == CREATURE_FAMILY_SENTERRE_REMOU_CLAIR_CONTACT /*161*/)
 				{
 					Se_Deterre_remou_clair();
-					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿½ de 164339, no_model , fumï¿½)
+					me->RemoveAurasDueToSpell(300285);									//Sous terre (inspirï¿?de 164339, no_model , fumï¿?
 				}
 			}
 

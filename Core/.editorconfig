@@ -1,12 +1,30 @@
+# EditorConfig configuration for TrinityCore (WoD) under Visual Studio 2015 By leewheel
+# This version avoids unsupported directives and ensures UTF-8 (no BOM) consistency
+
+root = true
+
+# Default for all source files
 [*]
 charset = utf-8
-indent_size = 4
-tab_width = 4
-indent_style = space
+end_of_line = lf
 insert_final_newline = true
-trim_trailing_whitespace = true
-max_line_length = 160
 
-[*.{c,h,cpp,hpp,inl}]
+# Indentation rules
+indent_style = space
+indent_size = 4
+
+# Specific to C++ headers and source files
+[*.{cpp,h,hpp,cxx,hxx}]
 charset = utf-8
-finput-charset = UTF-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+
+# SQL and script files
+[*.{sql,bat,sh}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true

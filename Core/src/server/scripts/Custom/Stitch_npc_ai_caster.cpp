@@ -62,7 +62,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Spell_ContreAttaque = 0;
 			uint32 Visuel_Teleportation = 87459;
 			uint32 Bond_aleatoire_25m = 300267;
-			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalisï¿½ hors combat, doit etre fixe et en home
+			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalisï¿?hors combat, doit etre fixe et en home
 
 			// Definitions des variables Cooldown et le 1er lancement
 			uint32 Cooldown_Spell1 = 1000;
@@ -82,9 +82,9 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Cooldown_bond_aleatoire_25m = 3000;
 			uint32 Cooldown_bond_aleatoire_25m_Defaut = urand(6000, 8000);
 			uint32 Cooldown_Spell_Canalise_hc = 1000;
-			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿½ hors combat
+			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿?hors combat
 			uint32 Cooldown_Demande_Assistance = 3000;
-			uint32 Demande_Assistance_effectuï¿½ = 0;
+			uint32 Demande_Assistance_effectuee= 0;  //Demande_Assistance_effectuï¿?
 			uint32 auto_peur5s = 8225;
 			uint8 me_rank = me->GetCreatureTemplate()->rank;
 
@@ -288,7 +288,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					ResteADistance = 7;
 				}
 
-				// Reste a distance faible forcï¿½ 
+				// Reste a distance faible forcï¿?
 				if (ForceBranche == 8)
 				{
 					ResteADistance = 7;
@@ -345,7 +345,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			void EnterEvadeMode(EvadeReason /*why*/) override
 			{
 				Start_Agro = 0;
-				Demande_Assistance_effectuï¿½ = 0;
+				Demande_Assistance_effectuee = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
 				//me->SetSpeedRate(MOVE_RUN, 1.5f);													// Vitesse de dï¿½placement
@@ -836,7 +836,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 
 			void Demande_Assistance(uint32 diff)
 			{
-				if (Demande_Assistance_effectuï¿½ == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank !=0)
+				if (Demande_Assistance_effectuee == 1 || AuraLenteur() == true || !UpdateVictim() || me_rank !=0)
 					return;
 
 				if (Cooldown_Demande_Assistance <= diff)
@@ -846,7 +846,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 						if (urand(1,3) == 1)
 						{
 							me->CastSpell(me, auto_peur5s, true);
-							Demande_Assistance_effectuï¿½ = 1;
+							Demande_Assistance_effectuee = 1;
 							Cooldown_ResteADistance = Cooldown_ResteADistance_Defaut;
 							Cooldown_Spell1 = Cooldown_Spell1_defaut;
 							Cooldown_Spell2 = Cooldown_Spell2_defaut;

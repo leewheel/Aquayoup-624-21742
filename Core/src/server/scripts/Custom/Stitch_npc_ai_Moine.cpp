@@ -650,7 +650,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 
 			void Tourne_Au_Tour_En_Combat()
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -675,7 +675,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 			}
 			void Avance_3m_En_Combat()
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || Fixedaura())
 					return;
 
 				Unit* victim = me->GetVictim();
