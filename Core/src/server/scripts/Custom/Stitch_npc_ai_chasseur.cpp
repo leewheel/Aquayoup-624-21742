@@ -1,12 +1,11 @@
 ////#########################################################################################################################################################################################################################################
 // Copyright (C) Juin 2020 Stitch pour Aquayoup
-// AI generique npc par classe : Chasseur Ver 2022-07-31
+// AI generique npc par classe : Chasseur Ver 2025-10
 // Equiper l'arc ou le fusil en ItemID2 & ItemID3
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_chasseur',`AIName` = '' WHERE (entry = 15100004);
-// Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100004);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcï¿½), pickpocketloot = 2 (branche2 forcï¿½), etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_chasseur  .npc 15100008
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -35,8 +34,8 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 		{
 			Stitch_npc_ai_chasseurAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Survie = 1, Bete = 2 
-			uint32 NbrDeSpe = 2;													// Nombre de Spécialisations 
+			uint32 BrancheSpe = 1;													// Choix de la Spï¿½cialisation : Survie = 1, Bete = 2 
+			uint32 NbrDeSpe = 2;													// Nombre de Spï¿½cialisations 
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -54,7 +53,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 			uint32 Cooldown_Spell2 = 2500;
 			uint32 Cooldown_Spell3 = 4000;
 			uint32 Cooldown_Spell4 = 5500;
-			uint32 Cooldown_Spell_Heal = 6000;											// Cooldown pour la fréquence du heal
+			uint32 Cooldown_Spell_Heal = 6000;											// Cooldown pour la frï¿½quence du heal
 			uint32 Cooldown_RegenMana = 3000;											// Cooldown pour le regen du mana
 			uint32 Cooldown_ResteADistance = 500;										// Test si en contact pour s'eloigner
 			uint32 Cooldown_Npc_Emotes = urand(5000, 8000);
@@ -62,7 +61,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers
-			uint32 Buf_all = 31519;														// Aura de précision (60s) 31519
+			uint32 Buf_all = 31519;														// Aura de prï¿½cision (60s) 31519
 			uint32 Buf_branche1 = 0;
 			uint32 Buf_branche1_liste[2] = { 109212, 109212 };							// Engagement spirituel 109212
 			uint32 Buf_branche2 = 0;
@@ -77,18 +76,18 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 			uint32 Spell_branche1_2 = 0;
 			uint32 Spell_branche1_3 = 0;
 			uint32 Spell_branche1_4 = 0;
-			uint32 branche1_agro[5] = { 145663, 145663, 82941, 82941, 145663 };			// Piège explosif a distance 82939, Piège de glace a distance 82941, Marque du chasseur 145663
+			uint32 branche1_agro[5] = { 145663, 145663, 82941, 82941, 145663 };			// Piï¿½ge explosif a distance 82939, Piï¿½ge de glace a distance 82941, Marque du chasseur 145663
 			uint32 branche1_1[2] = { 171943, 171943 };									// Tir des arcanes 171943 
 			uint32 branche1_2[3] = { 300241, 35511, 35511 };							// Tir explosif 300241, Morsure de serpent 35511 15s 
-			uint32 branche1_3[3] = { 145654, 145654, 48098 };							// Tir du cobra 145654 , Flèches multiples 48098 3s
-			uint32 branche1_4[2] = { 80003, 5116 };										// Flèche noire 80003 18s, Trait de choc 5116 6s
+			uint32 branche1_3[3] = { 145654, 145654, 48098 };							// Tir du cobra 145654 , Flï¿½ches multiples 48098 3s
+			uint32 branche1_4[2] = { 80003, 5116 };										// Flï¿½che noire 80003 18s, Trait de choc 5116 6s
 
 			// Spells Bete
 			uint32 Spell_branche2_agro = 0;	//    
 			uint32 Spell_branche2_1 = 0;
 			uint32 Spell_branche2_2 = 0;
 			uint32 Spell_branche2_3 = 0;
-			uint32 branche2_agro[6] = { 13813, 13809, 19386, 19577, 19386, 19577 };				// Piège explosif 13813, Piège de glace 13809, Piqûre de wyverne 19386, Intimidation 19577
+			uint32 branche2_agro[6] = { 13813, 13809, 19386, 19577, 19386, 19577 };				// Piï¿½ge explosif 13813, Piï¿½ge de glace 13809, Piqï¿½re de wyverne 19386, Intimidation 19577
 			uint32 branche2_1[2] = { 171943, 171943 };											// Tir des arcanes 171943 
 			uint32 branche2_2[2] = { 80015, 80015 };											// Tir assur?80015
 			uint32 branche2_3[2] = { 19574, 34026 };											// Courroux bestial 19574 60s, Ordre de tuer 34026 30s
@@ -112,7 +111,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 			void Init_AI() 
 			{
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;											// creature_template->pickpocketloot
 				if (ForceBranche == 1) { BrancheSpe = 1; }															// branche1 forc?
@@ -120,12 +119,12 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Spï¿½cialisation Alï¿½atoire
 					BrancheSpe = urand(1, NbrDeSpe + 1);															// Plus de chance d'etre Survie
 				}
 				if ((BrancheSpe > NbrDeSpe) || (BrancheSpe == 0)) { BrancheSpe = 2; }
 
-				// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+				// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 				if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 				{
 					ResteADistance = urand(12, 14);
@@ -136,7 +135,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 				}
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages alï¿½atoires des spells
 				// ################################################################################################################################################
 
 				// Message a l'agro forc?par spell(8)
@@ -173,7 +172,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					Spell_branche2_2 = branche2_2[urand(0, 1)];
 					Spell_branche2_3 = branche2_3[urand(0, 1)];
 
-					// Tirages aléatoires du pet
+					// Tirages alï¿½atoires du pet
 					Pet_Chasseur = Pet_Chasseur_Liste[urand(0, 6)];
 					break;
 				}
@@ -207,7 +206,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 				if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() == WAYPOINT_MOTION_TYPE)
 				{
 					me->StopMoving();
-					me->GetMotionMaster()->MoveIdle();
+					//me->GetMotionMaster()->MoveIdle();
 				}
 
 				//Retire certaines Aura, emotes & Bytes a l'agro
@@ -220,7 +219,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre faï¿½on de retirer des ï¿½motes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -297,7 +296,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 						Random = urand(1, 2);
 						if (Random == 1 && UpdateVictim()) { me->CastSpell(victim, Spell_branche2_agro, true); }		// 1/2 Chance de lancer le sort d'agro
 
-						// Tirages aléatoires du pet
+						// Tirages alï¿½atoires du pet
 						me->CastSpell(me, Pet_Chasseur, true);
 						break;
 						// ################################################################################################################################################
@@ -311,10 +310,10 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					// ################################################################################################################################################
 
 				// ################################################################################################################################################
-				// Combat suivant la Spécialisation
+				// Combat suivant la Spï¿½cialisation
 					switch (BrancheSpe)
 				{
-				case 1: // Spécialisation Survie ------------------------------------------------------------------------------------------------------------------
+				case 1: // Spï¿½cialisation Survie ------------------------------------------------------------------------------------------------------------------
 						// Regen mana en combat -------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_RegenMana <= diff)
 					{
@@ -332,7 +331,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					if (!me->isInFront(victim, Dist))																		// Si la cible n'est pas de face
 						break;
 
-						// Spell4 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot) : Flèche noire 3674 18s, Morsure de serpent 31975 15s
+						// Spell4 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot) : Flï¿½che noire 3674 18s, Morsure de serpent 31975 15s
 					if (Cooldown_Spell4 <= diff && (!victim->HasAura(Spell_branche1_4) && Spell_branche1_4 != Fleche_noire))
 					{
 						me->CastSpell(victim, Spell_branche1_4, true);
@@ -340,7 +339,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					}
 					else Cooldown_Spell4 -= diff;
 
-					// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot) : Tir du cobra 77767, Flèches multiples 2643 3s
+					// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot) : Tir du cobra 77767, Flï¿½ches multiples 2643 3s
 					if (Cooldown_Spell3 <= diff)
 					{
 						me->CastSpell(victim, Spell_branche1_3, true);
@@ -356,7 +355,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					}
 					else Cooldown_Spell2 -= diff;
 
-					// Spell1 sur la cible chaque (Sort Réguli? : Tir des arcanes
+					// Spell1 sur la cible chaque (Sort Rï¿½guli? : Tir des arcanes
 					if (Cooldown_Spell1 <= diff)
 					{
 						me->CastSpell(victim, Spell_branche1_1, true);
@@ -366,7 +365,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 
 					break;
 
-				case 2: // Spécialisation Bete --------------------------------------------------------------------------------------------------------------------
+				case 2: // Spï¿½cialisation Bete --------------------------------------------------------------------------------------------------------------------
 						// Regen mana en combat ------------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_RegenMana <= diff)
 					{
@@ -383,7 +382,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 						break;
 
 					// Combat --------------------------------------------------------------------------------------------------------------------------------------
-					// Spell1 sur la cible chaque (Sort Réguli? : Tir des arcanes
+					// Spell1 sur la cible chaque (Sort Rï¿½guli? : Tir des arcanes
 					if (Cooldown_Spell1 <= diff)
 					{
 						me->CastSpell(victim, Spell_branche2_1, true);
@@ -399,7 +398,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					}
 					else Cooldown_Spell2 -= diff;
 
-					// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot) : Courroux bestial 19574 60s, Ordre de tuer 34026 30s
+					// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot) : Courroux bestial 19574 60s, Ordre de tuer 34026 30s
 					if (Cooldown_Spell3 <= diff && !victim->HasAura(Spell_branche2_3) )
 					{
 						me->CastSpell(victim, Spell_branche2_3, true);
@@ -464,7 +463,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mï¿½lï¿½e) ou > 40m de home
 				}
 			}
 			void Mouvement_Caster(uint32 diff)
@@ -478,7 +477,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 
 				if (Cooldown_ResteADistance <= diff)
 				{
-					// Mouvement aléatoire si cible < 6m  ----------------------------------------------------------------------------------------------------------
+					// Mouvement alï¿½atoire si cible < 6m  ----------------------------------------------------------------------------------------------------------
 
 					if (Dist <6)
 					{
@@ -605,7 +604,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 
 			bool AuraLenteur()
 			{
-				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le déplacement
+				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le dï¿½placement
 					|| me->HasAura(31224)	// Cape d'ombre    
 					|| me->HasAura(1856)	// Disparition
 					) return false;
@@ -629,6 +628,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					|| me->HasAura(20170)	// Sceau de justice 20170
 					|| me->HasAura(6343)	// Coup de tonnerre
 					|| me->HasAura(8147)	// Coup de tonnerre
+					|| me->HasAura(3600)	// Totem de Lien ï¿½ la terre
 					) return true;
 				else return false;
 			}
@@ -641,7 +641,7 @@ public: Stitch_npc_ai_chasseur() : CreatureScript("Stitch_npc_ai_chasseur") { }
 					|| me->HasAura(22127)	// Sarments 6s
 					|| me->HasAura(31409)	// Sarment multiple
 					|| me->HasAura(160402)	// Emprise terrestre (4s, 30m, comme Sarment mais avec des rocher )
-					|| me->HasAura(45524)	// Chaînes de glace
+					|| me->HasAura(45524)	// Chaï¿½nes de glace
 					|| me->HasAura(853)		// Marteau de la justice
 					|| me->HasAura(339)		// Sarment du Totem de poigne de terre
 					|| me->HasAura(64695)	// Sarment du Totem de poigne de terre

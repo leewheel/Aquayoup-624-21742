@@ -1,11 +1,10 @@
 ////#########################################################################################################################################################################################################################################
 // Copyright (C) Juin 2020 Stitch pour Aquayoup
-// AI generique npc par classe : DEMO Ver 2022-07-31
+// AI generique npc par classe : DEMO Ver 2025-10
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_demo',`AIName` = '' WHERE (entry = 15100004);
-// Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100004);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcï¿½), pickpocketloot = 2 (branche2 forcï¿½), etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_demo  .npc 15100004
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -31,8 +30,8 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 		{
 			Stitch_npc_ai_demoAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Affliction = 1, Demonologie = 2 , Destruction = 3
-			uint32 NbrDeSpe = 3;													// Nombre de Spécialisations 
+			uint32 BrancheSpe = 1;													// Choix de la Spï¿½cialisation : Affliction = 1, Demonologie = 2 , Destruction = 3
+			uint32 NbrDeSpe = 3;													// Nombre de Spï¿½cialisations 
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -49,7 +48,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 			uint32 Cooldown_Spell2 = 3000;
 			uint32 Cooldown_Spell3 = 0;
 			uint32 Cooldown_Spell4 = 4500;
-			uint32 Cooldown_Spell_Heal = 3000;											// Cooldown pour la fréquence du heal
+			uint32 Cooldown_Spell_Heal = 3000;											// Cooldown pour la frï¿½quence du heal
 			uint32 Cooldown_RegenMana = 3000;											// Cooldown pour le regen du mana
 			uint32 Cooldown_ResteADistance = 1000;										// Test si en contact pour s'eloigner
 			uint32 Cooldown_Npc_Emotes = urand(5000, 8000);
@@ -57,13 +56,13 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers
-			uint32 Buf_all = 79954;														// Armure démoniaque 79934 , Gangrarmure 79954 
+			uint32 Buf_all = 79954;														// Armure dï¿½moniaque 79934 , Gangrarmure 79954 
 			uint32 Buf_branche1 = 0;
-			uint32 Buf_branche1_liste[2] = { 104773, 104773 };							// Résolution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s
+			uint32 Buf_branche1_liste[2] = { 104773, 104773 };							// Rï¿½solution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s
 			uint32 Buf_branche2 = 0;
-			uint32 Buf_branche2_liste[2] = { 104773, 104773 };							// Résolution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s
+			uint32 Buf_branche2_liste[2] = { 104773, 104773 };							// Rï¿½solution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s
 			uint32 Buf_branche3 = 0;
-			uint32 Buf_branche3_liste[2] = { 104773, 104773 };							// Résolution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s 
+			uint32 Buf_branche3_liste[2] = { 104773, 104773 };							// Rï¿½solution interminable 104773 degat -40% 8s , Rune de puissance 116011 PS +40% 10s 
 			uint32 Spell_Heal_Caster = 46155;  											// Drain de vie 46155
 			uint32 Armure_Demoniaque = 79934;											// Armure_Demoniaque
 			uint32 Gangrarmure = 79954;													// Gangrarmure
@@ -86,7 +85,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 			uint32 Spell_branche2_1 = 0;
 			uint32 Spell_branche2_2 = 0;
 			uint32 Spell_branche2_3 = 0;
-			uint32 branche2_agro[2] = { 131381, 105174 };								// Feu de l'âme 131381, Main de Gul’dan 176725
+			uint32 branche2_agro[2] = { 131381, 105174 };								// Feu de l'ï¿½me 131381, Main de Gulï¿½dan 176725
 			uint32 branche2_1[2] = { 9613, 9613 };										// Trait de l'ombre 9613
 			uint32 branche2_2[2] = { 300230, 300230 };									// Agonie 300230 , corruption 39621
 			uint32 branche2_3[2] = { 39367, 39367 };									// Graine de Corruption 39367
@@ -99,7 +98,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 			uint32 Spell_branche3_2 = 0;
 			uint32 Spell_branche3_3 = 0;
 			uint32 branche3_agro[2] = { 77069, 77069 };									// Trait du chaos 77069
-			uint32 branche3_1[2] = { 44519, 44519 };									// Incinérer 44519
+			uint32 branche3_1[2] = { 44519, 44519 };									// Incinï¿½rer 44519
 			uint32 branche3_2[2] = { 154083, 154083 };									// Conflagration 154083
 			uint32 branche3_3[2] = { 44267, 44267 };									// Immolation 44267   
 			
@@ -116,22 +115,22 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 			}
 
 			void Init_AI()
 			{
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
 				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
 				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
 				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forc?
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Spï¿½cialisation Alï¿½atoire
 					BrancheSpe = urand(1, NbrDeSpe);
 				}
 
@@ -139,7 +138,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 				me->RemoveAllControlled();															// renvois pet
 
-				// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+				// Reste a distance variable suivant ci le mob est a l'extï¿½rieur ou a l'Intï¿½rieur
 				if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 				{
 					ResteADistance = urand(12, 14);
@@ -150,7 +149,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				}
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages alï¿½atoires des spells
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
@@ -169,7 +168,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 					me->LoadEquipment(1, true);																		// creature_equip_template 1
 
-					// Tirages aléatoires des spells Affliction 
+					// Tirages alï¿½atoires des spells Affliction 
 					Spell_branche1_agro = branche1_agro[urand(0, 1)];
 					Spell_branche1_1 = branche1_1[urand(0, 1)];
 					Spell_branche1_2 = branche1_2[urand(0, 1)];
@@ -184,13 +183,13 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 					me->LoadEquipment(2, true);																		// creature_equip_template 2
 
-					// Tirages aléatoires des spells Demonologie 
+					// Tirages alï¿½atoires des spells Demonologie 
 					Spell_branche2_agro = branche2_agro[urand(0, 1)];
 					Spell_branche2_1 = branche2_1[urand(0, 1)];
 					Spell_branche2_2 = branche2_2[urand(0, 1)];
 					Spell_branche2_3 = branche2_3[urand(0, 1)];
 
-					// Tirages aléatoires du pet
+					// Tirages alï¿½atoires du pet
 					 Pet_Demo = Pet_Demo_Liste[urand(0, 4)];
 					 me->CastSpell(me, Pet_Demo, true);
 					break;
@@ -202,7 +201,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 					me->LoadEquipment(3, true);																		// creature_equip_template 3
 
-					// Tirages aléatoires des spells Affliction 
+					// Tirages alï¿½atoires des spells Affliction 
 					Spell_branche3_agro = branche3_agro[urand(0, 1)];
 					Spell_branche3_1 = branche3_1[urand(0, 1)];
 					Spell_branche3_2 = branche3_2[urand(0, 1)];
@@ -224,7 +223,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				me->SetReactState(REACT_AGGRESSIVE);
 
 				Init_AI();
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 			}
 			void EnterCombat(Unit* /*who*/) override
 			{
@@ -234,7 +233,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() == WAYPOINT_MOTION_TYPE)
 				{
 					me->StopMoving();
-					me->GetMotionMaster()->MoveIdle();
+					//me->GetMotionMaster()->MoveIdle();
 				}
 				me->SetSheath(SHEATH_STATE_MELEE);									//Arme sortie
 
@@ -248,7 +247,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre faï¿½on de retirer des ï¿½motes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -258,7 +257,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de dï¿½placement
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home
 				me->RemoveAllControlled();												// renvois pet
 			}
@@ -270,9 +269,9 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				me->RemoveAura(Armure_Demoniaque);
 				me->RemoveAura(Gangrarmure);
 
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 				me->SetReactState(REACT_AGGRESSIVE);
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut dï¿½finit a 1.01f puisque le patch modification par type,famille test si 1.0f
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -329,7 +328,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 							Random = urand(1, 2);
 							if (Random == 1) { me->CastSpell(victim, Spell_branche2_agro, true); }		// 1/2 Chance de lancer le sort d'agro
 
-							// Tirages aléatoires du pet
+							// Tirages alï¿½atoires du pet
 							Pet_Demo = Pet_Demo_Liste[urand(0, 4)];
 							me->CastSpell(me, Pet_Demo, true);
 							break;
@@ -346,10 +345,10 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 
 					// ############################################################################################################################################
-					// Combat suivant la Spécialisation
+					// Combat suivant la Spï¿½cialisation
 				switch (BrancheSpe)
 				{
-				case 1: // Spécialisation Affliction ##############################################################################################################
+				case 1: // Spï¿½cialisation Affliction ##############################################################################################################
 						// Regen mana en combat -------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_RegenMana <= diff)
 					{
@@ -360,7 +359,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					else Cooldown_RegenMana -= diff;
 
 					// Combat -------------------------------------------------------------------------------------------------------------------------------------
-					// Spell4 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
+					// Spell4 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot)
 					if (Cooldown_Spell4 <= diff && !victim->HasAura(Spell_branche1_4))
 					{
 						DoCastAOE(Spell_branche1_4, true);
@@ -368,7 +367,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell4 -= diff;
 
-					// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
+					// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot)
 					if (Cooldown_Spell3 <= diff && !victim->HasAura(Spell_branche1_3))
 					{
 						DoCastVictim(Spell_branche1_3);
@@ -384,7 +383,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell2 -= diff;
 
-					// Spell1 sur la cible chaque (Sort Réguli?
+					// Spell1 sur la cible chaque (Sort Rï¿½guli?
 					if (Cooldown_Spell1 <= diff)
 					{
 							me->StopMoving();
@@ -393,7 +392,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell1 -= diff;
 					break;
-				case 2: // Spécialisation Demonologie #############################################################################################################
+				case 2: // Spï¿½cialisation Demonologie #############################################################################################################
 						// Regen mana en combat -------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_RegenMana <= diff)
 					{
@@ -404,7 +403,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					else Cooldown_RegenMana -= diff;
 
 					// Combat -------------------------------------------------------------------------------------------------------------------------------------
-					// Spell1 sur la cible chaque (Sort Réguli?
+					// Spell1 sur la cible chaque (Sort Rï¿½guli?
 					if (Cooldown_Spell1 <= diff)
 					{
 						if (!me->HasUnitState(UNIT_STATE_MOVE))
@@ -424,7 +423,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell2 -= diff;
 
-					// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
+					// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot)
 					if (Cooldown_Spell3 <= diff && !victim->HasAura(Spell_branche2_3))
 					{
 						DoCastVictim(Spell_branche2_3);
@@ -432,7 +431,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell3 -= diff;
 					break;
-				case 3: // Spécialisation Destruction #############################################################################################################
+				case 3: // Spï¿½cialisation Destruction #############################################################################################################
 						// Regen mana en combat ------------------------------------------------------------------------------------------------------------------------
 					if (Cooldown_RegenMana <= diff)
 					{
@@ -443,7 +442,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					else Cooldown_RegenMana -= diff;
 
 					// Combat --------------------------------------------------------------------------------------------------------------------------------------
-					// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
+					// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot)
 					if (Cooldown_Spell3 <= diff && !victim->HasAura(Spell_branche3_3))
 					{
 						DoCastVictim(Spell_branche3_3);
@@ -459,7 +458,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					}
 					else Cooldown_Spell2 -= diff;
 
-					// Spell1 sur la cible chaque (Sort Réguli?
+					// Spell1 sur la cible chaque (Sort Rï¿½guli?
 					if (Cooldown_Spell1 <= diff)
 					{
 						if (!me->HasUnitState(UNIT_STATE_MOVE))
@@ -529,7 +528,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mï¿½lï¿½e) ou > 40m de home
 				}
 			}
 			void Mouvement_Caster(uint32 diff)
@@ -543,7 +542,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 				if (Cooldown_ResteADistance <= diff)
 				{
-					// Mouvement aléatoire si cible < 6m & Mana > 5% --------------------------------------------------------------------------------------------------
+					// Mouvement alï¿½atoire si cible < 6m & Mana > 5% --------------------------------------------------------------------------------------------------
 
 					if ((Dist <6) && (Mana > MaxMana / 20))
 					{
@@ -652,7 +651,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 
 			bool AuraLenteur()
 			{
-				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le déplacement
+				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le dï¿½placement
 					|| me->HasAura(31224)	// Cape d'ombre    
 					|| me->HasAura(1856)	// Disparition
 					) return false;
@@ -676,6 +675,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					|| me->HasAura(20170)	// Sceau de justice 20170
 					|| me->HasAura(6343)	// Coup de tonnerre
 					|| me->HasAura(8147)	// Coup de tonnerre
+					|| me->HasAura(3600)	// Totem de Lien ï¿½ la terre
 					) return true;
 				else return false;
 			}
@@ -688,7 +688,7 @@ public: Stitch_npc_ai_demo() : CreatureScript("Stitch_npc_ai_demo") { }
 					|| me->HasAura(22127)	// Sarments 6s
 					|| me->HasAura(31409)	// Sarment multiple
 					|| me->HasAura(160402)	// Emprise terrestre (4s, 30m, comme Sarment mais avec des rocher )
-					|| me->HasAura(45524)	// Chaînes de glace
+					|| me->HasAura(45524)	// Chaï¿½nes de glace
 					|| me->HasAura(853)		// Marteau de la justice
 					|| me->HasAura(339)		// Sarment du Totem de poigne de terre
 					|| me->HasAura(64695)	// Sarment du Totem de poigne de terre

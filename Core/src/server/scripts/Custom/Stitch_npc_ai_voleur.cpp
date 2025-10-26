@@ -1,18 +1,13 @@
 ////#########################################################################################################################################################################################################################################
 // Copyright (C) Juillet 2020 Stitch pour Aquayoup
-// AI generique npc par classe : VOLEUR Ver 2022-07-31
+// AI generique npc par classe : VOLEUR Ver 2025-10-17
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
+//
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_voleur',`AIName` = '' WHERE (entry = 15100010);
-// Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100010);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
-//###########################################################################################################################################################################################################################################
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcï¿½), pickpocketloot = 2 (branche2 forcï¿½), etc
+//
 // # npc de Test Stitch_npc_ai_voleur  .npc 15100010
-//REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
-//(15100010, 0, 0, 0, 0, 0, 13171, 0, 0, 0, 'npc_ai_voleur', '', '', '', 0, 90, 90, 0, 0, 2102, 0, 1.01, 1.01, 1, 0, 0, 2000, 2000, 1, 1, 4, 0, 2048, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 3, 1, 2, 1, 1, 1, 2, 2, 1, 0, 144, 1, 0, 0, 'Stitch_npc_ai_voleur', 20173);
-//REPLACE INTO `creature_equip_template` (`CreatureID`, `ID`, `ItemID1`, `ItemID2`, `ItemID3`, `VerifiedBuild`) VALUES
-//(15100010, 1, 2209, 2209, 0, 0),
-//(15101510, 2, 36669, 36669, 0, 0);
 //###########################################################################################################################################################################################################################################
 
 #include "CreatureTextMgr.h"
@@ -29,8 +24,8 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 		{
 			Stitch_npc_ai_voleurAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Voleur=1, Vampire Berserker=2
-			uint32 NbrDeSpe = 2;													// Nombre de Spécialisations
+			uint32 BrancheSpe = 1;													// Choix de la Spï¿½cialisation : Voleur=1, Vampire Berserker=2
+			uint32 NbrDeSpe = 2;													// Nombre de Spï¿½cialisations
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -58,7 +53,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers
-			uint32 Liste_Buf_branche1[5] = { 1784, 2983, 1784, 31220, 1784 };		// Pied léger 31209 (vit+10%), Sprint 2983,  Camouflage 1784, Vocation pernicieuse 31220 (-ag+15,Armure +100%), Débiter 5171
+			uint32 Liste_Buf_branche1[5] = { 1784, 2983, 1784, 31220, 1784 };		// Pied lï¿½ger 31209 (vit+10%), Sprint 2983,  Camouflage 1784, Vocation pernicieuse 31220 (-ag+15,Armure +100%), Dï¿½biter 5171
 			uint32 Buf_branche1 = 0;
 			uint32 Liste_Buf_branche1a[3] = { 2823, 8679, 3408 };					// Poison mortel 2823, Poison douloureux 8679, Poison affaiblissant 3408
 			uint32 Buf_branche1a = 0;
@@ -75,10 +70,10 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 			uint32 Spell_branche1_1 = 0;
 			uint32 Spell_branche1_2 = 0;
 			uint32 Spell_branche1_3 = 0;
-			uint32 branche1_agro[5] = { 2094, 128903, 79140, 79140, 79140 };		// Cécit?2094, Lancer 121733, Vendetta 79140, Garrot 128903, Eviscération 41177
+			uint32 branche1_agro[5] = { 2094, 128903, 79140, 79140, 79140 };		// Cï¿½cit?2094, Lancer 121733, Vendetta 79140, Garrot 128903, Eviscï¿½ration 41177
 			uint32 branche1_1[2] = { 172028, 80588 };								// Attaque pernicieuse 172028, Estropier 80588
-			uint32 branche1_2[2] = { 41177, 41177 };								// Eviscération 41177
-			uint32 branche1_3[5] = { 1776, 1776, 171957, 300249, 14874 };			// Suriner 1776 (stun 4s), Hémorragie 171957 (dps 24s), Frappe révélatrice 300249 (regen 24s), Rupture 14874 (dot 12s)  
+			uint32 branche1_2[2] = { 41177, 41177 };								// Eviscï¿½ration 41177
+			uint32 branche1_3[5] = { 1776, 1776, 171957, 300249, 14874 };			// Suriner 1776 (stun 4s), Hï¿½morragie 171957 (dps 24s), Frappe rï¿½vï¿½latrice 300249 (regen 24s), Rupture 14874 (dot 12s)  
 			uint32 Spell_Camouflage = 1784;
 			uint32 Spell_Embuscade = 24337;
 			uint32 Hemorragie = 171957;
@@ -88,7 +83,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 			uint32 Spell_branche2_agro = 300131;									// Griffure bondissante 300131
 			uint32 Spell_branche2_1 = 300242;										// Frappe sanglante 300242 
 			uint32 Spell_branche2_2 = 300243;										// Frappe sauvage 300243
-			uint32 Spell_branche2_3 = 300244;										// Enchaînement Sanglant 300244
+			uint32 Spell_branche2_3 = 300244;										// Enchaï¿½nement Sanglant 300244
 			uint32 Spell_branche2_4 = 300130;										// Griffure sanglante 300130/300174 (version talent)
 			
 
@@ -119,15 +114,15 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				if (me->m_spells[6] != 0) { Spell_ContreAttaque = me->m_spells[6]; }
 
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
 				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
 				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Spï¿½cialisation Alï¿½atoire
 					BrancheSpe = urand(1, NbrDeSpe+1);
 				}
 
@@ -136,7 +131,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages alï¿½atoires des spells
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
@@ -145,7 +140,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				case 1: // Si Voleur ------------------------------------------------------------------------------------------------------------------------------
 					me->LoadEquipment(1, true);													// creature_equip_template 1
 
-					// Tirages aléatoires des spells  
+					// Tirages alï¿½atoires des spells  
 					Spell_branche1_agro = branche1_agro[urand(0, 4)];
 					Spell_branche1_1 = branche1_1[urand(0, 1)];
 					Spell_branche1_2 = branche1_2[urand(0, 1)];
@@ -198,7 +193,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() == WAYPOINT_MOTION_TYPE)
 				{
 					me->StopMoving();
-					me->GetMotionMaster()->MoveIdle();
+					//me->GetMotionMaster()->MoveIdle();
 				}
 
 				//Retire certaines Aura, emotes & Bytes a l'agro
@@ -211,7 +206,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre faï¿½on de retirer des ï¿½motes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -221,7 +216,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de dï¿½placement
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home
 				me->RemoveAllControlled();												// renvois pet
 
@@ -245,7 +240,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				VisuelPowerEnergy();
 
 				me->SetReactState(REACT_AGGRESSIVE);
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut dï¿½finit a 1.01f puisque le patch modification par type,famille test si 1.0f
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -322,10 +317,10 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 
 
 					// ############################################################################################################################################
-					// Combat suivant la Spécialisation
+					// Combat suivant la Spï¿½cialisation
 					switch (BrancheSpe)
 					{
-					case 1: // Spécialisation Voleur ##############################################################################################################
+					case 1: // Spï¿½cialisation Voleur ##############################################################################################################
 							// Regen en combat --------------------------------------------------------------------------------------------------------------------
 						Mana = me->GetPower(POWER_ENERGY);
 						if (Cooldown_RegenMana <= diff)
@@ -340,10 +335,10 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 						// Spell1 sur la cible
 						if (Cooldown_Spell1 <= diff)
 						{
-							Bonus_Degat_Arme_Done(-40);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-40);													// Reduction des degats infligï¿½s
 							me->CastSpell(victim, Spell_branche1_1, true);
 							Bonus_Degat_Arme_Done(40);
-							DoMeleeAttackIfReady();														// Combat en mélée
+							DoMeleeAttackIfReady();														// Combat en mï¿½lï¿½e
 							Cooldown_Spell1 = 1500;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -371,7 +366,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 						Heal_En_Combat_Melee(diff);
 						break;
 
-					case 2: // Spécialisation Vampire Berserker ###################################################################################################
+					case 2: // Spï¿½cialisation Vampire Berserker ###################################################################################################
 							// Regen en combat --------------------------------------------------------------------------------------------------------------------
 						Mana = me->GetPower(POWER_DEMONIC_FURY);
 						if (Cooldown_RegenMana <= diff)
@@ -386,10 +381,10 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 						// Spell1 sur la cible
 						if (Cooldown_Spell1 <= diff)
 						{
-							Bonus_Degat_Arme_Done(-40);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-40);													// Reduction des degats infligï¿½s
 							me->CastSpell(victim, Spell_branche2_1, true);
 							Bonus_Degat_Arme_Done(40);	
-							DoMeleeAttackIfReady();														// Combat en mélée
+							DoMeleeAttackIfReady();														// Combat en mï¿½lï¿½e
 							Cooldown_Spell1 = 4500;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -481,7 +476,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mï¿½lï¿½e) ou > 40m de home
 				}
 			}
 			void Mouvement_Contact(uint32 diff)
@@ -499,9 +494,9 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				//DoMeleeAttackIfReady();													// Combat en mélée
+				//DoMeleeAttackIfReady();													// Combat en mï¿½lï¿½e
 
-				// Si la cible >= 6m (pour éviter bug de rester fig? --------------------------------------------------------------------------------------------
+				// Si la cible >= 6m (pour ï¿½viter bug de rester fig? --------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
 					if (Dist >= 6)
@@ -621,7 +616,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 			}
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligï¿½es a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -672,7 +667,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 
 			bool AuraLenteur()
 			{
-				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le déplacement
+				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le dï¿½placement
 					|| me->HasAura(31224)	// Cape d'ombre    
 					|| me->HasAura(1856)	// Disparition
 					) return false;
@@ -696,6 +691,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 					|| me->HasAura(20170)	// Sceau de justice 20170
 					|| me->HasAura(6343)	// Coup de tonnerre
 					|| me->HasAura(8147)	// Coup de tonnerre
+					|| me->HasAura(3600)	// Totem de Lien ï¿½ la terre
 					) return true;
 				else return false;
 			}
@@ -708,7 +704,7 @@ public: Stitch_npc_ai_voleur() : CreatureScript("Stitch_npc_ai_voleur") { }
 					|| me->HasAura(22127)	// Sarments 6s
 					|| me->HasAura(31409)	// Sarment multiple
 					|| me->HasAura(160402)	// Emprise terrestre (4s, 30m, comme Sarment mais avec des rocher )
-					|| me->HasAura(45524)	// Chaînes de glace
+					|| me->HasAura(45524)	// Chaï¿½nes de glace
 					|| me->HasAura(853)		// Marteau de la justice
 					|| me->HasAura(339)		// Sarment du Totem de poigne de terre
 					|| me->HasAura(64695)	// Sarment du Totem de poigne de terre

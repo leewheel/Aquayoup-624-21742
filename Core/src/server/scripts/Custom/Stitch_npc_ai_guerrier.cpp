@@ -1,11 +1,10 @@
 ////#########################################################################################################################################################################################################################################
 // Copyright (C) Juillet 2020 Stitch pour Aquayoup
-// AI generique npc par classe : GUERRIER Ver 2022-07-31
+// AI generique npc par classe : GUERRIER Ver 2025-10
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_guerrier',`AIName` = '' WHERE (entry = 15100007);
-// Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100007);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forc?, pickpocketloot = 2 (branche2 forc?, etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcï¿½), pickpocketloot = 2 (branche2 forcï¿½), etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_guerrier  .npc 15100007
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -30,8 +29,8 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 		{
 			Stitch_npc_ai_guerrierAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Armes=1, Fureur=2, Protection=3
-			uint32 NbrDeSpe = 3;													// Nombre de Spécialisations
+			uint32 BrancheSpe = 1;													// Choix de la Spï¿½cialisation : Armes=1, Fureur=2, Protection=3
+			uint32 NbrDeSpe = 3;													// Nombre de Spï¿½cialisations
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -61,7 +60,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			uint32 Buf_branche1 = 12712;											// Soldat aguerri 12712 (2 mains= dmg+15%)
 			uint32 Buf_branche1a = 6673;											// Cri de guerre 6673
 			uint32 Buf_branche2 = 23588;											// Berserker fou 23588 (ambidextre)
-			uint32 Buf_branche2a = 1160;											// Cri démoralisant 1160 (8s 10m Soi-même)
+			uint32 Buf_branche2a = 1160;											// Cri dï¿½moralisant 1160 (8s 10m Soi-mï¿½me)
 			uint32 Buf_branche3 = 159362;											// Folie sanguinaire 159362 (pv 1%/3s), Blessures profondes 115768 (50dmg/15s)
 			uint32 Buf_branche3a = 469;												// Cri de commandement 469
 			uint32 Spell_Heal1 = 97462;  											// Cri de ralliement 97462 (+15 % pv 10s / 3mn)
@@ -80,19 +79,19 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			uint32 Spell_branche1_2 = 0;
 			uint32 Spell_branche1_3 = 0;
 			uint32 branche1_agro[2] = { 100, 355 };									// Charge 100, Provocation 355
-			uint32 branche1_1[2] = { 29426, 29426 };								// Frappe héroïque 29426
-			uint32 branche1_2[3] = { 167105, 125436, 77558 };						// Frappe du colosse 167105 (posture de combat 6s), Découpe d'os 125436, Frappe sanglante 77558
-			uint32 branche1_3[3] = { 6552, 772, 118532 };							// Volée de coups 6552 (interrompt 4s), Pourfendre 772 (18s), Entaille infectée 118532
+			uint32 branche1_1[2] = { 29426, 29426 };								// Frappe hï¿½roï¿½que 29426
+			uint32 branche1_2[3] = { 167105, 125436, 77558 };						// Frappe du colosse 167105 (posture de combat 6s), Dï¿½coupe d'os 125436, Frappe sanglante 77558
+			uint32 branche1_3[3] = { 6552, 772, 118532 };							// Volï¿½e de coups 6552 (interrompt 4s), Pourfendre 772 (18s), Entaille infectï¿½e 118532
 			
 			// Spells Fureur
 			uint32 Spell_branche2_agro = 0;
 			uint32 Spell_branche2_1 = 0;
 			uint32 Spell_branche2_2 = 0;
 			uint32 Spell_branche2_3 = 0;
-			uint32 branche2_agro[2] = { 6544, 355 };								// Bond héroïque 6544, Provocation 355
-			uint32 branche2_1[2] = { 126799, 126799 };								// Frappe héroïque 29426 , Frappe tranchante 126799
-			uint32 branche2_2[2] = { 1680, 85288 };									// tourbillon unique 1680, Coup déchain?85288
-			uint32 branche2_3[2] = { 8147, 125436 };								// Coup de tonnerre 8147, Découpe d'os 125436
+			uint32 branche2_agro[2] = { 6544, 355 };								// Bond hï¿½roï¿½que 6544, Provocation 355
+			uint32 branche2_1[2] = { 126799, 126799 };								// Frappe hï¿½roï¿½que 29426 , Frappe tranchante 126799
+			uint32 branche2_2[2] = { 1680, 85288 };									// tourbillon unique 1680, Coup dï¿½chain?85288
+			uint32 branche2_3[2] = { 8147, 125436 };								// Coup de tonnerre 8147, Dï¿½coupe d'os 125436
 
 			// Spells Protection
 			uint32 Spell_branche3_agro = 0;
@@ -100,8 +99,8 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			uint32 Spell_branche3_2 = 0;
 			uint32 Spell_branche3_3 = 0;
 			uint32 branche3_agro[2] = { 355, 355 };									// Provocation 355
-			uint32 branche3_1[2] = { 118326, 118326 };								// Frappe héroïque 29426, Attaque vicieuse 118326
-			uint32 branche3_2[2] = { 53600, 62317 };								// Bouclier du vertueux 53600, Dévaster 62317
+			uint32 branche3_1[2] = { 118326, 118326 };								// Frappe hï¿½roï¿½que 29426, Attaque vicieuse 118326
+			uint32 branche3_2[2] = { 53600, 62317 };								// Bouclier du vertueux 53600, Dï¿½vaster 62317
 			uint32 branche3_3[3] = { 162638, 8147, 125978 };						// Bouclier du vengeur 162638, Coup de tonnerre 8147, Heurt de bouclier 125978 
 
 			// Emotes
@@ -118,29 +117,29 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 			}
 
 			void Init_AI()
 			{
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Spï¿½cialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
 				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forc?
 				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forc?
 				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forc?
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Spï¿½cialisation Alï¿½atoire
 					BrancheSpe = urand(1, NbrDeSpe);
 				}
 
 				if ((BrancheSpe > NbrDeSpe) || (BrancheSpe == 0)) { BrancheSpe = 2; }
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages alï¿½atoires des spells
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
@@ -158,7 +157,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					me->CastSpell(me, Buf_branche1a, true);
 					me->LoadEquipment(1, true);													// creature_equip_template 1
 
-					// Tirages aléatoires des spells  
+					// Tirages alï¿½atoires des spells  
 					Spell_branche1_agro = branche1_agro[urand(0, 1)];
 					Spell_branche1_1 = branche1_1[urand(0, 1)];
 					Spell_branche1_2 = branche1_2[urand(0, 2)];
@@ -172,7 +171,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					me->CastSpell(me, Buf_branche2a, true);
 					me->LoadEquipment(2, true);													// creature_equip_template 2
 
-					// Tirages aléatoires des spells  
+					// Tirages alï¿½atoires des spells  
 					Spell_branche2_agro = branche2_agro[urand(0, 1)];
 					Spell_branche2_1 = branche2_1[urand(0, 1)];
 					Spell_branche2_2 = branche2_2[urand(0, 1)];
@@ -186,7 +185,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					me->CastSpell(me, Buf_branche3a, true);
 					me->LoadEquipment(3, true);													// creature_equip_template 2
 
-					// Tirages aléatoires des spells  
+					// Tirages alï¿½atoires des spells  
 					Spell_branche3_agro = branche3_agro[urand(0, 1)];
 					Spell_branche3_1 = branche3_1[urand(0, 1)];
 					Spell_branche3_2 = branche3_2[urand(0, 1)];
@@ -208,7 +207,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				me->SetReactState(REACT_AGGRESSIVE);
 
 				Init_AI();
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 			}
 
 			void EnterCombat(Unit* /*who*/) override
@@ -219,7 +218,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				if (me->GetMotionMaster()->GetCurrentMovementGeneratorType() == WAYPOINT_MOTION_TYPE)
 				{
 					me->StopMoving();
-					me->GetMotionMaster()->MoveIdle();
+					//me->GetMotionMaster()->MoveIdle();
 				}
 				me->SetSheath(SHEATH_STATE_MELEE);									//Arme sortie
 
@@ -233,7 +232,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre faï¿½on de retirer des ï¿½motes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -243,7 +242,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de dï¿½placement
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home
 				me->RemoveAllControlled();												// renvois pet
 
@@ -267,9 +266,9 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				me->RemoveAura(Buf_branche3a);
 
 				Bonus_Armure(100);
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangï¿½e
 				me->SetReactState(REACT_AGGRESSIVE);
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut dï¿½finit a 1.01f puisque le patch modification par type,famille test si 1.0f
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -343,14 +342,14 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 
 
 					// ############################################################################################################################################
-					// Combat suivant la Spécialisation
+					// Combat suivant la Spï¿½cialisation
 
 					if (Dist < 6)
 					{ 
 
 					switch (BrancheSpe)
 					{
-					case 1: // Spécialisation Armes (1 épées) #####################################################################################################
+					case 1: // Spï¿½cialisation Armes (1 ï¿½pï¿½es) #####################################################################################################
 							// Regen rage en combat ---------------------------------------------------------------------------------------------------------------
 						if (Cooldown_RegenRage <= diff)
 						{
@@ -369,7 +368,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						{
 
 							me->CastSpell(victim, Spell_branche1_1, true);
-							DoMeleeAttackIfReady();														// Combat en mélée
+							DoMeleeAttackIfReady();														// Combat en mï¿½lï¿½e
 							Cooldown_Spell1 = 2500;
 							
 						}
@@ -399,7 +398,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 
 						break;
 
-					case 2: // Spécialisation Fureur (2 épées) ####################################################################################################
+					case 2: // Spï¿½cialisation Fureur (2 ï¿½pï¿½es) ####################################################################################################
 							// Regen rage en combat ---------------------------------------------------------------------------------------------------------------
 						if (Cooldown_RegenRage <= diff)
 						{
@@ -416,7 +415,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						if (Cooldown_Spell1 <= diff)
 						{
 							DoCastVictim(Spell_branche2_1);
-							DoMeleeAttackIfReady();														// Combat en mélée
+							DoMeleeAttackIfReady();														// Combat en mï¿½lï¿½e
 							Cooldown_Spell1 = 2000;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -444,7 +443,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						Bonus_Degat_Arme_Done(75);
 						break;
 
-					case 3: // Spécialisation Protection (1 épée + bouclier) ######################################################################################
+					case 3: // Spï¿½cialisation Protection (1 ï¿½pï¿½e + bouclier) ######################################################################################
 							// Regen rage en combat ---------------------------------------------------------------------------------------------------------------
 						if (Cooldown_RegenRage <= diff)
 						{
@@ -457,11 +456,11 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						// Combat ---------------------------------------------------------------------------------------------------------------------------------
 						Bonus_Degat_Arme_Done(-50);
 
-						// Spell1 sur la cible chaque (Sort Réguli?
+						// Spell1 sur la cible chaque (Sort Rï¿½guli?
 						if (Cooldown_Spell1 <= diff)
 						{
 							me->CastSpell(victim, Spell_branche3_1, true);
-							DoMeleeAttackIfReady();														// Combat en mélée
+							DoMeleeAttackIfReady();														// Combat en mï¿½lï¿½e
 							Cooldown_Spell1 = 2000;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -474,7 +473,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 						}
 						else Cooldown_Spell2 -= diff;
 
-						// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilis?comme Dot)
+						// Spell3 sur la cible  (Sort secondaire tres lent , gï¿½nï¿½ralement utilis?comme Dot)
 						if (Cooldown_Spell3 <= diff)
 						{
 							me->CastSpell(victim, Spell_branche3_3, true);
@@ -544,7 +543,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mï¿½lï¿½e) ou > 40m de home
 				}
 			}
 			void Mouvement_Contact(uint32 diff)
@@ -557,7 +556,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				Dist = me->GetDistance(victim);
 
 
-				//DoMeleeAttackIfReady();													// Combat en mélée
+				//DoMeleeAttackIfReady();													// Combat en mï¿½lï¿½e
 
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
@@ -680,7 +679,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			}
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligï¿½es a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -718,7 +717,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 
 			bool AuraLenteur()
 			{
-				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le déplacement
+				if (me->HasAura(137573)		// vitesse (+70%/4s) , annule tous les effets affectant le dï¿½placement
 					|| me->HasAura(31224)	// Cape d'ombre    
 					|| me->HasAura(1856)	// Disparition
 					) return false;
@@ -742,6 +741,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					|| me->HasAura(20170)	// Sceau de justice 20170
 					|| me->HasAura(6343)	// Coup de tonnerre
 					|| me->HasAura(8147)	// Coup de tonnerre
+					|| me->HasAura(3600)	// Totem de Lien ï¿½ la terre
 					) return true;
 				else return false;
 			}
@@ -754,7 +754,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					|| me->HasAura(22127)	// Sarments 6s
 					|| me->HasAura(31409)	// Sarment multiple
 					|| me->HasAura(160402)	// Emprise terrestre (4s, 30m, comme Sarment mais avec des rocher )
-					|| me->HasAura(45524)	// Chaînes de glace
+					|| me->HasAura(45524)	// Chaï¿½nes de glace
 					|| me->HasAura(853)		// Marteau de la justice
 					|| me->HasAura(339)		// Sarment du Totem de poigne de terre
 					|| me->HasAura(64695)	// Sarment du Totem de poigne de terre
