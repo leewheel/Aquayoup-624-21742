@@ -62,7 +62,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Spell_ContreAttaque = 0;
 			uint32 Visuel_Teleportation = 87459;
 			uint32 Bond_aleatoire_25m = 300267;
-			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalisï¿?hors combat, doit etre fixe et en home
+			uint32 Spell_Canalise_hc = me->m_spells[7];								// Sort canalisï¿½?hors combat, doit etre fixe et en home
 
 			// Definitions des variables Cooldown et le 1er lancement
 			uint32 Cooldown_Spell1 = 1000;
@@ -82,9 +82,9 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 			uint32 Cooldown_bond_aleatoire_25m = 3000;
 			uint32 Cooldown_bond_aleatoire_25m_Defaut = urand(6000, 8000);
 			uint32 Cooldown_Spell_Canalise_hc = 1000;
-			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿?hors combat
+			uint32 Cooldown_Spell_Canalise_hc_defaut = 3000;						// Sort canalisï¿½?hors combat
 			uint32 Cooldown_Demande_Assistance = 3000;
-			uint32 Demande_Assistance_effectuee= 0;  //Demande_Assistance_effectuï¿?
+			uint32 Demande_Assistance_effectuee= 0;  //Demande_Assistance_effectuï¿½?
 			uint32 auto_peur5s = 8225;
 			uint8 me_rank = me->GetCreatureTemplate()->rank;
 
@@ -288,7 +288,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					ResteADistance = 7;
 				}
 
-				// Reste a distance faible forcï¿?
+				// Reste a distance faible forcï¿½?
 				if (ForceBranche == 8)
 				{
 					if (Interieur())
@@ -546,6 +546,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 							DoCast(me, Bond_aleatoire_25m);
 							Cooldown_bond_aleatoire_25m = Cooldown_bond_aleatoire_25m_Defaut;
 							Cooldown_ResteADistance = Cooldown_ResteADistance_Defaut;
+							me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);		// ROOT
 						}
 					}
 					else Cooldown_bond_aleatoire_25m -= diff;
@@ -559,6 +560,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 						Teleport_Au_Tour_Aleatoire();
 						Cooldown_ResteADistance_Teleportation = Cooldown_ResteADistance_Defaut_Teleportation;
 						Cooldown_ResteADistance = Cooldown_ResteADistance_Defaut;
+						me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);		// ROOT
 					}
 				}
 				else Cooldown_ResteADistance_Teleportation -= diff;
@@ -790,7 +792,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					|| me->HasAura(20170)	// Sceau de justice 20170
 					|| me->HasAura(6343)	// Coup de tonnerre
 					|| me->HasAura(8147)	// Coup de tonnerre
-					|| me->HasAura(3600)	// Totem de Lien à la terre
+					|| me->HasAura(3600)	// Totem de Lien ï¿½ la terre
 					) return true;
 				else return false;
 			}
@@ -803,7 +805,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					|| me->HasAura(22127)	// Sarments 6s
 					|| me->HasAura(31409)	// Sarment multiple
 					|| me->HasAura(160402)	// Emprise terrestre (4s, 30m, comme Sarment mais avec des rocher )
-					|| me->HasAura(45524)	// Chaînes de glace
+					|| me->HasAura(45524)	// Chaï¿½nes de glace
 					|| me->HasAura(853)		// Marteau de la justice
 					|| me->HasAura(339)		// Sarment du Totem de poigne de terre
 					|| me->HasAura(64695)	// Sarment du Totem de poigne de terre
