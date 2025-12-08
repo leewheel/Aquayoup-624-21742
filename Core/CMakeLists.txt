@@ -8,73 +8,84 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-# We require CMake >= 3.0
-cmake_minimum_required(VERSION 3.0)
+# Require CMake >= 4.1.2
+cmake_minimum_required(VERSION 4.1.2 FATAL_ERROR)
 
-# Set projectname (must be done AFTER setting configurationtypes)
-project(TrinityCore)
+# Set project name and languages
+project(TrinityCore LANGUAGES C CXX)
 
-# CMake policies (can not be handled elsewhere)
-cmake_policy(SET CMP0005 OLD)
+# NOTE:
+# CMP0005 is removed because modern CMake requires NEW behavior and
+# setting it to OLD is not supported in CMake >= 3.x/4.x.
+# Only set policies when they exist; prefer NEW behavior for modern CMake.
+
 if(POLICY CMP0043)
-  cmake_policy(SET CMP0043 OLD) # Disable 'Ignore COMPILE_DEFINITIONS_<Config> properties'
+  # CMP0043: Ignore COMPILE_DEFINITIONS_<CONFIG> properties
+  # Original project set this to OLD; modern CMake behaves differently.
+  # Use NEW to match current CMake behavior (and avoid unsupported OLD setting).
+  cmake_policy(SET CMP0043 NEW)
 endif()
 
 if(POLICY CMP0054)
-  cmake_policy(SET CMP0054 NEW) # Only interpret if() arguments as variables or keywords when unquoted - prevents intepreting if (SOME_STRING_VARIABLE MATCHES "MSVC") as if (SOME_STRING_VARIABLE MATCHES "1")
+  # Only interpret if() arguments as variables or keywords when unquoted
+  cmake_policy(SET CMP0054 NEW)
 endif()
 
-# add this options before PROJECT keyword
+# Some later policies — set NEW if available to get modern behavior
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
+# Disable in-source changes/builds
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-# Set RPATH-handing (CMake parameters)
+# RPATH handling
 set(CMAKE_SKIP_BUILD_RPATH 0)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH 0)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH 1)
 
-# set macro-directory
+# Macro directory
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/macros")
 
-# build in Release-mode by default if not explicitly set
-if( NOT CMAKE_BUILD_TYPE )
-  set(CMAKE_BUILD_TYPE "Release")
+# Default build type
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
 endif()
 
 include(CheckCXXSourceRuns)
 include(CheckIncludeFiles)
 include(ConfigureScripts)
 
-# set default buildoptions and print them
+# Default build options
 include(cmake/options.cmake)
 
-# turn off PCH totally if enabled (hidden setting, mainly for devs)
-if( NOPCH )
+# Disable precompiled headers if requested
+if(NOPCH)
   set(USE_COREPCH 0)
   set(USE_SCRIPTPCH 0)
 endif()
 
 include(CheckPlatform)
-
 include(GroupSources)
 include(AutoCollect)
 
 find_package(PCHSupport)
-find_package(MySQL)
+find_package(MySQL REQUIRED)
 
 if(NOT WITHOUT_GIT)
-  find_package(Git)
+  find_package(Git QUIET)
 endif()
 
-# Find revision ID and hash of the sourcetree
+# Generate revision info
 include(cmake/genrev.cmake)
 
-# print out the results before continuing
+# Show configuration summary
 include(cmake/showoptions.cmake)
 
-# add dependencies
+# Add dependencies
 add_subdirectory(dep)
 
-# add core sources
+# Add core sources
 add_subdirectory(src)
