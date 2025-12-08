@@ -8,13 +8,12 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+
+
 # Require CMake >= 4.1.2
 cmake_minimum_required(VERSION 4.1.2 FATAL_ERROR)
 
-# 全局设置方式
 if(MSVC)
-    # /utf-8 同时设置源字符集和执行字符集为UTF-8
-    # 等价于 /source-charset:utf-8 /execution-charset:utf-8
     add_compile_options(/utf-8)
 endif()
 
